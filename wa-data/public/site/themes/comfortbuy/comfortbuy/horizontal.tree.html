@@ -1,0 +1,66 @@
+{if !empty($theme_settings.horizontalTree)}{$class_tree = $theme_settings.horizontalTree}{else}{$class_tree = 'm1'}{/if}
+{$show_this_app = ''}
+{if !empty($theme_settings.horizontalTreeSite)}{$show_this_app = $show_this_app|cat:'_site'}{/if}
+{if !empty($theme_settings.horizontalTreeShop)}{$show_this_app = $show_this_app|cat:'_shop'}{/if}
+{if !empty($theme_settings.horizontalTreeBlog)}{$show_this_app = $show_this_app|cat:'_blog'}{/if}
+{if !empty($theme_settings.horizontalTreePhotos)}{$show_this_app = $show_this_app|cat:'_photos'}{/if}
+
+<div class="infopages-search{if !$wa->shop && $theme_settings.appsPages == 'shop'} hide-for-desktop{/if}">
+    <!-- info pages -->
+    {if $wa->shop && $theme_settings.appsPages == 'shop'}
+        {$apps_pages = $wa->shop->pages()}
+        {if $wa_app == 'shop' && isset($root_page_id)}{$active_page = $root_page_id}{else}{$active_page = null}{/if}
+    {else}
+        {$apps_pages = $wa->site->pages()}
+        {if $wa_app == 'site' && isset($root_page_id)}{$active_page = $root_page_id}{else}{$active_page = null}{/if}
+    {/if}
+    
+    <div class="infopages">
+        <ul id="page-list">
+        {if !empty($theme_settings.homeLink) && $apps_pages}
+            <li class="hide-for-mobile menu{if $wa_url == $wa->currentUrl()} selected{/if}">
+                <div><a href="{$wa_url}" title="[`Home`]">[`Home`]</a></div>
+            </li>
+        {/if}
+        {foreach $apps_pages as $pageMT}
+        {if !isset($pageMT.menu_top)}
+            <li class="hide-for-mobile menu{if $pageMT.id == $active_page} selected{/if}">
+                <div><a href="{$pageMT.url}" title="{$pageMT.title}">{$pageMT.name}</a></div>
+            </li>
+        {/if}
+        {/foreach}
+        <li id="mobile-open"><a class="type5" href="#"><i class="icon-reorder"></i>[`Open Menu`]</a></li>
+        {if $wa->shop}
+        <li class="search{if !$apps_pages} no-apps-pages{/if}{if !empty($theme_settings.search)} search-mobile{/if}">
+            <!-- product search -->
+            <form method="get" action="{$wa->getUrl('shop/frontend')}search/" class="align-right">
+            <div class="search-input"><input id="search{if !empty($theme_settings.search)}-m{/if}" type="search" name="query" value="{if !empty($query)}{$query}{/if}" placeholder="[`Find products`]"{if !empty($theme_settings.autofitItem)} class="autofit"{/if}><button type="submit" class="search-button icon-search"></button></div>
+            </form>
+        </li>
+        {/if}
+        </ul>
+        <script type="text/javascript">$("#page-list li").not('.search, .catalog').click(function(){ window.location.assign($(this).find('a').attr('href')); });</script>
+    </div>
+</div>
+
+{if (isset($action) && $action == 'default' && $wa_app == 'shop') || strpos($show_this_app, $wa_app) !== false}
+    {if $wa->shop}
+        {$tree = $wa->shop->categories(0, null, true)}
+        {if isset($category)}{$selected_category=$category.id}{else}{$selected_category=null}{/if}
+        {if isset($product) && $product.categories}
+            {$selected_category = $product.categories}
+            {$selected_category = current($selected_category)}
+            {$selected_category = $selected_category.id}
+        {/if}
+    {else}
+        {$tree=$wa->site->pages()}
+        {if $wa_app == 'site' && isset($page.id)}{$selected_category = $page.id}{else}{$selected_category = null}{/if}
+    {/if}
+    {if $tree}
+        {if $class_tree == 'm0'}{$class_tree = 'horizontal-tree-zero'}{elseif $class_tree == 'm1'}{$class_tree = 'horizontal-tree-one'}{else}{$class_tree = 'horizontal-tree-two'}{/if}
+    <div id="horizontal-category-wrap">
+        {wa_print_tree tree=$tree selected=$selected_category unfolded=true class="comfortbuy-horizontal-tree `$class_tree`" elem ='<a href=":url"><i class="icon-circle"></i><i class="cb-minus">&#8211;</i>:name</a>'}
+        <script type="text/javascript">$('.comfortbuy-horizontal-tree').css('visibility', 'hidden');</script>
+    </div>
+    {/if}
+{/if}

@@ -1,0 +1,86 @@
+<div class="checkout-content" data-step-id="confirmation">
+{if !empty($error)}
+
+    <div class="checkout-result error">{$error}</div>
+
+{else}
+
+    <h3 class="header-name">[`Ship to`]</h3>
+    <p>{$contact.name|escape}<br>
+    {$shipping_address.value}</p>
+
+    {if $billing_address}
+        <h3 class="header-name">[`Bill to`]</h3>
+        <p>{$contact.name|escape}<br>
+        {$billing_address.value}</p>
+    {/if}
+
+    <table class="table">
+        <tr class="coll-name ahover">
+            <th>[`Description`]</th>
+            <th><span class="non-mobile-only">[`Quantity`]</span></th>
+            {if $tax > 0}
+                <th>[`Tax`]</th>
+            {/if}
+            <th>[`Total`]</th>
+        </tr>
+        {foreach $items as $item}
+        {if !$item@first && $item.type == 'product'}<tr class="border ahover"><td colspan="{if $tax > 0}4{else}3{/if}"></td></tr>{/if}
+        <tr class="ahover{if $item.type == 'service'} service{/if}">
+            <td class="name{if $item.type == 'product'} bold{/if}">{if $item.type == 'service'}+ {/if}{$item.name|escape}</td>
+            <td class="nowrap"><span class="gray">{if empty($theme_settings.sumbolRUB)}{shop_currency($item.price, $item.currency)}{else}{shop_currency_html($item.price, $item.currency)}{/if} &times;</span> {$item.quantity}</td>
+            {if $tax > 0} 
+                <td class="nowrap">{if isset($item.tax)}{if empty($theme_settings.sumbolRUB)}{shop_currency($item.tax, true)}{else}{shop_currency_html($item.tax, true)}{/if}{else}&ndash;{/if}</td>
+            {/if}
+            <td class="nowrap">{if empty($theme_settings.sumbolRUB)}{shop_currency($item.price * $item.quantity, $item.currency)}{else}{shop_currency_html($item.price * $item.quantity, $item.currency)}{/if}</td>
+        </tr>
+        {/foreach}
+        <tr class="border ahover basicBG"><td colspan="{if $tax > 0}4{else}3{/if}"></td></tr>
+        {if $tax > 0}{$colspan=2}{else}{$colspan=1}{/if}
+        <tr class="no-border thin ahover">
+            <td colspan="{$colspan}"></td>
+            <td>[`Subtotal`]</td>
+            <td class="nowrap">{if empty($theme_settings.sumbolRUB)}{shop_currency($subtotal, true)}{else}{shop_currency_html($subtotal, true)}{/if}</td>
+        </tr>
+        <tr class="no-border thin ahover">
+            <td colspan="{$colspan}"></td>
+            <td>[`Discount`]</td>
+            <td class="nowrap">&minus; {if empty($theme_settings.sumbolRUB)}{shop_currency($discount, true)}{else}{shop_currency_html($discount, true)}{/if}</td>
+        </tr>
+        <tr class="no-border thin ahover">
+            <td colspan="{$colspan}"></td>
+            <td>[`Shipping`]{if !empty($params.shipping_name)}(<strong>{$params.shipping_name}</strong>){/if}</td>
+            <td class="nowrap">{if empty($theme_settings.sumbolRUB)}{shop_currency($shipping, true)}{else}{shop_currency_html($shipping, true)}{/if}</td>
+        </tr>
+        {if $tax > 0}
+        <tr class="no-border thin ahover">
+            <td colspan="{$colspan}"></td>
+            <td>[`Tax`]</td>
+            <td class="nowrap">{if empty($theme_settings.sumbolRUB)}{shop_currency($tax, true)}{else}{shop_currency_html($tax, true)}{/if}</td>
+        </tr>
+        {/if}
+        <tr class="no-border thin large ahover">
+            <td colspan="{$colspan}"></td>
+            <td><b>[`Total`]</b></td>
+            <td class="bold nowrap">{if empty($theme_settings.sumbolRUB)}{shop_currency($total, true)}{else}{shop_currency_html($total, true)}{/if}</td>
+        </tr>
+    </table>
+    
+    [`Comment`]<br>
+    <textarea class="comment" name="comment"></textarea>
+
+    {if !empty($terms)}
+    <br>
+    {if waRequest::method() == 'post' && !$wa->post('terms')}
+        <p class="error">[`You must read and agree to the Terms of service to place an order.`]</p>
+    {/if}
+    <label><input type="checkbox" name="terms" value="1"> {sprintf('[`I have read and agree to the <a href="%s" target="_blank">Terms of service</a>`]', $wa->getUrl('/frontend/checkout', ['step' => 'confirmation'])|cat:'?terms=1')}</label>
+    {/if}
+
+{/if}
+
+<!-- plugin hook: 'frontend_checkout' -->
+{* @event frontend_checkout.%plugin_id% *}
+{foreach $frontend_checkout as $_}{$_}{/foreach}
+
+</div>

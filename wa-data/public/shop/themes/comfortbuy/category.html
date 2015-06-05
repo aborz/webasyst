@@ -1,0 +1,58 @@
+<div class="sidebar left230px">
+    {include file="sidebar.html"}
+</div>
+
+<div class="content left230px">
+
+    <!-- navigation breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="{$wa_url}">[`Home`]</a>
+        {if isset($breadcrumbs) && $breadcrumbs}
+            {foreach $breadcrumbs as $breadcrumb}
+                » <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a>
+            {/foreach}
+        {/if}
+         » <span class="gray">{$category.name|escape}</span>
+    </div>
+
+    <h1 class="category-name">
+        {$category.name|escape}
+    </h1>
+    {*
+    <!-- subcategories -->
+    {if $category.subcategories}
+        <div class="sub-categories">
+            <table>
+            {foreach $category.subcategories as $sc}
+            {if $sc@first || ($sc@index is div by 4)}<tr>{/if}
+                <td><a href="{$sc.url}">{$sc.name|escape}</a></td>
+            {if $sc@last || (($sc@index+1) is div by 4)}</tr>{/if}
+            {/foreach}
+            </table>
+        </div>
+    {/if}
+    *}
+    <!-- plugin hook: 'frontend_category' -->
+    {* @event frontend_category.%plugin_id% *}
+    {foreach $frontend_category as $_}{$_}{/foreach}
+
+   
+    
+    <div id="product-list">
+        {if !$products}
+            {if !empty($filters)}
+                [`No products were found.`]
+            {else}
+                [`This category does not contain any products.`]
+            {/if}
+        {else}
+            {include file='products.list.html' sorting=!empty($category.params.enable_sorting)}
+        {/if}
+    </div>
+
+ <!-- description -->
+    {if $category.description}
+        <div class="category-description">{$category.description}</div>
+    {/if}
+    
+</div>

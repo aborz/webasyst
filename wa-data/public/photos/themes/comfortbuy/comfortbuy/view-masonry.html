@@ -1,0 +1,90 @@
+{if !empty($title)}{$title}{/if}
+{* @event frontend_collection.%plugin_id%.thumbs_list *}
+{if !empty($frontend_collection)}{foreach $frontend_collection as $item}{if !empty($item.thumbs_list)}{$item.thumbs_list}{/if}{/foreach}{/if}
+
+<div class="view-masonry"><div id="columnI" class="column"></div><div id="columnII" class="column"></div><div id="columnIII" class="column"></div></div>
+<div id="photo-list" class="view-masonry">
+{foreach from=$photos item=photo}
+    <div{if $photo.stack_count > 0} class="stacked"{/if} itemscope itemtype ="http://schema.org/Photograph" data-height="{round(250*$photo.height/$photo.width)}">
+        <div class="image">
+            <a href="{$photo.frontend_link}">
+                <div class="corner top left">
+                    {* @event prepare_photos_frontend.top_left.%plugin_id% *}
+                    {foreach $photo.hooks.top_left as $plugin => $output}{$output}{/foreach}
+                </div>
+                <div class="corner top right">
+                    {* @event prepare_photos_frontend.top_right.%plugin_id% *}
+                    {foreach $photo.hooks.top_right as $plugin => $output}{$output}{/foreach}
+                    {if $photo.stack_count > 0}<span class="indicator">{$photo.stack_count}</span>{/if}
+                </div>
+                {*
+                <div class="stripe bottom">
+                    <h5 itemprop="name">{$photo.name}</h5>
+
+                    *}{* @event prepare_photos_frontend.name.%plugin_id% *}{*
+                    {foreach $photo.hooks.name as $plugin => $output}{$output}{/foreach}
+
+                    {if $photo.rate > 0}
+                        <div class="rating nowrap">{$wa->photos->ratingHtml($photo.rate, 10)}</div>
+                    {/if}                        
+
+                    {if $photo.description}
+                        <p itemprop="description">{$photo.description}</p>
+                    {/if}
+
+                    *}{* @event prepare_photos_frontend.thumb.%plugin_id% *}{*
+                    {foreach $photo.hooks.thumb as $plugin => $output}{$output}{/foreach}
+                </div>
+                *}
+                {$wa->photos->getImgHtml($photo, '250x0', ['itemprop' => 'image'])}
+            </a>
+        </div>
+    </div>
+{/foreach}
+</div>
+
+{if isset($pages_count) && $pages_count > 1}
+<div class="block lazyloading-paging">    
+	{wa_pagination total=$pages_count attrs=['class' => "prd-list-pagination"] nb="5" prev="<i class='icon-caret-left'></i>" next="<i class='icon-caret-right'></i>"}
+</div>
+{/if}
+
+<script type="text/javascript">
+    $('#photo-list').imagesLoaded(function() {		
+        var cI=$('#columnI'),cII=$('#columnII'),cIII=$('#columnIII'),
+            a=cI.height(),b=cII.height(),c=cIII.height();
+        $('#photo-list>div').each(function(){
+            var img = $(this).find('img');
+            img.css('visibility', 'hidden').parent().append('<div class="lazyloading-progress"><i class="icon16 loading"></i></div>');
+            img.load(function () {
+                $(this).css('visibility', 'visible').parent().find("div.lazyloading-progress").remove();
+            }).each(function() {
+                /*ensure image load is fired. Fixes opera loading bug*/
+                if (this.complete) { $(this).trigger("load"); }
+            });
+            
+            if(a>b){ 
+                if(a>c){
+                    if(b==c){
+                        b += $(this).data('height');
+                        cII.append($(this));
+                    }else{
+                        c += $(this).data('height');
+                        cIII.append($(this));
+                    }
+                }else{
+                    b += $(this).data('height');
+                    cII.append($(this));
+                }
+            }else{
+                if(a>c){
+                    c += $(this).data('height');
+                    cIII.append($(this));
+                }else{
+                    a += $(this).data('height');
+                    cI.append($(this));
+                }
+            }
+        });
+    });
+</script>

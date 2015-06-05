@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if lt IE 8]>	<html class="no-js lt-ie8">	<![endif]-->
+<!--[if IE 8]>		<html class="no-js ie8">	<![endif]-->
+<!--[if gt IE 8]>	<html class="no-js gt-ie8">	<![endif]-->
+<!--[if !IE]><!-->	<html class="no-js">	<!--<![endif]-->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>{$wa->title()|escape}</title>
+	<meta name="Keywords" content="{$wa->meta('keywords')|escape}" />
+	<meta name="Description" content="{$wa->meta('description')|escape}" />
+	{*if $wa->isMobile()}<meta name="viewport" content="width=device-width" />
+    <meta name="HandheldFriendly" content="true" />{/if*}
+	{if !empty($canonical)}<link rel="canonical" href="{$canonical}"/>{/if}
+	<link rel="shortcut icon" href="/favicon.ico"/>
+    {if $wa->blog}<!-- rss -->{$rss=$wa->blog->rssUrl()}
+        {if $rss}<link rel="alternate" type="application/rss+xml" title="[s`RSS`] &mdash; {$wa->accountName()}" href="{$rss}">{/if}
+    {/if}
+    
+	<!-- css -->
+	<link href="{$wa_theme_url}wm-site/font-awesome/css/font-awesome.min.css?v3.2.1" rel="stylesheet" type="text/css" />
+	{if $wa->shop && $wa->shop->currency() == 'RUB' && !empty($theme_settings.sumbolRUB)}<link href="{$wa_url}wa-content/font/ruble/arial/fontface.css" rel="stylesheet" type="text/css">{/if}
+	<link href="{$wa_theme_url}comfortbuy.css?v{$wa_theme_version}" rel="stylesheet" type="text/css" />
+	{$wa->css()} {* links active plugins CSS *}
+	
+	<!-- js -->
+	<script type="text/javascript">{* google fonts *}
+        WebFontConfig = { google: { families: [ 'PT+Serif:400,700:latin' ] } };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>{* eof google fonts *}
+	<script type="text/javascript" src="{$wa_theme_url}wm-site/modernizr.min.js?v2.8.2.27052014"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{$wa_url}wa-content/js/jquery/jquery-1.8.2.min.js"><\/script>')</script>
+    <script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery.cookie.js?v{$wa->version()}"></script>
+    <script type="text/javascript" src="{$wa_theme_url}jquery.jcarousel.min.js?v2.9.0"></script>
+    {if $wa->shop && $wa_app == 'shop' && $action == 'default' && !empty($theme_settings.homeBannerImg)}<script type="text/javascript" src="{$wa_theme_url}jquery.nivo.slider.pack.js?v3.2"></script>{/if}
+    {if !empty($theme_settings.tagsCloud)}<script src="{$wa_theme_url}jquery.tagcanvas.min.js?v2.2" type="text/javascript"></script>{/if}
+    {if !empty($theme_settings.communityVKid) || ($wa_app == 'shop' && !empty($theme_settings.reviewsVKapiId) && $action == 'product')}<script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>{/if}
+    {include file="head.all.html"}
+    <script type="text/javascript" src="{$wa_theme_url}comfortbuy.js?v{$wa_theme_version}"></script>
+    {$wa->js()} {* links active plugins JS *}
+    {$wa->headJs()} {* links Google Analytics tracking code and current site's custom JS (Site app) *}
+    
+    {include file="`$wa_active_theme_path`/head.html" inline}{if !preg_match('/\/(\w+)\/$/', $wa_theme_url, $them)}{$them[1]='comfortbuy'}{/if}
+    {include file="scheme.settings.html" themeId=$them[1]}
+</head>
+<body id="{$wa_app}">
+    {if !empty($theme_settings.communityFBhref) || ($wa_app == 'shop' && !empty($theme_settings.reviewsFBappId) && $action == 'product')}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1{if $wa_app == 'shop' && !empty($theme_settings.reviewsFBappId) && $action == 'product'}&appId={$theme_settings.reviewsFBappId}{/if}";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    {/if}
+	<div class="wrapper-top">
+	    <!-- HEADER -->
+	    <div role="navigation">
+	        <div class="bg-top-line">
+	            <div class="container align-right">
+    	            {if $wa->isAuthEnabled()}
+        			<!-- auth links -->
+       		     		{if $wa->user()->isAuth()}
+       	    	 			<div class="auth">
+       	    	 			    {if $wa->shop}<a href="{$wa->getUrl('shop/frontend/my')}">[`Account`]</a>{else}{$wa->user('firstname')}{/if} | <a href="?logout">[s`Log out`]</a>
+       	    	 			</div>
+            			{else}
+    	        			<div class="auth">
+    	        				<a{if !empty($theme_settings.authDialog)} class="auth-popup"{/if} href="{$wa->loginUrl()}">[s`Log in`]</a> | <a{if !empty($theme_settings.authDialog)} class="auth-popup"{/if} href="{$wa->signupUrl()}">[s`Sign up`]</a>
+        	    			</div>
+            			{/if}
+            		{/if}
+            		
+            		{strip}
+            		{if isset($currencies) && count($currencies) > 1}<!--currency-->
+            		<div class="currency-toggle">
+            		    [`Currency`]:&nbsp; 
+                            <select id="currency">
+                                {$currency = $wa->shop->currency()}
+                                {foreach $currencies as $c_code => $c}
+                                    <option value="{$c_code}" {if $c_code == $currency} selected{/if}>{$c.title}</option>
+                                {/foreach}
+                            </select>
+                            <script>
+                                $("#currency").change(function () {
+                                    var url = location.href;
+                                    if (url.indexOf('?') == -1) {
+                                        url += '?';
+                                    } else {
+                                        url += '&';
+                                    }
+                                    location.href = url + 'currency=' + $(this).val();
+                                });
+                            </script>
+                    </div>
+                    {/if}
+                    
+                    {* APPS menu link *}
+            		{if !empty($theme_settings.topAppsMenu)}{include file="top.apps.html"}{/if}
+          			
+          			{if $wa->shop}
+        			<!-- shopping cart info -->
+            			{$cart_total = $wa->shop->cart->total()}
+       		     		<div id="cart" class="{if !$cart_total}empty{/if}">
+       		     			<a href="{$wa->getUrl('shop/frontend/cart')}">
+       		     				<i class="icon-shopping-cart cart{if !$cart_total} empty{/if}"></i>
+       		     				<span>[s`Shopping cart`]: <span class="cart-total">{if !$cart_total}([`empty`]){else}{if empty($theme_settings.sumbolRUB)}{wa_currency($cart_total, $wa->shop->currency())}{else}{wa_currency_html($cart_total, $wa->shop->currency())}{/if}{/if}</span></span>
+       		     			</a>
+       		     			{if !empty($theme_settings.soaringItem) && strpos($wa->currentUrl(), 'cart') === false && strpos($wa->currentUrl(), 'checkout') === false}
+       		     			    {include file="soaring.cart.html"}
+                            {/if}
+       		     		</div>
+            		{/if}
+            		{/strip}
+            		<div class="clear-both"></div>
+    	        </div>
+	        </div>
+    	    <div class="container">
+    	        <div class="header-info">
+        	        <!-- website logo/title -->
+    	            <div class="logo align-left{if $wa->shop && !empty($theme_settings.search)} insearch{/if}">
+    	                {if $logo=$wa->block("`$them[1]`.logo")}
+    	                    {$logo}
+    	                {else}
+    	                    {include file="comfortbuy.logo.html"}
+    	                {/if}
+    	            </div>
+    	            {if $wa->shop && !empty($theme_settings.search)}
+    	            <!-- shop search -->
+                    <div class="search hide-for-mobile">
+                        <!-- product search -->
+                        <form method="get" action="{$wa->getUrl('shop/frontend')}search/">
+                        <div class="search-input"><input id="search" type="search" name="query" value="{if !empty($query)}{$query}{/if}" placeholder="[`Find products`]"{if !empty($theme_settings.autofitItem)} class="autofit"{/if}><button type="submit" class="search-button icon-search"></button></div>
+                        </form>
+                    </div>
+                    {/if}
+    	            <!-- website phone/email -->
+    	            <div class="contact align-right{if $wa->shop && !empty($theme_settings.search)} insearch{/if}">
+    	                {if $contact=$wa->block("`$them[1]`.contact")}
+    	                    {$contact}
+    	                {else}
+    	                    {include file="comfortbuy.contact.html"}
+    	                {/if}
+    	            </div>
+    	        </div>
+    	        <div class="top-menu">
+    	            <!-- website menu/catalog -->
+    	            {include file="horizontal.tree.html"}
+    	        </div>
+    	    </div>
+    	    
+    	    <div class="clear-both"></div>
+	    </div>
+	</div>
+	<div class="wrapper">
+	    <div class="container">
+	        <!-- MAIN CONTENT -->
+			<div id="main">
+				{include file="`$wa_active_theme_path`/content.html" inline}
+				<div id="dialog" class="dialog">
+                    <div class="dialog-background"></div>
+                    <div class="dialog-window">
+                        <div class="cart"></div>
+                    </div>
+                </div>
+			</div>  
+			
+			<div class="clear-both"></div>
+			<div id="push-up"></div>
+	    </div>
+	</div>
+	<div class="wrapper-bottom">
+	    <div class="bg-bottom-line">
+    	    <div class="container" id="footer">
+    	    <!-- FOOTER -->
+    	        <div class="contact">
+    	            <span class="caption hide-for-desktop">[`Contacts`]</span>
+    	            {if $social=$wa->block("`$them[1]`.social")}
+	                    {$social}
+	                {else}
+	                    {include file="comfortbuy.social.html"}
+	                {/if}
+    	            {if $contact=$wa->block("`$them[1]`.contact")}
+	                    {$contact}
+	                {else}
+	                    {include file="comfortbuy.contact.html"}
+	                {/if}
+    	        </div>
+    	        <div class="shop">
+    	            {if $wa->shop && $theme_settings.appsPages == 'shop'}
+    	                {$spt = "[`информация`]"}
+                        {$shop_pages = $wa->shop->pages()}
+                        {if $wa_app == 'shop' && isset($root_page_id)}{$active_page = $root_page_id}{else}{$active_page = null}{/if}
+                    {else}
+                        {$spt = "[`Site`]"}
+                        {$shop_pages = $wa->site->pages()}
+                        {if $wa_app == 'site' && isset($root_page_id)}{$active_page = $root_page_id}{else}{$active_page = null}{/if}
+                    {/if}
+    	            {if $shop_pages}
+        	            <span class="caption">{$spt}</span>
+        	            <ul>
+        	                {if 0 && !empty($theme_settings.homeLink)}
+                                <li{if $wa_url == $wa->currentUrl()} class="selected"{/if}>
+                                    <a href="{$wa_url}" title="[`Home`]">[`Home`]</a>
+                                </li>
+                            {/if}
+                            {foreach $shop_pages as $pageMB}
+                            {if !isset($pageMB.menu_bottom)}
+                                <li{if $pageMB.id == $active_page} class="selected"{/if}>
+                                    <a href="{$pageMB.url}" title="{$pageMB.title}">{$pageMB.name}</a>
+                                </li>
+                            {/if}
+                            {/foreach}
+                        </ul>
+                        <div class="clear-both"></div>
+                    {/if}
+    	        </div>
+    	        <div class="apps">
+    	        {if $footerRight=$wa->block("`$them[1]`.footer.right")}
+                    {$footerRight}
+                {else}
+    	            <span class="caption">[`навигация`]</span>
+    	            <ul>
+            			{foreach $wa->apps() as $a}
+            				<li{if $a.url==$wa_app_url} class="selected"{/if}><a href="{$a.url}">{$a.name}</a></li>
+            			{/foreach}
+          			</ul>
+          		{/if}
+    	        </div>
+    	    </div>
+    	    <div class="hide-for-desktop align-center">
+        	    {if $social=$wa->block("`$them[1]`.social")}
+                    {$social}
+                {else}
+                    {include file="comfortbuy.social.html"}
+                {/if}
+    	    </div>
+    	    {if !empty($theme_settings.copyright)}{$theme_settings.copyright}{/if}
+    	</div>
+    	{if !empty($theme_settings.pageScrollUp)}<a id="scrollUp" href="#" title="[`Scroll up`]"><i class="{$theme_settings.pageScrollUp}"></i><span class="gray">[`Up`]</span></a>{/if}
+    {*	{if $wa->shop}{include file="main.addition.html"}{/if}*}
+	</div>
+	<!--noindex--><div class="wrapper-lt-ie8">{include file="lt-ie8.html" themeId=$them[1]}</div><!--/noindex-->
+</body>
+</html>

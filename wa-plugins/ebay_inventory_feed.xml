@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InventoryArray>
+	<Inventory>
+		<SKU>mskuvariant1</SKU>
+		<Price>30</Price>
+		<Quantity>1</Quantity>
+	</Inventory>
+	<Inventory>
+		<SKU>mskuvariant2</SKU>
+		<Price>32</Price>
+		<Quantity>2</Quantity>
+	</Inventory>
+	<Inventory>
+		<SKU>sku123</SKU>
+		<Price>18</Price>
+		<Quantity>8</Quantity>
+	</Inventory>
+	<Inventory>
+		<SKU>sku456</SKU>
+		<Price>16</Price>
+		<Quantity>6</Quantity>
+	</Inventory>
+</InventoryArray>

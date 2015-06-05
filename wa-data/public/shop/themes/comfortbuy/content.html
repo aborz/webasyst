@@ -1,0 +1,31 @@
+<!-- plugin hook: 'frontend_header' -->
+{* @event frontend_header.%plugin_id% *}
+{foreach $frontend_header as $_}{$_}{/foreach}            
+
+<!-- current page core content -->
+{if $action == 'cart'}<div>{/if}{$content}{if $action == 'cart'}</div>{/if}
+
+<div class="clear-both"></div>
+
+<!-- plugin hook: 'frontend_footer' -->
+{* @event frontend_footer.%plugin_id% *}
+{foreach $frontend_footer as $_}{$_}{/foreach}
+{*
+<div id="dialog2" class="dialog">
+    <div class="dialog-background"></div>
+    <div class="dialog-window">
+        <div class="cart"></div>
+    </div>
+</div>
+*}
+{if $action == 'page'}
+<div class="breadcrumbs" style="display: none;">
+    <a href="{$wa_url}">[`Home`]</a>
+    {if isset($breadcrumbs) && $breadcrumbs}
+        {foreach $breadcrumbs as $breadcrumb}
+            » <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a>
+        {/foreach}
+    {/if}
+     » <span class="gray">{$page.name|escape}</span>
+</div>
+{/if}

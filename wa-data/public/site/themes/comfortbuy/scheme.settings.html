@@ -1,0 +1,290 @@
+{* DEFAULT *}
+{*CONTENT*}
+{$scheme.color='#473b39'}{* "черный", основной *}
+{$scheme.color1='#40cb2e'}{* зеленый *}
+{$scheme.color1V='#40cb2e'}
+{$scheme.color2='#aaa'}
+{$scheme.color2V='#aaa'}{*  навигация карусель продуктов active *}
+{$scheme.color3='#fff'}{* белый, apps меню active/hover корзина active addition блок продукта *}
+{$scheme.color4='#e74c3c'}{* красный, цена - если есть зачерктнутая цена *}
+{$scheme.color5='#e5e5e5'}{*  навигация карусель продуктов disabled *}
+
+{$scheme.bgcolor='#473b39'}
+{$scheme.bgcolor1='#40cb2e'}
+{$scheme.bgcolor1V='#40cb2e'}{* основной *}
+{$scheme.bgcolor2='#aaa'}{* addition блок продукта, корзина второстепенные кнопки *}
+{$scheme.bgcolor3='#fff'}{* логотип, карусель продуктов *}
+{$scheme.bgcolor4='#e74c3c'}
+{$scheme.bgcolor5='#e5e5e5'}
+{$scheme.bgcolor7='#f5f5f5'}
+{$scheme.bgcolor8='#fafafa'}
+
+{$scheme.bcolor1='#40cb2e'}
+{$scheme.bcolor1V='#40cb2e'}
+{$scheme.bcolor2='#aaa'}{* логотип *}
+{$scheme.bcolor3='#fff'}
+{$scheme.bcolor5='#e5e5e5'}{* блок favorite/compare *}
+{$scheme.bcolor7='#f5f5f5'}{*  blog post bottom line *}
+{$scheme.bcolor9='#d4d4d4'}{* выбор валют, apps меню, инфо-страницы, поиск *}
+{*MENU LEVEL1*}
+{$scheme.ml1color = "#fff"}
+{$scheme.ml1colorH = "#473b39"}
+{$scheme.ml1color2 = "#473b39"}
+{$scheme.ml1color2H = "#fff"}
+
+{$scheme.ml1bgcolor = "#473b39"}
+{$scheme.ml1bgcolor2 = "#fff"}
+{$scheme.ml1bgcolor2H = "#e5e5e5"}
+
+{$scheme.ml1bcolor = "#473b39"}
+{$scheme.ml1bcolorD = "#aaa"}
+{*MENU LEVEL NEXT*}
+{$scheme.ml2color = "#473b39"}
+{$scheme.ml2colorH = "#40cb2e"}
+{$scheme.ml2colorH2 = "#fff"}
+
+{$scheme.ml2bgcolor = "#f5f5f5"}
+{$scheme.ml2bgcolorH = "#40cb2e"}
+{$scheme.ml2bgcolor2 = "#fff"}
+
+{$scheme.ml2bcolor = "#d4d4d4"}
+{*INFOPAGE TOP*}
+{$scheme.itcolor = "#473b39"}
+{$scheme.itcolorH = "#40cb2e"}
+
+{$scheme.itbgcolor = "#fff"}
+{$scheme.itbgcolorH = "#40cb2e"}
+{*BUTTON*}
+{$scheme.btncolor = "#fff"}
+
+{$scheme.btnbgcolor = "#473b39"}
+{$scheme.btnbgcolorH = "#40cb2e"}
+{$scheme.btnbgcolorD = "#e5e5e5"}
+{$scheme.btnbgcolor2 = "#473b39"}
+{$scheme.btnbgcolor3 = "#aaa"}
+{*TOP&BOTTOM*}
+{$scheme.topcolor = "#aaa"}
+{$scheme.topcolorH = "#40cb2e"}
+{$scheme.topcolor2 = "#473b39"}
+
+{$scheme.topbgcolor = "#f5f5f5"}
+{$scheme.topbgcolor1 = "#fafafa"}
+
+{$scheme.topbcolor = "#d4d4d4"}
+{*BADGE*}
+{$scheme.badgecolor = "#fff"}
+
+{$scheme.badgebgcolorD = "rgba(64, 203, 46, 0.6)"}
+{$scheme.badgebgcolorN = "rgba(64, 203, 46, 0.6)"}
+{$scheme.badgebgcolorB = "rgba(64, 203, 46, 0.6)"}
+{$scheme.badgebgcolorL = "rgba(64, 203, 46, 0.6)"}
+
+{if !empty($theme_settings.schemeId) && $theme_settings.schemeId != 'default'}
+
+{if $theme_settings.schemeId == 'blue'}{* BLUE *}
+    {*CONTENT*}
+    {$scheme.color1='#3498db'}
+    {$scheme.color1V='#3498db'}
+    {$scheme.bgcolor1='#3498db'}
+    {$scheme.bgcolor1V='#3498db'}
+    {$scheme.bcolor1='#3498db'}
+    {$scheme.bcolor1V='#3498db'}
+    {*MENU LEVEL NEXT*}
+    {$scheme.ml2colorH = "#3498db"}
+    {$scheme.ml2bgcolorH = "#3498db"}
+    {*INFOPAGE TOP*}
+    {$scheme.itcolorH = "#3498db"}
+    {$scheme.itbgcolorH = "#3498db"}
+    {*BUTTON*}
+    {$scheme.btnbgcolorH = "#3498db"}
+    {*TOP&BOTTOM*}
+    {$scheme.topcolorH = "#3498db"}
+    {*BADGE*}
+    {$scheme.badgebgcolorD = "rgba(52, 152, 219, 0.6)"}
+    {$scheme.badgebgcolorN = "rgba(52, 152, 219, 0.6)"}
+    {$scheme.badgebgcolorB = "rgba(52, 152, 219, 0.6)"}
+    {$scheme.badgebgcolorL = "rgba(52, 152, 219, 0.6)"}
+{/if}
+
+{if $theme_settings.schemeId == 'brown'}{* BROWN *}
+    {*CONTENT*}
+    {$scheme.color='#774f37'}
+    {$scheme.colorD='#774f37'}
+    {$scheme.color1='#df8d79'}
+    {$scheme.color1V='#df8d79'}
+    {$scheme.color2='#ad9587'}
+    {$scheme.color2V='#ad9587'}
+    {$scheme.bgcolor='#774f37'}
+    {$scheme.bgcolor1='#df8d79'}
+    {$scheme.bgcolor1V='#df8d79'}
+    {$scheme.bgcolor2='#ad9587'}
+    {$scheme.bgcolor5='#eae4ce'}
+    {$scheme.bgcolor7='#f2ecda'}
+    {$scheme.bcolor1='#df8d79'}
+    {$scheme.bcolor1V='#df8d79'}
+    {$scheme.bcolor2='#ad9587'}
+    {$scheme.bcolor9='#cbbfb7'}
+    {*MENU LEVEL1*}
+    {$scheme.ml1colorH = "#774f37"}
+    {$scheme.ml1color2 = "#774f37"}
+    {$scheme.ml1bgcolor = "#774f37"}
+    {$scheme.ml1bgcolor2H = "#eae4ce"}
+    {$scheme.ml1bcolor = "#774f37"}
+    {$scheme.ml1bcolorD = "#ad9587"}
+    {*MENU LEVEL NEXT*}
+    {$scheme.ml2color = "#774f37"}
+    {$scheme.ml2colorH = "#df8d79"}
+    {$scheme.ml2bgcolor = "#f2ecda"}
+    {$scheme.ml2bgcolorH = "#df8d79"}
+    {$scheme.ml2bcolor = "#cbbfb7"}
+    {*INFOPAGE TOP*}
+    {$scheme.itcolor = "#774f37"}
+    {$scheme.itcolorH = "#df8d79"}
+    {$scheme.itbgcolorH = "#df8d79"}
+    {*BUTTON*}
+    {$scheme.btnbgcolor = "#774f37"}
+    {$scheme.btnbgcolorH = "#df8d79"}
+    {$scheme.btnbgcolorD = "#eae4ce"}
+    {$scheme.btnbgcolor2 = "#774f37"}
+    {$scheme.btnbgcolor3 = "#ad9587"}
+    {*TOP&BOTTOM*}
+    {$scheme.topcolor = "#ad9587"}
+    {$scheme.topcolorH = "#df8d79"}
+    {$scheme.topcolor2 = "#774f37"}
+    {$scheme.topbgcolor = "#f2ecda"}
+    {$scheme.topbcolor = "#cbbfb7"}
+    {*BADGE*}
+    {$scheme.badgebgcolorD = "rgba(223, 141, 121, 0.6)"}
+    {$scheme.badgebgcolorN = "rgba(223, 141, 121, 0.6)"}
+    {$scheme.badgebgcolorB = "rgba(223, 141, 121, 0.6)"}
+    {$scheme.badgebgcolorL = "rgba(223, 141, 121, 0.6)"}
+{/if}
+
+{if $theme_settings.schemeId == 'orange_blue'}{* ORANGE-BLUE *}
+    {*CONTENT*}
+    {$scheme.color1='#ffa32f'}
+    {$scheme.color1V='#3397db'}
+    {$scheme.color2V='#3397db'}
+    {$scheme.bgcolor='#3397db'}
+    {$scheme.bgcolor1='#3397db'}
+    {$scheme.bgcolor1V='#ffa32f'}
+    {$scheme.bgcolor5='#ebe5dd'}
+    {$scheme.bgcolor7='#f5f2ed'}
+    {$scheme.bcolor1='#3397db'}
+    {$scheme.bcolor1V='#3397db'}
+    {$scheme.bcolor2='#fff'}
+    {*MENU LEVEL1*}
+    {$scheme.ml1bgcolor = "#3397db"}
+    {$scheme.ml1bgcolor2H = "#ebe5dd"}
+    {$scheme.ml1bcolor = "#3397db"}
+    {$scheme.ml1bcolorD = "#fff"}
+    {*MENU LEVEL NEXT*}
+    {$scheme.ml2colorH = "#ffa32f"}
+    {$scheme.ml2bgcolor = "#f5f2ed"}
+    {$scheme.ml2bgcolorH = "#3397db"}
+    {*INFOPAGE TOP*}
+    {$scheme.itcolorH = "#ffa32f"}
+    {$scheme.itbgcolorH = "#ffa32f"}
+    {*BUTTON*}
+    {$scheme.btnbgcolor = "#3397db"}
+    {$scheme.btnbgcolorH = "#ffa32f"}
+    {$scheme.btnbgcolorD = "#ebe5dd"}
+    {*TOP&BOTTOM*}
+    {$scheme.topcolorH = "#ffa32f"}
+    {$scheme.topbgcolor = "#f5f2ed"}
+    {*BADGE*}
+    {$scheme.badgebgcolorD = "rgba(255, 163, 47, 0.6)"}
+    {$scheme.badgebgcolorN = "rgba(255, 163, 47, 0.6)"}
+    {$scheme.badgebgcolorB = "rgba(255, 163, 47, 0.6)"}
+    {$scheme.badgebgcolorL = "rgba(255, 163, 47, 0.6)"}
+{/if}
+
+{if $theme_settings.schemeId == 'purple'}{* PURPLE *}
+    {*CONTENT*}
+    {$scheme.color1='#9b59b5'}
+    {$scheme.color1V='#9b59b5'}
+    {$scheme.bgcolor1='#9b59b5'}
+    {$scheme.bgcolor1V='#9b59b5'}
+    {$scheme.bcolor1='#9b59b5'}
+    {$scheme.bcolor1V='#9b59b5'}
+    {*MENU LEVEL NEXT*}
+    {$scheme.ml2colorH = "#9b59b5"}
+    {$scheme.ml2bgcolorH = "#9b59b5"}
+    {*INFOPAGE TOP*}
+    {$scheme.itcolorH = "#9b59b5"}
+    {$scheme.itbgcolorH = "#9b59b5"}
+    {*BUTTON*}
+    {$scheme.btnbgcolorH = "#9b59b5"}
+    {*TOP&BOTTOM*}
+    {$scheme.topcolorH = "#9b59b5"}
+    {*BADGE*}
+    {$scheme.badgebgcolorD = "rgba(155, 89, 181, 0.6)"}
+    {$scheme.badgebgcolorN = "rgba(155, 89, 181, 0.6)"}
+    {$scheme.badgebgcolorB = "rgba(155, 89, 181, 0.6)"}
+    {$scheme.badgebgcolorL = "rgba(155, 89, 181, 0.6)"}
+{/if}
+
+{if $theme_settings.schemeId == 'red'}{* RED *}
+    {*CONTENT*}
+    {$scheme.color1='#e74c3c'}
+    {$scheme.color1V='#e74c3c'}
+    {$scheme.bgcolor1='#e74c3c'}
+    {$scheme.bgcolor1V='#e74c3c'}
+    {$scheme.bcolor1='#e74c3c'}
+    {$scheme.bcolor1V='#e74c3c'}
+    {*MENU LEVEL NEXT*}
+    {$scheme.ml2colorH = "#e74c3c"}
+    {$scheme.ml2bgcolorH = "#e74c3c"}
+    {*INFOPAGE TOP*}
+    {$scheme.itcolorH = "#e74c3c"}
+    {$scheme.itbgcolorH = "#e74c3c"}
+    {*BUTTON*}
+    {$scheme.btnbgcolorH = "#e74c3c"}
+    {*TOP&BOTTOM*}
+    {$scheme.topcolorH = "#e74c3c"}
+    {*BADGE*}
+    {$scheme.badgebgcolorD = "rgba(231, 76, 60, 0.6)"}
+    {$scheme.badgebgcolorN = "rgba(231, 76, 60, 0.6)"}
+    {$scheme.badgebgcolorB = "rgba(231, 76, 60, 0.6)"}
+    {$scheme.badgebgcolorL = "rgba(231, 76, 60, 0.6)"}
+{/if}
+
+{if $theme_settings.schemeId == 'red_blue'}{* RED-BLUE *}
+    {*CONTENT*}
+    {$scheme.colorD='#0d8393'}
+    {$scheme.color1='#ef2311'}
+    {$scheme.color1V='#ef2311'}
+    {$scheme.color2V='#0d8393'}
+    {$scheme.bgcolor='#0d8393'}
+    {$scheme.bgcolor1='#0d8393'}
+    {$scheme.bgcolor1V='#ef2311'}
+    {$scheme.bcolor1='#0d8393'}
+    {$scheme.bcolor1V='#ef2311'}
+    {*MENU LEVEL1*}
+    {$scheme.ml1bgcolor = "#0d8393"}
+    {$scheme.ml1bcolor = "#0d8393"}
+    {*MENU LEVEL NEXT*}
+    {$scheme.ml2colorH = "#ef2311"}
+    {$scheme.ml2bgcolorH = "#0d8393"}
+    {*INFOPAGE TOP*}
+    {$scheme.itcolorH = "#ef2311"}
+    {$scheme.itbgcolorH = "#ef2311"}
+    {*BUTTON*}
+    {$scheme.btnbgcolor = "#0d8393"}
+    {$scheme.btnbgcolorH = "#ef2311"}
+    {*TOP&BOTTOM*}
+    {$scheme.topcolorH = "#ef2311"}
+    {*BADGE*}
+    {$scheme.badgebgcolorD = "rgba(239, 35, 17, 0.6)"}
+    {$scheme.badgebgcolorN = "rgba(239, 35, 17, 0.6)"}
+    {$scheme.badgebgcolorB = "rgba(239, 35, 17, 0.6)"}
+    {$scheme.badgebgcolorL = "rgba(239, 35, 17, 0.6)"}
+{/if}
+
+{/if}
+
+{if $user_color=$wa->block("`$themeId`.user.color")}{/if}
+{foreach $wa->globals("`$themeId`_user_scheme") as $key => $val}{$scheme[$key] = $val}{/foreach}
+
+{include file="color.css.html" scheme=$scheme}
+{if $user_css=$wa->block("`$themeId`.user.css")}{$user_css}{/if}

@@ -1,0 +1,967 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE theme PUBLIC "wa-app-theme" "http://www.webasyst.com/wa-content/xml/wa-app-theme.dtd">
+<theme id="comfortbuy" system="0" vendor="873332" author="wm-site" app="shop" parent_theme_id="" version="2.2.2">
+    <name locale="en_US">ComfortBuy</name>
+    <name locale="ru_RU">Удобная Покупка</name>
+    <files>
+        <file path="index.html" custom="0" parent="1">
+        </file>
+        <file path="comfortbuy.css" custom="0" parent="1">
+        </file>
+        <file path="comfortbuy.shop.css" custom="0">
+            <description locale="en_US">The main CSS online store</description>
+            <description locale="ru_RU">Основной CSS интернет-магазина</description>
+        </file>
+        <file path="content.html" custom="0">
+            <description locale="en_US">Basic layout and navigation display content from the online store</description>
+            <description locale="ru_RU">Основное макет вывода содержимого и навигации в интернет-магазине</description>
+        </file>
+        <file path="head.html" custom="0">
+            <description locale="en_US">block &lt;head&gt; App Shop-Script</description>
+            <description locale="ru_RU">Блок &lt;head&gt; приложения Shop-Script</description>
+        </file>
+        <file path="category.html" custom="0">
+            <description locale="en_US">Wrapper for the category page</description>
+            <description locale="ru_RU">Обертка для страницы категории</description>
+        </file>
+        <file path="product.html" custom="0">
+            <description locale="en_US">Template Product main page</description>
+            <description locale="ru_RU">Шаблон основной страницы товара</description>
+        </file>
+		<file path="product.cart.html" custom="0">
+            <description locale="en_US">Block add to cart</description>
+            <description locale="ru_RU">Блок добавления товара в корзину</description>
+        </file>
+        <file path="product.js" custom="0">
+            <description locale="en_US">Product page JS</description>
+            <description locale="ru_RU">JS-скрипты страницы товара</description>
+        </file>
+        <file path="product.page.html" custom="0">
+            <description locale="en_US">Product Information subpage</description>
+            <description locale="ru_RU">Информационная подстраница товара</description>
+        </file>
+        <file path="review.html" custom="0">
+            <description locale="en_US">Output pattern product reviews on this product</description>
+            <description locale="ru_RU">Шаблон вывода одного отзыва о товаре</description>
+        </file>
+        <file path="reviews.html" custom="0">
+            <description locale="en_US">List of product reviews</description>
+            <description locale="ru_RU">Список отзывов о товаре</description>
+        </file>
+        <file path="compare.html" custom="0">
+            <description locale="en_US">Product comparison</description>
+            <description locale="ru_RU">Сравнение товаров</description>
+        </file>
+        <file path="cart.html" custom="0">
+            <description locale="en_US">Page with the goods basket</description>
+            <description locale="ru_RU">Страница с товарами корзины</description>
+        </file>
+        <file path="cart.js" custom="0">
+            <description locale="en_US">JS-scripts basket</description>
+            <description locale="ru_RU">JS-скрипты корзины</description>
+        </file>
+        <file path="checkout.html" custom="0">
+            <description locale="en_US">Single page template ordering</description>
+            <description locale="ru_RU">Единый шаблон страниц оформления заказа</description>
+        </file>
+        <file path="checkout.shipping.html" custom="0">
+            <description locale="en_US">Ordering: Select the method of delivery</description>
+            <description locale="ru_RU">Оформление заказа: выбор способа доставки</description>
+        </file>
+        <file path="checkout.payment.html" custom="0">
+            <description locale="en_US">Ordering: Choose payment method</description>
+            <description locale="ru_RU">Оформление заказа: выбор способа оплаты</description>
+        </file>
+        <file path="checkout.contactinfo.html" custom="0">
+            <description locale="en_US">Checkout: the form of contact information</description>
+            <description locale="ru_RU">Оформление заказа: форма контактной информации</description>
+        </file>
+        <file path="checkout.confirmation.html" custom="0">
+            <description locale="en_US">Ordering: Order Confirmation</description>
+            <description locale="ru_RU">Оформление заказа: подтверждение заказа</description>
+        </file>
+        <file path="checkout.success.html" custom="0">
+            <description locale="en_US">Ordering: reported successful ordering</description>
+            <description locale="ru_RU">Оформление заказа: сообщение о успешном оформлении заказа</description>
+        </file>
+        <file path="checkout.error.html" custom="0">
+            <description locale="en_US">Ordering: error messages ordering</description>
+            <description locale="ru_RU">Оформление заказа: сообщения о ошибках оформления заказа</description>
+        </file>
+		<file path="my.nav.html" custom="0">
+            <description locale="en_US">Navigation menu in a private office for the buyer</description>
+            <description locale="ru_RU">Меню навигации в личном кабинете покупателя</description>
+        </file>        
+        <file path="my.affiliate.html" custom="0">
+            <description locale="en_US">My Account Buyer: Affiliate Program</description>
+            <description locale="ru_RU">Личный кабинет покупателя: партнерская программа</description>
+        </file>
+        <file path="my.profile.html" custom="0">
+            <description locale="en_US">My Account Buyer: edit contact information</description>
+            <description locale="ru_RU">Личный кабинет покупателя: редактирование контактной информации</description>
+        </file>
+        <file path="my.orders.html" custom="0">
+            <description locale="en_US">My Account buyer: order list</description>
+            <description locale="ru_RU">Личный кабинет покупателя: список заказов</description>
+        </file>
+        <file path="my.order.html" custom="0">
+            <description locale="en_US">My Account Buyer: information on a separate order</description>
+            <description locale="ru_RU">Личный кабинет покупателя: информация о отдельном заказе</description>
+        </file>
+        <file path="home.html" custom="0">
+            <description locale="en_US">Home storefront</description>
+            <description locale="ru_RU">Главная витрина магазина</description>
+        </file>
+        <file path="search.html" custom="0">
+            <description locale="en_US">Wrapper for the search page (filter) products, such as tag, keyword or manufacturer</description>
+            <description locale="ru_RU">Обертка для страницы поиска (фильтрации) товаров, например, по тегу, ключевому слову или производителю</description>
+        </file>
+        <file path="page.html" custom="0">
+            <description locale="en_US">Content Information Page</description>
+            <description locale="ru_RU">Содержимое информационной страницы</description>
+        </file>
+        <file path="sidebar.html" custom="0">
+            <description locale="en_US">Column navigating our shop</description>
+            <description locale="ru_RU">Колонка навигации по магазину</description>
+        </file>
+        <file path="login.html" custom="0">
+            <description locale="en_US">The login page for users</description>
+            <description locale="ru_RU">Страница входа для пользователей</description>
+        </file>
+        <file path="signup.html" custom="0">
+            <description locale="en_US">User registration page</description>
+            <description locale="ru_RU">Страница регистрации пользователей</description>
+        </file>
+        <file path="forgotpassword.html" custom="0">
+            <description locale="en_US">Password reset page</description>
+            <description locale="ru_RU">Страница сброса пароля</description>
+        </file>
+        <file path="error.html" custom="0">
+            <description locale="en_US">404 and other errors</description>
+            <description locale="ru_RU">404 и другие ошибки</description>
+        </file>
+        <file path="comfortbuy.shop.js" custom="0">
+            <description locale="en_US">ComfortBuy theme JS</description>
+            <description locale="ru_RU">Скрипты темы ComfortBuy</description>
+        </file>
+        <file path="lazyloading.js" custom="0">
+            <description locale="en_US">Scripts download content "Lazy loading JS"</description>
+            <description locale="ru_RU">Скрипты загрузки контента «на лету»</description>
+        </file>
+		<file path="jquery.cslider.css" custom="0">
+			<description locale="ru_RU">Настройки CSS анимации баннера-слайдера ПРОДУКТОВ, отображаемого на витрине магазина</description>
+			<description locale="en_US">Settings CSS animation banner slider PRODUCTS displayed in a shop window</description>
+		</file>
+		<file path="products.slider.html" custom="0">
+			<description locale="en_US">slider products</description>
+			<description locale="ru_RU">Слайдер продуктов</description>
+		</file>
+		<file path="products.list.html" custom="0">
+			<description locale="ru_RU">Список продуктов в категории, поиске</description>
+			<description locale="en_US">List of products in this category, search</description>
+		</file>
+		<file path="product.image.html" custom="0">
+			<description locale="ru_RU">Галерея изображений продукта</description>
+			<description locale="en_US">Product Image Gallery</description>
+		</file>
+		<file path="banner.products.html" custom="0">
+			<description locale="ru_RU">Баннер-слайдер ПРОДУКТОВ, отображаемый на витрине магазина</description>
+			<description locale="en_US">Banner slider PRODUCTS displayed in a shop window</description>
+		</file>
+		<file path="banner.images.html" custom="0">
+			<description locale="ru_RU">Баннер-слайдер ИЗОБРАЖЕНИЙ, отображаемый на витрине магазина</description>
+			<description locale="en_US">Banner slider images displayed in a shop window</description>
+		</file>
+	<file path="soaring.cart.html" custom="1" parent="1"/></files>
+    <about locale="en_US">
+<![CDATA[
+<p><b>ComfortBuy</b> - is a universal family of those designs for all base application framework WebAsyst: Website, Blog, Photography, Shop-Script and others. Parent (main) theme of family, which includes a basic set of CSS-styles and the overall layout design index.html, is the theme for the application ComfortBuy "Site" (this issue). All themes ComfortBuy design for other applications (Blog, Photo and others) use the base CSS and index.html from the parent (main) theme. </p>
+Topics <p> family ComfortBuy design optimized for all modern browsers and mobile devices based on iOS and Android.</p>
+]]>
+  </about>
+  <about locale="ru_RU">
+<![CDATA[
+<p><b>ComfortBuy</b> — это универсальное семейство тем дизайна для всех базовых приложений фреймворка Вебасист: Сайт, Блог, Фото, Shop-Script и других. Родительской (основной) темой семейства, включающей в себя базовый набор CSS-стилей и общий макет дизайна index.html, является тема ComfortBuy для приложения «Сайт» (данная тема). Все темы дизайна ComfortBuy для других приложений (Блог, Фото и других) используют базовый CSS и index.html из родительской (основной) темы.</p>
+<p>Темы дизайна семейства ComfortBuy оптимизированы для всех современных браузеров и мобильных устройств на основе iOS и Android.</p>
+]]>
+  </about>
+  <settings>
+		<setting var="shopInfo" control_type="checkbox">
+            <value>1</value>
+            <name locale="en_US">Block "Information" (in the "Shop" application)</name>
+            <name locale="ru_RU">Блок "Информация" (в приложени "магазин")</name>
+        </setting>
+		<setting var="shopTags" control_type="checkbox">
+            <value>1</value>
+            <name locale="en_US">Block "Tags" (in the "Shop" application)</name>
+            <name locale="ru_RU">Блок "Теги" (в приложени "магазин")</name>
+        </setting>
+		<setting var="shopLastPhotos" control_type="checkbox">
+            <value>1</value>
+            <name locale="en_US">Block "Last photo" (in the "Shop" application)</name>
+            <name locale="ru_RU">Блок "Последние фото" (в приложени "магазин")</name>
+        </setting>
+		<setting var="shopLastPosts" control_type="checkbox">
+            <value>1</value>
+            <name locale="en_US">Block "Our news" (in the "Shop" application)
+			<![CDATA[
+				<br />
+				<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0; border-style: solid; border-color: #ccc;">
+				The display rules of the left sidebar blocks for the "Shop" application 
+				<br /><br />
+				</p>	
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				9. The filter items in a category</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				9.1 Using AJAX technology</p>
+				
+			]]>
+			</name>
+            <name locale="ru_RU">Блок "Наши новости" (в приложени "магазин")
+			<![CDATA[
+				<br />
+				<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0; border-style: solid; border-color: #ccc;">
+				Правила отображения блоков "левого сайтбара" для приложения "магазин"
+				<br /><br />
+				</p>	
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				9. Фильтр товаров в категории</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				9.1 Применение AJAX технологии </p>
+				
+			]]>
+
+			</name>
+        </setting>		
+		<setting var="filterAjax" control_type="checkbox">
+            <value>1</value>
+            <name locale="en_US">Enable AJAX filter
+			<![CDATA[
+			<br />
+			<br />
+			<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0px; border-style: solid; border-color: #ccc;">
+			<span style="color:red;">*</span>
+			Automatic loading of goods on the category page after selecting the options in the "filter items"
+			</p>
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				10. The main page of the application "Shop"</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				10.1 Slider items</p>
+			]]>
+			</name>
+            <name locale="ru_RU">Включить AJAX-фильтр
+			<![CDATA[
+			<br />
+			<br />
+			<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0px; border-style: solid; border-color: #ccc;">
+			<span style="color:red;">*</span>
+			Автоматическая подгрузка товаров на страницу категории, после выбора параметров в "фильтре товаров"
+			</p>
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				10. Главная страница приложения «магазин»</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				10.1 Слайдер товаров</p>
+			]]>
+			</name>
+        </setting>
+		<setting var="homeBannerPrd" control_type="text">
+            <value>set/bestsellers</value>
+            <name locale="en_US">Specify the source of the goods for the "slider items"
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				The source of goods can be a list of the shop goods or a list of the goods of a category or a list of goods which are united by tag <br /><br />
+				For example:<br />
+				<span style="color:#000;">set/bestsellers</span> - the list of the goods whose ID is "bestsellers"<br />
+				<span style="color:#000;">category/732</span> - the list of the goods of a category whose ID is "732"<br />
+				<span style="color:#000;">tag/samsung</span> - the list of the goods with the tag "samsung"<br />
+				Read more in the instruction (the item 6.1.1 "The slider of a list of the goods")
+				<br /><br />
+				<span style="color:red;">*</span> If the goods aren't in the selected source the slider doesn't appear on the website.
+				</p>
+			<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				10.2 Image slider</p>
+			]]>			
+			</name>
+            <name locale="ru_RU">Укажите источник товаров для "слайдера товаров"
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				В качестве источника могут служить: - список товаров магазина, список товаров категории, список товаров объеденных тегом.<br /><br />
+				Пример:<br />
+				<span style="color:#000;">set/bestsellers</span> - список товаров идентификатор которого "bestsellers"<br />
+				<span style="color:#000;">category/732</span> - список товаров категории, идентификатор которой "732"<br />
+				<span style="color:#000;">tag/samsung</span> - список товаров в которых присувствует тег "samsung"<br />
+				подробнее в инструкции пункт <a href="http://wm-site.ru/blog/nashi-razrabotki/shablon-udobnaya-pokupka/instruktsiya-po-nastroyke/#upi6-1-1" target="_blank">6.1.1 Слайдер списка товаров</a>
+				<br /><br />
+				<span style="color:red;">*</span> Если в выбранном источнике не будет товаров, то слайдер не будет отображен на сайте.
+				</p>
+			<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				10.2 Слайдер изображений</p>
+			]]>
+			</name>
+        </setting>
+		<setting var="homeBannerImg" control_type="text">
+            <value/>
+            <name locale="en_US">Specify the source of the images for the "image slider"
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				The source can be a list of the images of an album of the application "Photo" or a list of images which are united by tag.<br /><br />
+				For example:<br />
+				<span style="color:#000;">album/1</span> - the list of the images of an album which ID is "1"<br />
+				<span style="color:#000;">tag/main page banner </span> - the list of images with a tag "main page banner"<br />
+				Read more in the instruction (the item 6.1.1 "The slider of a list of the images")
+				<br /><br />
+				<span style="color:red;">*</span> If the images aren't in the selected source the slider doesn't appear on the website.<br />
+				<span style="color:red;">*</span> The banner of images takes precedence over the banner of goods. If the both fields are filled then the banner of images is displayed.
+				</p>
+				
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				11. The category page </p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				11.1 Select the number of the displayed items in a category</p>
+				]]>
+				</name>
+            <name locale="ru_RU">Укажите источник изображений для "слайдера изображений"
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				В качестве источника могут служить: - список изображений альбома приложения "фото", список изображений  объеденных тегом.<br /><br />
+				Пример:<br />
+				<span style="color:#000;">album/1</span> - список изображений альбома, идентификатор которого "1"<br />
+				<span style="color:#000;">tag/банер для главной</span> - список изображений в которых присувствует тег "банер для главной"<br />
+				подробнее в инструкции пункт <a href="http://wm-site.ru/blog/nashi-razrabotki/shablon-udobnaya-pokupka/instruktsiya-po-nastroyke/#upi6-1-2" target="_blank">6.1.2 Слайдер списка изображений</a>
+				<br /><br />
+				<span style="color:red;">*</span> Если в выбранном источнике не будет изображений, то слайдер не будет отображен на сайте.<br />
+				<span style="color:red;">*</span> баннер картинок имеет приоритет над баннером продуктов, если оба поля заполнены то отобразится баннер картинок.
+				</p>
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				11. Страница категории </p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				11.1 Выбор кол-ва отображаемых  товаров в категории</p>
+				]]>
+			</name>
+        </setting>
+		<setting var="productsPerPage" control_type="text">
+            <value>6,15,30,45</value>
+            <name locale="en_US">Specify the variants of the number of the displayed items on the category page
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				Specify the variants of the number of the displayed items without spaces, separated by commas.   
+				<br />
+				<span style="color:red">*</span>
+				The figures and a comma are the valid symbols.
+				<br />
+				<span style="color:red">*</span>
+				The item "All" performing automatic loading appears automatically when at least one digit is in the field. 
+				<br />
+				<span style="color:red">*</span> 
+				Leave the empty field if pagination isn't required. In this case, the goods will be loaded automatically as you scroll the page ("lazy loading ").</p>
+				
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				11.2 The type of display of the goods in a category </p>
+			]]>
+			</name>
+            <name locale="ru_RU">Укажите варианты количества отображаемых товаров на странице категории
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				Укажите варианты количества отображаемых товаров через запятую и без пробелов. 
+				<br />
+				<span style="color:red">*</span>
+				Допустимые символы - цифры, зяпятая.
+				<br />
+				<span style="color:red">*</span>
+				Пункт "все", подразумевающий автоподгрузку, появится автоматически при наличии в поле хотя бы одной цифры. 
+				<br />
+				<span style="color:red">*</span> 
+				Оставьте поле пустым если разбиение на страницы не требуется (в этом случае товары будут подгружаться автоматически, по мере прокрутки страницы - "ленивая загрузка").</p>
+				
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				11.2 Тип отображения товаров в категории</p>
+			]]>
+			</name>
+        </setting>
+		<setting var="view" control_type="select">
+            <value>thumbs</value>
+            <name locale="en_US">Select the type of display of the goods by default
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0; border-style: solid; border-color: #ccc;">
+				<span style="color:red;">*</span> A variant that user has chosen is saved.
+				<br /><br />
+				</p>
+				
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				12. The page of goods</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.1 The type image gallery of the goods</p>
+			]]>
+			</name>
+            <name locale="ru_RU">Выберите тип отображения товаров по умолчанию
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0; border-style: solid; border-color: #ccc;">
+				<span style="color:red;">*</span> выбранный пользователем вариант «тип отображения товара» будет сохранен за пользователем.
+				<br /><br />
+				</p>
+				
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				12. Страница товара </p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.1 Тип галереи изображений товара</p>
+			]]>
+			</name>
+            <options>
+                <option value="list">
+					<name locale="en_US">List</name>
+					<name locale="ru_RU">Список</name>
+				</option>
+                <option value="thumbs">
+					<name locale="en_US">Thumbs</name>
+					<name locale="ru_RU">Плитка</name>
+				</option>    
+            </options>
+        </setting>
+		<setting var="gallery" control_type="select">
+            <value>combi</value>
+            <name locale="en_US">Display type of gallery of goods
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0; border-style: solid; border-color: #ccc;">
+			<span style="color:red">*</span>
+			For any product you can use a display type of gallery differing from the display type of gallery of the entire shop.<br />
+For that in the product editor (Admin - Shop - Goods - Product editor - tab "Product description") you should write the variable "gallery" to the 
+field "Additional settings" with one of the following values: <br />
+<span style="color:#000;">zoom</span> - «Magnifying glass»<br />
+<span style="color:#000;">popup</span> - «Popup gallery»<br />
+<span style="color:#000;">combi</span> - «Magnifying glass» + «Popup gallery»<br /><br />
+
+For example:  gallery=zoom
+<br /><br />
+</p>
+<br /><br />
+
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.2 Block of share buttons (<a href="http://api.yandex.ru/share/" target="_blank">from Yandex</a>)
+				</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.2.1 A list of share buttons </p>
+			
+			]]>
+			</name>
+            <name locale="ru_RU">Тип отображения галереи товаров
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0px 1px 1px; margin: 0 -500px 0 10px; padding: 10px 10px 0; border-style: solid; border-color: #ccc;">
+			<span style="color:red">*</span>
+			Для любого товара можно использовать отличный от применяемого для всего магазина тип отображения галереи.<br />
+Для этого в редакторе товара (администраторская - магазин - товары - редактор товара - вкладка "описание товара") - в поле "Дополнительные параметры", пропишите переменную "gallery" 
+с одним из представленных ниже значений:<br />
+<span style="color:#000;">zoom</span> - «Увеличительное стекло»<br />
+<span style="color:#000;">popup</span> - «Всплывающая галерея»<br />
+<span style="color:#000;">combi</span> - «Увеличительное стекло» + «всплывающая галерея»<br /><br />
+
+Например: gallery=zoom
+<br /><br />
+</p>
+<br /><br />
+
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.2 Блок кнопок «поделиться» (<a href="http://api.yandex.ru/share/" target="_blank">от яндекса</a>)
+				</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.2.1 Список кнопок «поделиться» </p>
+			
+			]]>
+			</name>
+            <options>
+                <option value="zoom">
+					<name locale="en_US">Magnifying glass</name>
+					<name locale="ru_RU">Увеличительное стекло</name>
+				</option>
+                <option value="popup">
+					<name locale="en_US">Popup gallery</name>
+					<name locale="ru_RU">Всплывающая галерея</name>
+				</option>
+                <option value="combi">
+					<name locale="en_US">Magnifying glass + Popup gallery</name>
+					<name locale="ru_RU">Комбинированный тип (увеличительное стекло» + «всплывающая галерея»)</name>
+				</option>                
+            </options>
+        </setting>
+		
+		<setting var="socialButton" control_type="text">
+            <value>vkontakte,facebook,twitter,moimir,odnoklassniki,yaru,gplus,lj</value>
+            <name locale="en_US">Write the necessary buttons to display without spaces, separated by commas. 
+			<![CDATA[
+				<br /><br /><br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				The list of the available buttons:<br /> 
+				<span style="color:#000;">yaru, vkontakte, facebook, twitter, odnoklassniki, moimir, lj, friendfeed, moikrug, gplus, surfingbird</span><br />
+				<span style="color:red;">*</span> The string can contain the names of the services and comma symbols.
+				</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.2.2 Type of share buttons</p>
+			]]>
+			</name>
+            <name locale="ru_RU">Впишите через запятую без пробела нужные для отображения кнопки
+			<![CDATA[
+				<br /><br /><br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				Cписок доступных кнопок:<br /> 
+				<span style="color:#000;">yaru, vkontakte, facebook, twitter, odnoklassniki, moimir, lj, friendfeed, moikrug, gplus, surfingbird</span><br />
+				<span style="color:red;">*</span> В строке могут содержаться названия сервисов и символы запятой
+				</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				12.2.2 Тип кнопок «поделиться» </p>
+			]]>
+			</name>
+        </setting>
+		<setting var="socialButtonType" control_type="select">
+            <value>data-yashareTheme='counter'</value>
+            <name locale="en_US">The type of share buttons. 
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red;">*</span> The variant "counters" keeps a record of the number of clicks on the share button
+				</p>
+	
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 0 -500px 0px 0;">
+				12.3 The feedback on the product page</p>
+			]]>
+			</name>
+            <name locale="ru_RU">Тип кнопок "Поделиться".
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red;">*</span> вариант «счетчики» – ведет учет кол-ва кликов по кнопке «поделиться»
+				</p>
+	
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 0 -500px 0px 0;">
+				12.3 Отзывы на странице товара</p>
+			]]>
+			</name>
+			<options>
+                <option value="data-yashareType='none'">
+					<name locale="en_US">Icons</name>
+					<name locale="ru_RU">Иконки</name>
+				</option>
+                <option value="data-yashareType='icon'">
+					<name locale="en_US">Icons + menu</name>
+					<name locale="ru_RU">Иконки + меню</name>
+				</option>
+				<option value="data-yashareTheme='counter'">
+					<name locale="en_US">Counter</name>
+					<name locale="ru_RU">Счетчики</name>
+				</option>
+            </options>
+        </setting>
+		<setting var="reviewsSS" control_type="select">
+            <value>2</value>
+            <name locale="en_US">
+			The feedback on the product page
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				The item "On the product page" allows visitors to leave feedback on the product page without jumping to another page. </p>			
+			<br /><br />
+			
+				<p style="color:#000; font-weight:bold; margin: 0 -500px 0px 0;">
+				12.4 Review widget Vkontakte</p>
+
+			]]>
+			</name>
+            <name locale="ru_RU">Отзывы на странице товара
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				Пункт "На странице товара", позволяет посетителям оставлять отзывы на странице товара, не переходя на другую страницу.</p>			
+			<br /><br />
+			
+				<p style="color:#000; font-weight:bold; margin: 0 -500px 0px 0;">
+				12.4 Виджет отзывов ВКонтакте</p>
+
+			]]>
+			</name>
+			<options>
+                <option value="0">
+					<name locale="en_US">Disable</name>
+					<name locale="ru_RU">Отключить</name>
+				</option>
+                <option value="1">
+					<name locale="en_US">A separate page</name>
+					<name locale="ru_RU">Отдельной страницей</name>
+				</option>
+				<option value="2">
+					<name locale="en_US">On the product page</name>
+					<name locale="ru_RU">На странице товара</name>
+				</option>
+            </options>
+        </setting>
+		
+		
+		
+		<setting var="reviewsVKapiId" control_type="text">
+			<value/>
+			<name locale="ru_RU">ID виджета комментариев ВКонтакте</name>
+			<name locale="en_US">ID of Vkontakte comments widget </name>		
+		</setting>
+		<setting var="reviewsVKlimit" control_type="text">
+			<value>20</value>
+			<name locale="ru_RU">Количество коментариев(целое число 5-100)</name>
+			<name locale="en_US">The number of comments (integer number 5-100)</name>
+		</setting>
+		<setting var="reviewsVKattach" control_type="checkbox">
+			<value>1</value>
+			<name locale="en_US">Extended comments
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				If the parameter "Extended comments" is enabled the users can insert the media resources in the feedback (Graffiti, Photo, Video, Audio, Links). 
+				</p>			
+			<br /><br />
+			
+				<p style="color:#000; font-weight:bold; margin: 0 -500px 0px 0;">
+				12.4 Review widget Facebook</p>
+			]]>
+			</name>
+			<name locale="ru_RU">Расширенные коментарии
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				Включенный параметр "Расширенные коментарии" позволяют пользователям вставлять медиа ресурсы (Граффити, Фотографии, Видео, Аудио, Ссылки) в отзыв. 
+				</p>			
+			<br /><br />
+			
+				<p style="color:#000; font-weight:bold; margin: 0 -500px 0px 0;">
+				12.4 Виджет отзывов Facebook</p>
+			]]>
+			</name>
+		</setting>
+		
+		<setting var="reviewsFBappId" control_type="text">
+			<value/>
+			<name locale="ru_RU">Facebook Application ID</name>
+			<name locale="en_US">Facebook Application ID</name>		
+		</setting>
+		<setting var="reviewsFBadmins" control_type="text">
+			<value/>
+			<name locale="ru_RU">Facebook User ID</name>
+			<name locale="en_US">Facebook User ID</name>		
+		</setting>
+		<setting var="reviewsFBnumposts" control_type="text">
+			<value>20</value>
+			<name locale="ru_RU">Количество коментариев(целое число 1-100)</name>
+			<name locale="en_US">The number of comments (integer number 1-100)</name>
+		</setting>
+		<setting var="reviewsFBcolorscheme" control_type="select">
+			<value>light</value>
+			<name locale="en_US">Color scheme
+			<![CDATA[
+			<br /><br />
+			
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				13. A block of the product data</p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				13.1 Marking of goods</p>
+			]]>
+			</name>
+			<name locale="ru_RU">Цветовая схема
+			<![CDATA[
+			<br /><br />
+			
+				<p style="color:#000; font-weight:bold; margin: 20px -500px 0px 0;">
+				13. Блок данных товара </p>
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				13.1 Артикул товара</p>
+			]]>
+			</name>
+			<options>
+				<option value="light">
+					<name locale="ru_RU">Светлая</name>
+					<name locale="en_US">Light</name>	
+				</option>
+				<option value="dark">
+					<name locale="ru_RU">Тёмная</name>
+					<name locale="en_US">Dark</name>	
+				</option>               
+			</options>
+		</setting>
+		<setting var="noSku" control_type="text">
+            <value>без артикула</value>
+            <name locale="en_US">Show "your text", if the field marking of the goods isn't filled.
+			<![CDATA[
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				13.2 Available in stock</p>
+			]]>
+			</name>
+            <name locale="ru_RU">Показывать "ваш текст", если у товара не заполнено поле артикул.
+			<![CDATA[
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				13.2 Наличие на складе</p>
+			]]>
+			</name>
+        </setting>
+		<setting var="stocks" control_type="checkbox">
+            <value/>
+            <name locale="en_US">Show the available in stock, if the option "Ignore the available in stock" is enabled. 
+			<![CDATA[
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				13.3 Image pop-up block "select product variations"</p>
+			]]>
+			</name>
+            <name locale="ru_RU">Показывать наличие на складе, если включена опция "игнорировать наличие на складе".
+			<![CDATA[
+				<br /><br />
+				<p style="color:#000; font-weight:bold; margin: 10px -500px 0px 0;">
+				13.3 Изображение во всплывающем блоке "выбора вариации товара"</p>
+			]]>
+			</name>
+        </setting>
+		<setting var="dialogImg" control_type="checkbox">
+            <value>1</value>
+            <name locale="en_US">Display the picture.
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				A popup window displays only the "main product image." It does not change when you select variations.				
+				</p>			
+			]]>
+			</name>
+            <name locale="ru_RU">Показывать изображение.
+			<![CDATA[
+				<br /><br />
+				<p style="border-width: 0 1px 1px; margin: 0 -500px 0 10px; padding: 0px 10px 10px; border-style: solid; border-color: #ccc;">
+				<span style="color:red">*</span>
+				Во всплывающем окне отображается только "основное изображение товара". Оно не меняется при выборе вариаций.				
+				</p>			
+			]]>
+			</name>
+        </setting>
+  </settings>
+  <thumbs>
+        <thumb>96x0</thumb>
+        <thumb>96x96</thumb>
+        <thumb>200x0</thumb>
+		<thumb>200x200</thumb>
+        <thumb>300x0</thumb>
+		<thumb>970x0</thumb>
+  </thumbs>
+	<locales>
+		<locale>
+            <msgid>Learn more</msgid>
+            <msgstr locale="ru_RU">Узнать больше</msgstr>
+        </locale>
+		<locale>
+            <msgid>Quantity</msgid>
+            <msgstr locale="ru_RU">Количество</msgstr>
+        </locale>
+		<locale>
+            <msgid>Price</msgid>
+            <msgstr locale="ru_RU">Цена</msgstr>
+        </locale>
+		<locale>
+            <msgid>This order adds</msgid>
+            <msgstr locale="ru_RU">Этот заказ добавит</msgstr>
+        </locale>
+		<locale>
+            <msgid>points to your affiliate bonus.</msgid>
+            <msgstr locale="ru_RU">баллов к вашему партнерскому бонусу.</msgstr>
+        </locale>
+		<locale>
+            <msgid>Description</msgid>
+            <msgstr locale="ru_RU">Описание</msgstr>
+        </locale>
+		<locale>
+            <msgid>Clear list</msgid>
+            <msgstr locale="ru_RU">Очистить список</msgstr>
+        </locale>
+		<locale>
+            <msgid>My Account</msgid>
+            <msgstr locale="ru_RU">Личный кабинет</msgstr>
+        </locale>
+		<locale>
+            <msgid>Date</msgid>
+            <msgstr locale="ru_RU">Дата</msgstr>
+        </locale>
+		<locale>
+            <msgid>Ordering Information</msgid>
+            <msgstr locale="ru_RU">Информация по заказу</msgstr>
+        </locale>
+		<locale>
+            <msgid>Order status</msgid>
+            <msgstr locale="ru_RU">Статус</msgstr>
+        </locale>
+		<locale>
+            <msgid>Print</msgid>
+            <msgstr locale="ru_RU">Печать</msgstr>
+        </locale>
+		<locale>
+            <msgid>Article</msgid>
+            <msgstr locale="ru_RU">Артикул</msgstr>
+        </locale>
+		<locale>
+            <msgid>Please select</msgid>
+            <msgstr locale="ru_RU">Пожалуйста, выберите</msgstr>
+        </locale>
+		<locale>
+            <msgid>Availability</msgid>
+            <msgstr locale="ru_RU">Наличие</msgstr>
+        </locale>
+		<locale>
+            <msgid>Additional services</msgid>
+            <msgstr locale="ru_RU">Дополнительные услуги</msgstr>
+        </locale>
+		<locale>
+            <msgid>in stock</msgid>
+            <msgstr locale="ru_RU">на складе</msgstr>
+        </locale>
+		<locale>
+            <msgid>remaining</msgid>
+            <msgstr locale="ru_RU">осталось</msgstr>
+        </locale>
+		<locale>
+            <msgid>remove</msgid>
+            <msgstr locale="ru_RU">удалить</msgstr>
+        </locale>
+		<locale>
+            <msgid>In favorites</msgid>
+            <msgstr locale="ru_RU">В избранное</msgstr>
+        </locale>
+		<locale>
+            <msgid>By comparison</msgid>
+            <msgstr locale="ru_RU">К сравнению</msgstr>
+        </locale>
+		<locale>
+            <msgid>Category</msgid>
+            <msgstr locale="ru_RU">Категория</msgstr>
+        </locale>
+		<locale>
+            <msgid>See also</msgid>
+            <msgstr locale="ru_RU">Рекомендуем посмотреть</msgstr>
+        </locale>
+		<locale>
+            <msgid>You may also like</msgid>
+            <msgstr locale="ru_RU">Вам также может понравится</msgstr>
+        </locale>
+		<locale>
+            <msgid>On page</msgid>
+            <msgstr locale="ru_RU">На странице</msgstr>
+        </locale>
+		<locale>
+            <msgid>Sort by</msgid>
+            <msgstr locale="ru_RU">Сортировать по</msgstr>
+        </locale>
+		<locale>
+            <msgid>not available</msgid>
+            <msgstr locale="ru_RU">отсутствует</msgstr>
+        </locale>
+		<locale>
+            <msgid>Not available</msgid>
+            <msgstr locale="ru_RU">Нет в продаже</msgstr>
+        </locale>
+		<locale>
+            <msgid>expected</msgid>
+            <msgstr locale="ru_RU">ожидается</msgstr>
+        </locale>
+		<locale>
+            <msgid>review</msgid>
+            <msgstr locale="ru_RU">отзыв</msgstr>
+        </locale>
+		<locale>
+            <msgid>review's</msgid>
+            <msgstr locale="ru_RU">отзыва</msgstr>
+        </locale>
+		<locale>
+            <msgid>reviews</msgid>
+            <msgstr locale="ru_RU">отзывов</msgstr>
+        </locale>
+		<locale>
+            <msgid>More</msgid>
+            <msgstr locale="ru_RU">Подробнее</msgstr>
+        </locale>
+		<locale>
+            <msgid>Write review</msgid>
+            <msgstr locale="ru_RU">Оставить отзыв</msgstr>
+        </locale>
+		<locale>
+            <msgid>Favorites</msgid>
+            <msgstr locale="ru_RU">Избранное</msgstr>
+        </locale>
+		<locale>
+            <msgid>Filter</msgid>
+            <msgstr locale="ru_RU">Фильтр</msgstr>
+        </locale>
+		<locale>
+            <msgid>Apply filter</msgid>
+            <msgstr locale="ru_RU">Применить фильтр</msgstr>
+        </locale>
+		<locale>
+            <msgid>Add to compare</msgid>
+            <msgstr locale="ru_RU">Добавить к сравнению</msgstr>
+        </locale>
+		<locale>
+            <msgid>Remove from comparison</msgid>
+            <msgstr locale="ru_RU">Удалить из сравнения</msgstr>
+        </locale>
+		<locale>
+            <msgid>Add to favorites</msgid>
+            <msgstr locale="ru_RU">Добавить в избранное</msgstr>
+        </locale>
+		<locale>
+            <msgid>Remove from favorites</msgid>
+            <msgstr locale="ru_RU">Удалить из избранного</msgstr>
+        </locale>
+		<locale>
+            <msgid>Bestsellers</msgid>
+            <msgstr locale="ru_RU">Хиты продаж</msgstr>
+        </locale>
+		<locale>
+            <msgid>Best offers</msgid>
+            <msgstr locale="ru_RU">Лучшие предложения</msgstr>
+        </locale>
+		<locale>
+            <msgid>all</msgid>
+            <msgstr locale="ru_RU">все</msgstr>
+        </locale>
+		<locale>
+            <msgid>Share</msgid>
+            <msgstr locale="ru_RU">Поделиться</msgstr>
+        </locale>
+		<locale>
+            <msgid>Much product is no longer available!</msgid>
+            <msgstr locale="ru_RU">Столько товара нет в наличии!</msgstr>
+        </locale>
+		<locale>
+            <msgid>Show all</msgid>
+            <msgstr locale="ru_RU">Показать все</msgstr>
+        </locale>
+	</locales>
+</theme>

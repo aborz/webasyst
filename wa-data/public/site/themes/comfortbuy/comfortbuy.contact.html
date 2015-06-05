@@ -1,0 +1,26 @@
+{if $wa->shop}{$phone = $wa->shop->settings('phone')}{$email = $wa->shop->settings('email')}{else}{$phone=''}{$email=''}{/if}
+<ul>
+    <!--contact in header-->
+    {if $phone}<li class="top-contact phone">{$phone}</li>{else}
+        <li class="top-contact phone">+7 (917) 57-07-507</li>
+    {/if}
+    {*
+    <li class="top-contact phone">+7 (917) 57-07-507</li>
+    *}
+    <li class="top-contact hint">Ежедневно с 10:00 до 20:00</li>
+    
+    <!--contact in footer-->
+    <li class="bottom-contact adress"><i class="icon-map-marker"></i>115088, Москва, ул. Новоостаповская, д.5, стр.1.</li>
+    {if $phone}<li class="bottom-contact phone"><i class="icon-phone"></i>{$phone}</li>{else}
+        <li class="bottom-contact phone"><i class="icon-phone"></i>+7 (917) 57-07-507</li>
+    {/if}
+    {*
+    <li class="bottom-contact phone"><i class="icon-phone"></i>+7 (917) 57-07-507</li>
+    *}
+    {if $email}<li class="bottom-contact email"><i class="icon-envelope"></i><a href="mailto:{$email}">{$email}</a></li>{else}
+        <li class="bottom-contact email"><i class="icon-envelope"></i><a href="mailto:eshop@sela.ru">eshop@sela.ru</a></li>
+    {/if}
+    {*
+    <li class="bottom-contact email"><i class="icon-envelope"></i><a href="mailto:kolmakov.igor@gmail.com">kolmakov.igor@gmail.com</a></li>
+    *}
+</ul>

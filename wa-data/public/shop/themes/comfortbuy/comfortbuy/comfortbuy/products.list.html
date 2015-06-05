@@ -1,0 +1,140 @@
+<!-- products thumbs/list view -->
+<div class="sort-and-view">
+{if !empty($sorting)}
+<!-- sorting -->
+<div class="sorting">
+    <span>[`Sort by`]</span>
+    {$sort_fields = ['rating' => '[`Customer rating`]', 'total_sales' => '[`Bestsellers`]', 'price' => '[`Price`]', 'name' => '[`Name`]', 'create_datetime'=>'[`Date added`]', 'stock' => '[`In stock`]']}
+    {if !isset($active_sort)}{$active_sort = $wa->get('sort', 'create_datetime')}{/if}
+    <select id="sorting">
+        {if !empty($category) && !$category.sort_products}<option value="{$wa->currentUrl(0, 1)}"{if !$active_sort} selected="selected"{/if}>[`New & Popular`]</option>{/if}
+        {foreach $sort_fields as $sort => $name}
+        {$s_u = explode('"', $wa->shop->sortUrl($sort, $name, $active_sort))}
+        <option value="{$s_u[1]}">{$name}{if $active_sort == $sort}{if strpos($s_u[1], 'asc') !== false} &uarr;{elseif strpos($s_u[1], 'desc') !== false} &darr;{/if}{/if}</option>
+        {if $active_sort == $sort}
+            {if strpos($s_u[1], 'asc') !== false}
+                <option value="{str_replace('asc', 'desc', $s_u[1])}" selected="selected" style="display: none;">{$name} &darr;</option>
+            {elseif strpos($s_u[1], 'desc') !== false}
+                <option value="{str_replace('desc', 'asc', $s_u[1])}" selected="selected" style="display: none;">{$name} &uarr;</option>
+            {/if}
+        {/if}
+        {if $wa->get('sort') == $sort}{$wa->title( $wa->title()|cat:' — '|cat:$name)}{/if}
+        {/foreach}
+    </select>
+</div>
+{/if}
+
+{if !empty($theme_settings.productsPerPage) && empty($addition)}
+{$pppc = waRequest::cookie('products_per_page', 0, 'TYPE_INT')}
+<div id="products-per-page"{if empty($sorting)} class="no-margin{/if}">
+    <span>[`On page`]</span>
+{$pppc_url = $wa->currentUrl()|regex_replace:"/&*page=([0-9]*)&*/i":""}
+{foreach explode(',', $theme_settings.productsPerPage) as $x}
+    <a href="{$pppc_url}" data-pppc="{$x}"{if $pppc == $x} class="selected"{/if}>{$x}</a>
+{/foreach}
+    <a href="{$pppc_url}"{if !$pppc} class="selected"{/if}>[`all`]</a>
+</div>
+{/if}
+
+{if !empty($products)}
+<!-- view -->
+{if !empty($theme_settings.view)}{$view = $theme_settings.view}{else}{$view = 'list'}{/if}
+{$shop_view = waRequest::cookie('shop_view', '', waRequest::TYPE_STRING)}
+{if $shop_view}{$view = $shop_view}{/if}
+<div class="view-select">
+    <span class="thumbs{if $view == 'thumbs'} selected{/if}" data-view="1"><i class="icon-th"></i></span>
+    <span class="list{if $view == 'list'} selected{/if}" data-view="0"><i class="icon-th-list"></i></span>
+</div>
+{/if}
+</div>
+
+{*addition*}
+{$compare_p = waRequest::cookie('shop_compare', array(), waRequest::TYPE_ARRAY_INT)}
+{$favorite_p = waRequest::cookie('shop_favorite', array(), waRequest::TYPE_ARRAY_INT)}
+{*/addition*}    
+<ul class="product-list {$view}">
+{strip}{foreach $products as $p}
+    <li itemscope itemtype ="http://schema.org/Product">
+        <div class="product-block block">
+            <div class="image">
+                <a href="{$p.frontend_url}" title="{$p.name|escape}{if $p.summary} &mdash; {strip_tags($p.summary)|escape}{/if}">
+                    {$badge_html = $wa->shop->badgeHtml($p.badge)}
+                    {if $badge_html}
+                        <div class="corner bottom left">{$badge_html}</div>
+                    {/if}
+                    {$wa->shop->productImgHtml($p, '300', ['itemprop' => 'image', 'alt' => $p.name, 'default' => "`$wa_theme_url`img/dummy300.png"])}
+                </a>
+            </div>
+            <div class="other">
+                <div class="name">
+                    <a href="{$p.frontend_url}" title="{$p.name|escape}{if $p.summary} &mdash; {strip_tags($p.summary)|escape}{/if}"><h5 itemprop="name"{if $p.rating lte 0} class="no-rating"{/if}>{$p.name}</h5></a>
+                    {if $p.rating > 0}
+                    <div class="product-rating">
+                        <span class="rating nowrap">{$wa->shop->ratingHtml($p.rating, 12)}</span>&nbsp;&nbsp;
+                        (<a href="{$p.frontend_url|escape:html}reviews/">
+                            {$p.rating_count}{if $p.rating_count == 1} [`review`]{elseif $p.rating_count > 1 && $p.rating_count < 5} [`review's`]{else} [`reviews`]{/if}
+                        </a>)
+                    </div>
+                    {/if}
+                </div>
+                <div itemprop="offers" class="offers" itemscope itemtype="http://schema.org/Offer">
+                    <div class="product-price">
+                        {if $p.compare_price > 0}<span class="compare-at-price nowrap">{if empty($theme_settings.sumbolRUB)}{if $wa->shop->currency() == 'RUB'}{shop_currency($p.compare_price, null, null, false)}{else}{shop_currency($p.compare_price)}{/if}{else}{shop_currency_html($p.compare_price)}{/if}</span>{/if}
+                        <span class="price nowrap{if $p.compare_price > 0} red{/if}" itemprop="price">{if empty($theme_settings.sumbolRUB)}{shop_currency($p.price)}{else}{shop_currency_html($p.price)}{/if}</span>
+                    </div>
+                    
+                    
+                    
+                    
+                     
+            
+                    
+                    
+                    
+                    <div class="description{if $wa->shop->settings('ignore_stock_count')} no-available{/if}">{if $p.summary}<p itemprop="description">{strip_tags($p.summary)}</p>{/if}</div>
+                    {if $wa->shop->settings('ignore_stock_count') || $p.count === null || $p.count > 0}
+                        {*  
+                            <div class="available"><span class="bold">[`Availability`]:</span><span class="preorder"> [`expected`]</span></div>
+                            <link itemprop="availability" href="http://schema.org/PreOrder" />
+                        *}
+                        {if !$wa->shop->settings('ignore_stock_count')}<div class="available"><span class="bold">[`Availability`]:</span><span class="instock"> [`in stock`]</span></div>{/if}
+                        <form class="addtocart" method="post" action="{$wa->getUrl('/frontendCart/add')}"{if $p.sku_count > 1} data-url="{$p.frontend_url}{if strpos($p.frontend_url, '?')}&{else}?{/if}cart=1"{/if}>
+                            <input type="hidden" name="product_id" value="{$p.id}">
+                            <input type="submit" value="[`Add to cart`]">
+                        </form>
+                        <link itemprop="availability" href="http://schema.org/InStock" />
+                    {else}
+                        <div class="available"><span class="bold">[`Availability`]:</span><span class="outofstock"> [`not available`]</span></div>
+                        <form class="addtocart" method="post" action="{$wa->getUrl('/frontendCart/add')}">
+                            <input type="hidden" name="product_id" value="{$p.id}">
+                            <input type="submit" value="[`Add to cart`]" disabled="disabled" title="[`Not available`]">
+                        </form>
+                        <link itemprop="availability" href="http://schema.org/OutOfStock" />
+                    {/if}
+                    {*addition*}
+                    <div class="prd_addition">
+                        <span class="favorite-add cb-addition-add{if in_array($p.id, $favorite_p)} active{/if}" data-product="{$p.id}" {if in_array($p.id, $favorite_p)}title="[`Remove from favorites`]" data-title="[`Add to favorites`]"{else}title="[`Add to favorites`]" data-title="[`Remove from favorites`]"{/if}>
+                            <i class="icon-heart"></i>
+                        </span>
+                    </div>
+                    {*/addition*}
+                </div>
+            </div>
+            {if !empty($theme_settings.soaringItem) && $p.sku_count < 2}
+            <input type="hidden" class="soaring-cart-data"
+                data-url = "{$p.frontend_url}"
+                data-img_url = "{$wa->shop->productImgUrl($p, '96x96')}"
+                data-name = "{$p.name|escape}"
+                data-price = "{shop_currency($p.price, null, null, false)}"
+            >
+            {/if}
+        </div>
+    </li>
+{/foreach}{/strip}
+</ul>
+
+{if isset($pages_count) && $pages_count > 1}
+<div{if !$pppc || empty($theme_settings.productsPerPage)} class="lazyloading-paging"{/if}>
+    {wa_pagination total=$pages_count attrs=['class' => "prd-list-pagination"] nb="5" prev="<i class='icon-caret-left'></i>" next="<i class='icon-caret-right'></i>"}
+</div>
+{/if}

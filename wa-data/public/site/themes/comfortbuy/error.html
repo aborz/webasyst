@@ -1,0 +1,8 @@
+<div class="content">
+  <div id="page" role="main">
+    <h1>[`The requested resource is not available.`]</h1>
+    <div class="error404 red">{if $error_code}{$error_code}. {/if}{$error_message|default:"[`Error`]"}</div>
+    <p class="gray">[`Unfortunately, the page you requested was not found.`]<br>[`You can find the page that interests you, click on the link on the left or by clicking on the main page.`]</p>
+    <a href="{$wa_app_url}" class="button">[`Go to home`]</a>
+  </div>
+</div>

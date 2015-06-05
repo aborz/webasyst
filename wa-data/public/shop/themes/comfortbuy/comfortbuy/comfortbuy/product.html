@@ -1,0 +1,299 @@
+<div class="sidebar left230px">
+    {include file="sidebar.html"}
+</div>
+
+<div class="content left230px">
+    <!-- navigation breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="{$wa_url}">[`Home`]</a>
+        {if isset($breadcrumbs) && $breadcrumbs}
+            {foreach $breadcrumbs as $breadcrumb}
+                » <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a>
+            {/foreach}
+        {/if}
+         » <span class="gray">{$product.name|escape}</span>
+    </div>
+
+    <div itemscope itemtype="http://schema.org/Product">
+        
+        <h1 itemprop="name" class="product-name">
+            {$product.name|escape}
+            {if !empty($product.rating) && $product.rating > 0}
+            <span class="rating nowrap" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" title="{sprintf('[`Average user rating: %s / 5`]', $product.rating)}">
+                {$wa->shop->ratingHtml($product.rating, 12)}
+                <span itemprop="ratingValue" style="display: none;">{$product.rating}</span>
+                <span itemprop="reviewCount" style="display: none;">{$reviews_total_count}</span>
+            </span>
+            {/if}
+        </h1>
+    
+        <div class="product-table">    
+            <!-- PRODUCT IMAGE -->
+            <div class="product-image">
+                {if empty($theme_settings.gallery)}{$theme_settings.gallery = "popup"}{/if}{*zoom popup combi*}
+                {include file="product.image.html" gallery=$theme_settings.gallery}
+            </div>
+            
+            <!-- PRODUCT CART -->
+            <div class="product-cart">
+                <div class="cart" id="cart-flyer">
+                    <!-- add to cart -->
+                    {include file="product.cart.html" inline}
+                    
+                    <!-- plugin hook: 'frontend_product.cart' -->
+                    {* @event frontend_product.%plugin_id%.cart *}
+                    {foreach $frontend_product as $_}{$_.cart}{/foreach}
+                    
+                </div>
+            
+                <div class="aux">
+            
+                    <!-- categories -->
+                    {if $product.categories}
+                        <div id="product-categories">
+                        <span class="bold">[`Category`]: </span>
+                            {foreach $product.categories as $c}
+                                {if $c.status}<a href="{$wa->getUrl('/frontend/category', ['category_url' => $c.full_url])}">{$c.name|escape}</a>{/if}{if !$c@last}, {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
+            
+                    <!-- tags -->
+                    {if $product.tags}
+                        <div id="product-tags">
+                        <span class="bold">[`Tags`]: </span>
+                            {foreach $product.tags as $t}
+                                <a href="{$wa->getUrl('/frontend/tag', ['tag' => urlencode($t)])}">{$t}</a>{if !$t@last}, {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
+                    
+                    {if !empty($theme_settings.socialButton)}
+                    <!-- socials -->
+                    <div id="product-social">
+                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                        <span class="bold">[`Share`]: </span>
+                        <div class="yashare-auto-init"
+                            data-yashareL10n="ru"
+                            data-yashareQuickServices="{$theme_settings.socialButton}"
+                            data-yashareTitle="{$wa->title()|escape}"
+                            data-yashareDescription="{$wa->meta('description')|escape}"
+                            data-yashareImage="{$wa->domainUrl()}{$wa->shop->productImgUrl($product, '200x0')}"
+                            {if !empty($theme_settings.socialButtonType)}{$theme_settings.socialButtonType}{/if}
+                        ></div>
+                    </div>
+                    {/if}
+            
+                    <!-- plugin hook: 'frontend_product.block_aux' -->
+                    {* @event frontend_product.%plugin_id%.block_aux *}
+                    {foreach $frontend_product as $_}{$_.block_aux}{/foreach}    
+                
+                </div>
+            </div>
+        </div>
+        
+        <!-- PRODUCT INFO -->
+        <div class="product-info">
+        
+            <!-- product page tabs -->
+            <ul class="product-tab">
+            {strip}
+                {if $product.description}<li data-tab="1" class="selected"><h2>[`Description`]</h2></li>{/if}
+                {if $product.features}<li data-tab="2"><h2>[`Features`]</h2></li>{/if}
+                {if !empty($theme_settings.reviewsSS)}<li data-tab="3">
+            	    <h2>[`Reviews`]&nbsp;<span itemprop="reviewCount">(<span class="reviews-count">{$reviews_total_count}</span>)</span></h2>
+        	    </li>{/if}
+        	    {if !empty($theme_settings.reviewsVKapiId)}
+                    <li data-tab="4"><h2>[`Reviews`]<i class="s-share-icon s-share-icon_vkontakte"></i></h2></li>
+                {/if}
+                {if !empty($theme_settings.reviewsFBappId)}
+                    <li data-tab="5"><h2>[`Reviews`]<i class="s-share-icon s-share-icon_facebook"></i></h2></li>
+                {/if}
+                {foreach $product.pages as $page}
+                    <li data-tab="{$page@iteration+888}"><h2>{$page.name|escape}</h2></li>
+                {/foreach}
+                <!-- plugin hook: 'frontend_product.menu' -->
+                {* @event frontend_product.%plugin_id%.menu *}
+                {foreach $frontend_product as $_}{$_.menu}{/foreach}
+            {/strip}
+            </ul>
+            <div class="product-tab-content">
+                {if $product.description}
+                <!-- description -->
+              	<div class="tab-name-print show-print"><h2>[`Overview`]</h2></div>
+                <div id="tab1" class="tab-content show-print">
+                  	<div class="description" id="product-description" itemprop="description">{$product.description}</div>
+                </div>
+             	{/if}
+             	
+             	{if $product.features}
+             	<!-- product features -->
+                <div class="tab-name-print show-print"><h2>[`Features`]</h2></div>
+          	    <div id="tab2" class="tab-content show-print">
+                    <table class="features" id="product-features">
+                        {foreach $product.features as $f_code => $f_value}
+                            <tr class="{if $f_value@iteration is div by 20}new-background{/if}{if $f_value@last} no-border{/if}{if $features[$f_code].type == 'divider'} divider{/if}">
+                                <td class="name">
+                                    {$features[$f_code].name|escape}
+                                </td>
+                                <td class="value" itemprop="{$f_code|escape}">
+                                    {if is_array($f_value)}
+                                        {if $features[$f_code].type == 'color'}
+                                            {implode('<br /> ', $f_value)}
+                                        {else}
+                                            {implode(', ', $f_value)}
+                                        {/if}
+                                    {else}
+                                        {$f_value}
+                                    {/if}
+                                </td>
+                            </tr>
+                        {/foreach}
+                    </table>
+                </div>
+                {/if}
+                
+                {if !empty($theme_settings.reviewsSS)}
+                <!-- product reviews -->
+                <div class="tab-name-print"><h2>[`Reviews`]</h2></div>
+           	    <div id="tab3" class="tab-content reviews-tab">
+           	    {if $theme_settings.reviewsSS == 2}
+           	        <script type="text/javascript">
+                        $(function(){
+                            var loading = $('<div><i class="icon16 loading"></i>Loading...</div>'),
+                            prdu = "{$wa->shop->productUrl($product)}";
+                       	    $('.reviews-tab')
+                       	        .append(loading)
+                                .load(prdu + 'reviews/ .reviews', { random: "1" },
+                                    function(){
+                                        $(this).prepend('<script type="text/javascript" src="{$wa_app_static_url}js/rate.widget.js"><\/script>')
+                                            .prepend('<script type="text/javascript" src="{$wa_theme_url}reviews.js"><\/script>')
+                                            .find('.loading').parent().remove();
+                                            
+                                        $('div.wa-captcha .wa-captcha-refresh, div.wa-captcha .wa-captcha-img').unbind('click').click(function(){
+                                            var div = $(this).parents('div.wa-captcha');
+                                            var captcha = div.find('.wa-captcha-img');
+                                            if(captcha.length) {
+                                                captcha.attr('src', captcha.attr('src').replace(/\?.*$/,'?rid='+Math.random()));
+                                                captcha.one('load', function() {
+                                                    div.find('.wa-captcha-input').focus();
+                                                });
+                                            };
+                                            div.find('input').val('');
+                                            return false;
+                                        });
+                                    }
+                                );
+                        });
+                   	</script>
+           	    {else}
+                    <div class="reviews">
+                        <ul class="menu-v with-icons">
+                            {foreach $reviews as $review}
+                                <li data-id={$review.id} data-parent-id="0">
+                                    {include file="review.html" reply_allowed=false inline}
+                                </li>
+                            {/foreach}
+                        </ul>
+                        <div id="rew-link">
+                        {if !$reviews}
+                            <p>{sprintf('[`Be the first to <a href="%s">write a review</a> of this product!`]', 'reviews/')}</p>
+                        {else}
+                            {sprintf(_w(
+                                    'Read <a href="%s">all %d review</a> on %s', 
+                                    'Read <a href="%s">all %d reviews</a> on %s', 
+                                    $reviews_total_count, false
+                                ), 'reviews/', $reviews_total_count, $product.name|escape)
+                            };
+                        {/if}
+                        </div>
+                    </div>
+                {/if}
+                </div>
+                {/if}
+                
+                {if !empty($theme_settings.reviewsVKapiId)}<!-- reviews vk.com -->
+                <div class="tab-name-print"><h2>[`Reviews`] vk.com</h2></div>
+                <div id="tab4" class="tab-content">
+                	<div id="vk_comments"></div>
+                	<script type="text/javascript">
+                	    VK.init({ apiId: {$theme_settings.reviewsVKapiId}, onlyWidgets: true });
+                		VK.Widgets.Comments("vk_comments", {
+                			limit: {if !empty($theme_settings.reviewsVKlimit)}{$theme_settings.reviewsVKlimit}{else}20{/if},
+                			attach: "{if !empty($theme_settings.reviewsVKattach)}*{/if}",
+                		});
+                	</script>
+                </div>
+                {/if}
+                
+                {if !empty($theme_settings.reviewsFBappId)}<!-- reviews facebook.com -->
+                <div class="tab-name-print"><h2>[`Reviews`] facebook.com</h2></div>
+                <div id="tab5" class="tab-content">
+                	<div class="fb-comments"
+                		data-width="710"
+                		data-href="{$wa->domainUrl()}{$wa->shop->productUrl($product)}"
+                		data-numposts="{if !empty($theme_settings.reviewsFBnumposts)}{$theme_settings.reviewsFBnumposts}{else}20{/if}"
+                		data-colorscheme="{if !empty($theme_settings.reviewsFBcolorscheme)}{$theme_settings.reviewsFBcolorscheme}{/if}"
+                	>
+                	</div>
+                </div>
+                {/if}
+             	
+                {foreach $product.pages as $pagecon}
+          		<div class="tab-name-print"><h2>{$pagecon.name|escape}</h2></div>
+            	<div id="tab{$pagecon@iteration+888}" class="tab-content">
+             		{include file="product.page.html" page=$pagecon}
+             	</div>
+            	{/foreach}
+            </div>
+            <script type="text/javascript">
+            $('ul.product-tab li').click(function(){
+                $('.tab-content').hide();
+                var id = $(this).data('tab');
+                $('ul.product-tab li').removeClass('selected');
+                $(this).addClass('selected');
+                $('#tab'+id).show();
+            });
+            
+            var tabSli = $('ul.product-tab li.selected');
+            if(tabSli.length){ tabSli.click(); }else{ $('ul.product-tab li:first').click(); }
+            
+            //addToLastview
+	        $(function(){ if($('#main-addition').length) addLastview($("input[name='product_id']").val()); });
+            </script>
+            
+        </div>
+        
+        <!-- plugin hook: 'frontend_product.block' -->
+        {* @event frontend_product.%plugin_id%.block *}
+        {foreach $frontend_product as $_}{$_.block}{/foreach}
+        
+    </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+{$upselling = $product->upSelling()}
+{$crossselling = $product->crossSelling()}
+
+{if $upselling || $crossselling}
+    <div class="content left230px">
+        <div class="related">
+        {if $upselling}
+            {*  кнопка сравнить все
+            {$compare_ids = array_merge(array($product.id), array_keys($upselling))}
+            <input type="button" onClick="javascript:window.location='{$wa->getUrl('/frontend/compare', ['id' => implode(',', $compare_ids)])}';" value="[`Compare all`]" />
+            *}
+            <div class="products-slider">
+              <div class="products-slider-name"><h3>[`See also`]</h3></div>
+              {include file="products.slider.html" sliderId='upselling' s_products=$upselling no_submit=1}
+            </div>
+        {/if}
+        {if $crossselling}
+            <div class="products-slider">
+              <div class="products-slider-name"><h3>[`You may also like`]</h3></div>
+              {include file="products.slider.html" sliderId='crossselling' s_products=$crossselling no_submit=1}
+            </div>
+        {/if}
+        </div>
+    </div>
+{/if}

@@ -1,0 +1,10 @@
+{if $wa->blog}{$rss = $wa->blog->rssUrl()}{else}{$rss = ''}{/if}
+{strip}<ul class="social">
+    <li><a href="#" title=""><i class="soc-vk"></i></a></li><!-- vkontakte -->
+    <li><a href="#" title=""><i class="soc-go"></i></a></li><!-- google+ -->
+    <li><a href="#" title="[`Facebook`]"><i class="soc-fb"></i></a></li><!-- facebook -->
+    <li><a href="#" title="[`Twitter`]"><i class="soc-tw"></i></a></li><!-- twitter -->
+    <li><a href="#" title=""><i class="soc-pl"></i></a></li><!-- pinterest -->
+	{if $rss}<li><a href="{$rss}" title="[s`Subscribe`]"><i class="soc-rss"></i></a></li><!-- rss -->{/if}
+    <li><a href="#" title=""><i class="soc-yt"></i></a></li><!-- you tube -->
+</ul>{/strip}

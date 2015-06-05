@@ -1,0 +1,32 @@
+<p class="align-right hide-for-desktop" id="mobile-close"><a class="type5" href="#">[`Close`]</a></p>
+{include file="top.apps.html" mobile=1}
+{include file="vertical.tree.html"}
+
+{if !empty($theme_settings.siteInfo)}
+    {if $wa->shop && $theme_settings.appsPages == 'site'}
+        {$site_pages = $wa->shop->pages()}
+        {$active_page = null}
+    {else}
+        {$site_pages = $wa->site->pages()}
+        {if isset($root_page_id)}{$active_page = $root_page_id}{else}{$active_page = null}{/if}
+    {/if}
+    {if $site_pages}<!-- info pages site -->
+        <div class="information block">
+            <span class="caption acapitalize">[`Information`]</span>
+            <ul>
+            {foreach $site_pages as $pageML}
+            {if !isset($pageML.menu_left)}
+                <li{if $pageML.id == $active_page} class="selected"{/if}>
+                    <a href="{$pageML.url}" title="{$pageML.title}"><i class="icon-circle"></i>{$pageML.name}</a>
+                </li>
+            {/if}
+            {/foreach}
+            </ul>
+        </div>
+    {/if}
+{/if}
+
+{if !empty($theme_settings.communityVKid)}{include file="community.vk.html" place="place-sidebar"}{/if}
+{if !empty($theme_settings.communityFBhref)}{include file="community.fb.html" place="place-sidebar"}{/if}
+{if !empty($theme_settings.siteLastPhotos)}{include file="last.photos.html" sidebar=1}{/if}
+{if !empty($theme_settings.siteLastPosts)}{include file="last.posts.html" sidebar=1}{/if}

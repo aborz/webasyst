@@ -1,0 +1,40 @@
+<div class="view-plain" id="photo-list">
+    {* @event frontend_collection.%plugin_id%.plain_list *}
+    {if !empty($frontend_collection)}{foreach $frontend_collection as $item}{if !empty($item.plain_list)}{$item.plain_list}{/if}{/foreach}{/if}
+    {foreach $photos as $photo}
+        <div itemscope itemtype ="http://schema.org/Photograph">
+            <div class="view-plain-photo-header">
+                {if !empty($photo.stack_nav)}
+                    {$photo.stack_nav}
+                {/if}
+                {*{if $photo.name}
+                    <h5 itemprop="name">{$photo.name}{if $photo.rate > 0}&nbsp;|&nbsp;<div class="rating nowrap">{$wa->photos->ratingHtml($photo.rate, 12)}</div>{/if}</h5>
+                {/if}*}
+            </div>
+            <div class="image">
+                <div class="corner top left">
+                    {* @event prepare_photos_frontend.top_left.%plugin_id% *}
+                    {foreach $photo.hooks.top_left as $plugin => $output}{$output}{/foreach}
+                </div>
+                <div class="corner top right">
+                    {* @event prepare_photos_frontend.top_right.%plugin_id% *}
+                    {foreach $photo.hooks.top_right as $plugin => $output}{$output}{/foreach}
+                </div>
+                <a href="{$photo.frontend_link}">
+                    {$wa->photos->getImgHtml($photo, '970', ['itemprop' => 'image'])}
+                </a>
+                {* @event prepare_photos_frontend.plain.%plugin_id% *}
+                {foreach $photo.hooks.plain as $plugin => $output}{$output}{/foreach}
+            </div>
+            {if $photo.description}
+                <p itemprop="description">{$photo.description}</p>
+            {/if}
+        </div>
+    {/foreach}
+</div>
+
+{if isset($pages_count) && $pages_count > 1}
+<div class="block lazyloading-paging">
+    {wa_pagination total=$pages_count attrs=['class' => "prd-list-pagination"] nb="5" prev="<i class='icon-caret-left'></i>" next="<i class='icon-caret-right'></i>"}
+</div>
+{/if}

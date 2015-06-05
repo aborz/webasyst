@@ -1,0 +1,22 @@
+{* post list: minimalistic view mode; used for post filtering by tags, author, search, etc. *}
+
+{foreach $posts as $post}
+<div class="post search-match{if $post@last} no-border{/if}" id="post-{$post.id}" {if $wa->param('blog_url')}itemprop="blogPosts"{/if} itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="credentials">
+        <span class="gray date"><i class="icon-time"></i>{$post.datetime|wa_datetime:"humandate"}</span>
+        {if $post.user.posts_link}
+            <a href="{$post.user.posts_link}" class="username type1" rel="author"><i class="icon-user userpic"></i>{$post.user.name}</a>
+        {else}
+            <span class="username gray" rel="author"><i class="icon-user userpic"></i>{$post.user.name}</span>
+        {/if}
+    </div>
+    <h3><a href="{$post.link}" itemprop="url">{$post.title}</a></h3>
+    <p>
+        {$post.text|strip_tags|truncate:400}
+    </p>
+</div>
+{foreachelse}
+    {if !isset($page) || $page lt 2}
+        {_w('%d post','%d posts',0)}
+    {/if}
+{/foreach}

@@ -1,0 +1,9 @@
+<a class="logo-link" href="{$wa_url}" title="">
+    <div class="logo-img">
+        <img src="{$wa_theme_url}img/comfortbuy_logo.png" alt="" />
+    </div>
+    <div>
+        <p class="first">{if $wa->shop}{$wa->shop->settings('name')}{else}{$wa->accountName()}{/if}</p>
+        <p class="last">покупайте с удовольствием</p>
+    </div>
+</a>

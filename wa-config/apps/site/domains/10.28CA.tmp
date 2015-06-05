@@ -1,0 +1,31 @@
+<?php
+return array (
+  'name' => 'Официальный интернет-магазин Sela.ru',
+  'google_analytics' => 
+  array (
+    'code' => '',
+  ),
+  'apps' => 
+  array (
+    0 => 
+    array (
+      'url' => '/index.php/news/',
+      'name' => 'Новости',
+    ),
+    1 => 
+    array (
+      'url' => '/index.php/lookbook/',
+      'name' => 'Look book',
+    ),
+    2 => 
+    array (
+      'url' => '/index.php/',
+      'name' => 'Интернет-магазин',
+    ),
+    3 => 
+    array (
+      'url' => 'http://www.sela.ru/default.aspx?page=about',
+      'name' => 'О компании',
+    ),
+  ),
+);

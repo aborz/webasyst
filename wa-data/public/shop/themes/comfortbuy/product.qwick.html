@@ -1,0 +1,81 @@
+{$go=142}
+
+<div class="content left230px" >
+    <!-- navigation breadcrumbs -->
+  
+
+    <div itemscope itemtype="http://schema.org/Product">
+        
+       
+    
+	
+        <div class="product-table news">    
+            <!-- PRODUCT IMAGE -->
+            <div class="product-image">
+             
+         {include file="product.image.html" gallery=$theme_settings.gallery}
+            </div>
+            
+            
+            
+            <!-- PRODUCT CART -->
+            <div class="product-cart">
+                <div class="cart" id="cart-flyer">
+				
+				 <h1 itemprop="name" class="product-name">
+            {$product.name|escape}
+            {if !empty($product.rating) && $product.rating > 0}
+            <span class="rating nowrap" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" title="{sprintf('[`Average user rating: %s / 5`]', $product.rating)}">
+                {$wa->shop->ratingHtml($product.rating, 12)}
+                <span itemprop="ratingValue" style="display: none;">{$product.rating}</span>
+                <span itemprop="reviewCount" style="display: none;">{$reviews_total_count}</span>
+            </span>
+            {/if}
+        </h1>
+                    <!-- add to cart -->
+                    {include file="product.cart.html" inline}
+                    
+                    <!-- plugin hook: 'frontend_product.cart' -->
+                    {* @event frontend_product.%plugin_id%.cart *}
+                    {foreach $frontend_product as $_}{$_.cart}{/foreach}
+                    
+                </div>
+            
+                <div class="aux">
+             
+                    <!-- categories -->
+                    {if $product.categories}
+                        <div id="product-categories">
+                        <span class="bold">[`Category`]: </span>
+                            {foreach $product.categories as $c}
+                                {if $c.status}<a href="{$wa->getUrl('/frontend/category', ['category_url' => $c.full_url])}">{$c.name|escape}</a>{/if}{if !$c@last}, {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
+                  
+                  
+                    
+                    {if !empty($theme_settings.socialButton)}
+                    <!-- socials -->
+                    <div id="product-social">
+                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                        <span class="bold">[`Share`]: </span>
+                        <div class="yashare-auto-init"
+                            data-yashareL10n="ru"
+                            data-yashareQuickServices="{$theme_settings.socialButton}"
+                            data-yashareTitle="{$wa->title()|escape}"
+                            data-yashareDescription="{$wa->meta('description')|escape}"
+                            data-yashareImage="{$wa->domainUrl()}{$wa->shop->productImgUrl($product, '200x0')}"
+                            {if !empty($theme_settings.socialButtonType)}{$theme_settings.socialButtonType}{/if}
+                        ></div>
+                    </div>
+                    {/if}
+            
+                
+                </div>
+            </div>
+        </div>
+        
+     
+</div>
+

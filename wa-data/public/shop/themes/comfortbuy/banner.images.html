@@ -1,0 +1,25 @@
+{if $bannerId && $b_photos && count($b_photos)}
+<div class="nivoSlider-wrapper">
+    <div id="nivoSlider-{$bannerId}" class="nivoSlider">
+        {foreach $b_photos as $photo}
+        <a href="{if $photo.description}{$photo.description}{else}javascript:void(0);{/if}">
+            {$wa->photos->getImgHtml($photo, "970x0")}
+            {*$wa->photos->getImgHtml($photo, "970x0", [ 'title' => $photo.name ])*}
+        </a>
+        {/foreach}
+    </div>
+    
+    {* sliceDown,sliceDownLeft,sliceUp,sliceUpLeft,sliceUpDown,sliceUpDownLeft,fold,fade,random,slideInRight,slideInLeft,boxRandom,boxRain,boxRainReverse,boxRainGrow,boxRainGrowReverse *}
+    <script type="text/javascript">
+    $(window).load(function(){
+        $('#nivoSlider-{$bannerId}').nivoSlider({
+            effect: 'slideInRight,slideInLeft',
+            randomStart: false,
+            pauseTime: 4000,
+            prevText: '<i class="icon-caret-left"></i>',
+            nextText: '<i class="icon-caret-right"></i>'
+        });
+    });
+    </script>
+</div>
+{/if}

@@ -1,0 +1,103 @@
+<div class="sidebar left230px hide-for-desktop">
+    {include file="sidebar.html"}
+</div>
+{*<div class="content left230px">*}
+
+{if !empty($theme_settings.homeBannerPrd) && empty($theme_settings.homeBannerImg)}
+    {$b_products = $wa->shop->products($theme_settings.homeBannerPrd, 10)}
+    {include file="`$wa_active_theme_path`/banner.products.html" bannerId=1 b_products=$b_products}
+{/if}
+{if !empty($theme_settings.homeBannerImg)}
+    {$b_photos = $wa->photos->photos($theme_settings.homeBannerImg)}
+    {include file="`$wa_active_theme_path`/banner.images.html" bannerId=1 b_photos=$b_photos}
+{/if}
+{if !empty($b_products) || !empty($b_photos)}<style type="text/css"> #main { padding: 0; } </style>{/if}
+
+<!-- plugin hook: 'frontend_homepage' -->
+{* @event frontend_homepage.%plugin_id% *}
+{foreach $frontend_homepage as $_}{$_}{/foreach}
+
+<div>
+<table style=" width: 100%; border: 0;">
+    <td>
+        
+    </td>
+</table>
+</div>
+{if !preg_match('/\/(\w+)\/$/', $wa_theme_url, $them)}{$them[1]='comfortbuy'}{/if}
+{if $homeBlock=$wa->block("`$them[1]`.home.block")}
+    {$homeBlock}
+{else}{*HOME BLOCK*}
+<div class="home-block">
+    <div>
+        <a href="/index.php/dostavka/" title="доставка товаров из интернет-магазина SELA"><i class="icon-truck"></i><span>Доставка по всей России</span></a>
+        <p class="padding-right" align=justify><font face="sans-serif" >Мы осуществляем доставку во все регионы России. Удобные пункты самовывоза и постаматы с широкой географией.</font></p>
+    </div>
+    <div>
+        <a href="/index.php/vozvrat/" title="примерка товаров перед покупкой в интернет-магазине SELA"><i class="icon-gift"></i><span>Примерка перед покупкой</span></a>
+        <p class="padding-right" align=justify><font face="sans-serif" >Если вам не подошел размер или товар не удовлетворил Ваши ожидания, вы можете отказаться от покупки.</font></p>
+    </div>
+    <div>
+        <a href="/index.php/oplata/" title="способы оплаты заказов в интернет-магазине SELA"><i class="icon-money"></i><span>Удобные способы оплаты</span></a>
+        <p align=justify><font face="sans-serif" >Вы можете оплатить покупки одним из преждложенных способов - мы принимаем наличные и банковские карты.</font></p>
+    </div>
+</div>
+
+{$s_products = $wa->shop->products('set/bestsellers', 15)}
+{if $s_products && count($s_products)}
+<div class="products-slider">
+<hr>
+<div>
+<h2><p align="center" style="font-size: larger;">[`- ЛИДЕРЫ ПРОДАЖ -`]</p></h2>
+</div>
+<hr>
+ {* <div class="products-slider-name"><h2>[`РЕКОМЕНДУЕМ`]</h2></div> *}
+  {include file="products.slider.html" sliderId=1 s_products=$s_products}
+</div>
+{/if}
+
+{$s_products = $wa->shop->products('set/promo', 15)}
+{if $s_products && count($s_products)}
+<div class="products-slider">
+{*  <div class="products-slider-name"><h2>[`Best offers`]</h2></div>*}
+ <hr>
+<div>
+<h2><p align="center" style="font-size: larger;">[`- РЕКОМЕНДУЕМ -`]</p></h2>
+</div>
+<hr>
+  
+  {include file="products.slider.html" sliderId=2 s_products=$s_products}
+</div>
+{/if}
+
+<!-- GENERAL WELCOME TEXT -->
+<div itemscope itemtype="http://schema.org/Store" style="margin-bottom: 30px;">
+  <div class="products-slider">  <hr><h2><p align="center" style="font-size: larger;">ИНТЕРНЕТ-МАГАЗИН SELA.RU</p></h2> <hr></div></br></br></br>
+    <div class="articlo"><font face="sans-serif" >SELA – это известный бренд модной и стильной одежды, который уже более 20 лет радует своих покупателей яркими коллекциями, оригинальным дизайном и неизменно высоким качеством. Крупнейшая сеть SELA насчитывает более 400 магазинов в 200 городах России, Казахстана, Украины и Белоруссии. Fashion стиль бренда SELA близок тем, кто следит за модными тенденциями, стремится выглядеть современно и эффектно. Модная одежда SELA любима не одним поколением покупателей за идеальное соотношения качества и цены, широкий ассортимент - от разнообразных моделей базового гардероба до притягательных вечерних нарядов и стильной верхней одежды, а также за коллекции, которые подходят для всей семьи: в магазинах SELA представлена женская одежда, мужская одежда и детская одежда.</font></div>
+    <meta itemprop="description" content="{$wa->meta('description')|escape}">
+
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        <meta itemprop="streetAddress" content="">
+        <meta itemprop="addressLocality" content="">
+        <meta itemprop="addressRegion" content="">
+        <meta itemprop="postalCode" content="">
+        <meta itemprop="addressCountry" content="{$wa->shop->settings('country')|upper}">
+    </div>
+
+ 
+</div>
+{*/HOME BLOCK*}{/if}
+
+{*last photos & posts*}
+<div class="home-last">
+    {if !empty($theme_settings.shopLastPhotos)}
+        {include file="`$wa_parent_theme_path`/last.photos.html"}
+    {/if}
+    {if !empty($theme_settings.shopLastPosts)}
+        {if $wa->photos && !empty($theme_settings.shopLastPhotos)}{$count_photos = count($wa->photos->photos())}{else}{$count_photos=0}{/if}
+        {include file="`$wa_parent_theme_path`/last.posts.html" home=$count_photos}
+    {/if}
+    <div class="clear-both"></div>
+</div>
+
+{*</div>*}

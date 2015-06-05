@@ -1,0 +1,91 @@
+<div class="sidebar left230px hide-for-desktop">
+    {include file="sidebar.html"}
+</div>
+{*<div class="content left230px">*}
+
+{if !empty($theme_settings.homeBannerPrd) && empty($theme_settings.homeBannerImg)}
+    {$b_products = $wa->shop->products($theme_settings.homeBannerPrd, 10)}
+    {include file="`$wa_active_theme_path`/banner.products.html" bannerId=1 b_products=$b_products}
+{/if}
+{if !empty($theme_settings.homeBannerImg)}
+    {$b_photos = $wa->photos->photos($theme_settings.homeBannerImg)}
+    {include file="`$wa_active_theme_path`/banner.images.html" bannerId=1 b_photos=$b_photos}
+{/if}
+{if !empty($b_products) || !empty($b_photos)}<style type="text/css"> #main { padding: 0; } </style>{/if}
+
+<!-- plugin hook: 'frontend_homepage' -->
+{* @event frontend_homepage.%plugin_id% *}
+{foreach $frontend_homepage as $_}{$_}{/foreach}
+
+{if !preg_match('/\/(\w+)\/$/', $wa_theme_url, $them)}{$them[1]='comfortbuy'}{/if}
+{if $homeBlock=$wa->block("`$them[1]`.home.block")}
+    {$homeBlock}
+{else}{*HOME BLOCK*}
+<div class="home-block">
+    <div>
+        <a href="/" title=""><i class="icon-truck"></i><span>Доставка по всей России</span></a>
+        <p class="padding-right" align=justify><font face="sans-serif" >Мы осуществляем быструю и надежную доставку во все регионы РФ. Удобный пункт самовывоза в центре Москвы.</font></p>
+    </div>
+    <div>
+        <a href="/" title=""><i class="icon-gift align-center"></i><span>Примерка перед покупкой</span></a>
+        <p class="padding-right" align=justify><font face="sans-serif" >Если вам не подошел размер или товар не удовлетворил ваши ожидания, вы можете отказаться от покупки.</font></p>
+    </div>
+    <div>
+        <a href="/" title=""><i class="icon-money"></i><span>Удобная оплата</span></a>
+        <p align=justify><font face="sans-serif" >Вы можете оплатить покупки любым удобным способом - мы принимаем наличные, карты и электронные деньги.</font></p>
+    </div>
+</div>
+
+{$s_products = $wa->shop->products('set/bestsellers', 15)}
+{if $s_products && count($s_products)}
+<div class="products-slider">
+  <div class="products-slider-name"><h2>[`Bestsellers`]</h2></div>
+  {include file="products.slider.html" sliderId=1 s_products=$s_products}
+</div>
+{/if}
+
+{$s_products = $wa->shop->products('set/promo', 15)}
+{if $s_products && count($s_products)}
+<div class="products-slider">
+  <div class="products-slider-name"><h2>[`Best offers`]</h2></div>
+  {include file="products.slider.html" sliderId=2 s_products=$s_products}
+</div>
+{/if}
+
+<!-- GENERAL WELCOME TEXT -->
+<div itemscope itemtype="http://schema.org/Store" style="margin-bottom: 30px;">
+    <div class="products-slider-name"><h2>Немного о нас</h2></div>
+    <p align=justify><font face="sans-serif" >Первый и единственный магазин модной обуви больших размеров на территории РФ!
+
+Мы знаем как сложно найти обувь большого размера и делаем все возможное, чтобы вы больше никогда об этом не задумывались!
+
+Пишите и звоните, мы сделаем все возможное, чтобы найти вам идеальную пару!
+
+Спешим обрадовать женскую половину, в скором времени планируется расширение ассортимента в сторону женской обуви больших и маленьких размеров. Подписывайтесь на нас в группах FB & VK и следите за новостями и поступлениями.</font></p>
+    <meta itemprop="description" content="{$wa->meta('description')|escape}">
+
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        <meta itemprop="streetAddress" content="">
+        <meta itemprop="addressLocality" content="">
+        <meta itemprop="addressRegion" content="">
+        <meta itemprop="postalCode" content="">
+        <meta itemprop="addressCountry" content="{$wa->shop->settings('country')|upper}">
+    </div>
+
+ 
+</div>
+{*/HOME BLOCK*}{/if}
+
+{*last photos & posts*}
+<div class="home-last">
+    {if !empty($theme_settings.shopLastPhotos)}
+        {include file="`$wa_parent_theme_path`/last.photos.html"}
+    {/if}
+    {if !empty($theme_settings.shopLastPosts)}
+        {if $wa->photos && !empty($theme_settings.shopLastPhotos)}{$count_photos = count($wa->photos->photos())}{else}{$count_photos=0}{/if}
+        {include file="`$wa_parent_theme_path`/last.posts.html" home=$count_photos}
+    {/if}
+    <div class="clear-both"></div>
+</div>
+
+{*</div>*}

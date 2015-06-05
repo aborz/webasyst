@@ -1,0 +1,29 @@
+<div class="sidebar left230px" role="navigation">
+    {include file="sidebar.html"}
+</div>
+
+<div class="content left230px">
+    <div class="breadcrumbs">
+        <a href="{$wa_url}">[`Home`]</a>
+        {if isset($breadcrumbs) && $breadcrumbs}
+            {foreach $breadcrumbs as $breadcrumb}
+                » <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a>
+            {/foreach}
+        {/if}
+         » <span class="gray">{$page.name|escape}</span>
+    </div>
+
+	<div class="info-page menu" role="navigation">
+        {if $page.parent_id}
+            {$p_id = $page.parent_id}
+        {else}
+            {$p_id = $page.id}
+        {/if}
+        {wa_print_tree tree=$wa->site->pages($p_id, false) elem ='<a class="type1" href=":url">:name</a>' selected=$page.id}
+    </div>
+	
+	<div id="page" role="main">
+		<h1>{$page.name}</h1>
+		{$page.content}
+	</div>
+</div>
