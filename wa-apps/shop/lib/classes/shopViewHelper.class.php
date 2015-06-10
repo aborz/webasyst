@@ -108,7 +108,7 @@ class shopViewHelper extends waAppViewHelper
         if ($active_sort === null) {
             $active_sort = waRequest::get('sort');
         }
-        $inverted = in_array($sort, array('rating', 'create_datetime', 'total_sales', 'count', 'stock'));
+        $inverted = in_array($sort, array('rating', 'create_datetime', 'total_sales', 'count', 'stock', 'orderid')); //ab 2015-06-10 orderid added
         $data = waRequest::get();
         $data['sort'] = $sort;
         if ($sort == $active_sort) {

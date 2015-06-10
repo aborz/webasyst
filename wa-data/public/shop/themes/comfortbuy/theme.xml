@@ -157,7 +157,7 @@
       <description locale="ru_RU"/>
     </file>
     <file path="products.list.html" custom="0" modified="1">
-      <description locale="ru_RU"></description>
+      <description locale="ru_RU"/>
       <description locale="en_US">List of products in this category, search</description>
     </file>
     <file path="product.image.html" custom="0" modified="1">
@@ -437,7 +437,7 @@ Topics <p> family ComfortBuy design optimized for all modern browsers and mobile
       </options>
     </setting>
     <setting var="gallery" control_type="select">
-      <value>combi</value>
+      <value>popup</value>
       <name locale="en_US">Display type of gallery of goods
 			<![CDATA[
 				<br /><br />

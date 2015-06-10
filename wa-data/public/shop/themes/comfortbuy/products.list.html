@@ -4,8 +4,11 @@
 <!-- sorting -->
 <div class="sorting">
     <span>[`Sort by`]</span>
-    {$sort_fields = ['rating' => '[`Customer rating`]', 'total_sales' => '[`Bestsellers`]', 'price' => '[`Price`]', 'name' => '[`Name`]', 'create_datetime'=>'[`Date added`]', 'stock' => '[`In stock`]']}
-    {if !isset($active_sort)}{$active_sort = $wa->get('sort', 'create_datetime')}{/if}
+    <!--active_sort={$active_sort}-->
+    {$sort_fields = ['orderid' => 'Новинки', 'total_sales' => '[`Bestsellers`]', 'price' => '[`Price`]', 'name' => '[`Name`]', 'create_datetime'=>'[`Date added`]', 'stock' => '[`In stock`]']}
+<!--act a={$active_sort}, s={$wa->get('sort', '')}, o={$wa->get('order', '')} -->
+    {if !isset($active_sort)}{$active_sort = $wa->get('sort', 'orderid')}{/if}
+    
     <select id="sorting">
         {if !empty($category) && !$category.sort_products}<option value="{$wa->currentUrl(0, 1)}"{if !$active_sort} selected="selected"{/if}>[`New & Popular`]</option>{/if}
         {foreach $sort_fields as $sort => $name}

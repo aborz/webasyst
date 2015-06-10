@@ -54,7 +54,7 @@
       <description locale="en_US">Display template logo store.</description>
     </file>
     <file path="color.css.html" custom="0" modified="1">
-      <description locale="ru_RU"></description>
+      <description locale="ru_RU"/>
       <description locale="en_US">Color page elements</description>
     </file>
     <file path="scheme.settings.html" custom="0">
@@ -944,7 +944,7 @@ Topics <p> family ComfortBuy design optimized for all modern browsers and mobile
       <name locale="en_US">Block height in pixels</name>
     </setting>
     <setting var="communityVKmode" control_type="select">
-      <value/>
+      <value></value>
       <name locale="en_US">The widget contents</name>
       <name locale="ru_RU">Содержимое виджета</name>
       <options>
