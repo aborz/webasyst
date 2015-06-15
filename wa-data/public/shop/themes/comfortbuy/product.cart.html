@@ -32,21 +32,21 @@
         {/foreach}
         </div>
     
-        <!-- SELECTABLE FEATURES selling mode  :{$v.type_id}-->
+        <!--! SELECTABLE FEATURES selling mode  :{$v.type_id}-->
         {$default_sku_features = $product.sku_features}
         {$product_available = $product.status}
         <div class="options">
         {$featureButton = $wa->globals("featureButton")}
         <span class="bold skus-select-text">[`Please select`]: </span>
             {foreach $features_selectable as $f}
-            <div class="option-item">
+            <div class="option-item" {if $f.name=='Цвет'}style='visibility:hidden'{/if}>
                 <span class="option-name">{$f.name}</span>
-                {if strpos($featureButton, $f.code) !== false}
+                {if $f.name=='Размер'}
                     {foreach $f.values as $v_id => $v}<span data-value-id="{$v_id}" class="feature-btn{if $v_id == ifset($default_sku_features[$f.id])} selected{/if}">{$v}</span>
 					
 					{/foreach}
                 {/if}
-                <select data-feature-id="{$f.id}" class="sku-feature{if strpos($featureButton, $f.code) !== false} invisible{/if}" name="features[{$f.id}]">
+                <select data-feature-id="{$f.id}" class="sku-feature{if $f.name=='Размер'} invisible{/if}" name="features[{$f.id}]">
                     {foreach $f.values as $v_id => $v}
                     <option value="{$v_id}" {if $v_id == ifset($default_sku_features[$f.id])}selected{/if}>{$v}</option>
                     {/foreach}
