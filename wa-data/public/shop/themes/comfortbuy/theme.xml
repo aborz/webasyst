@@ -955,5 +955,9 @@ For example:  gallery=zoom
       <msgid>Show all</msgid>
       <msgstr locale="ru_RU">Показать все</msgstr>
     </locale>
+    <locale>
+      <msgid>My account</msgid>
+      <msgstr locale="ru_RU">Мой кабинет</msgstr>
+    </locale>
   </locales>
 </theme>

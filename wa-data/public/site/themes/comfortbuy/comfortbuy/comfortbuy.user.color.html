@@ -1,9 +1,0 @@
-{if !preg_match('/\/(\w+)\/$/', $wa_theme_url, $them)}{$them[1]='comfortbuy'}{/if}
-{*Пример смены цветовой гаммы наклеек.*}
-{$wa->globals("`$them[1]`_user_scheme", [
-    "badgecolor" => "#999",
-    "badgebgcolorD" => "rgba(0, 149, 147, 0.6)",
-    "badgebgcolorN" => "rgba(0, 255, 0, 0.6)",
-    "badgebgcolorB" => "rgba(255, 0, 90, 0.6)",
-    "badgebgcolorL" => "rgba(247, 255, 29, 0.6)"
-])}

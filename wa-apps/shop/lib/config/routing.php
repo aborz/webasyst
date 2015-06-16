@@ -34,6 +34,11 @@ return array(
             'action' => 'myProfile',
             'secure' => true,
         ),
+        'my/account/?' => array(
+            'module' => 'frontend',
+            'action' => 'myAccount',
+            'secure' => true,
+        ),
         'my/orders/?' => array(
             'module' => 'frontend',
             'action' => 'myOrders',
@@ -86,6 +91,11 @@ return array(
             'url' => 'my/profile/?',
             'module' => 'frontend',
             'action' => 'myProfile',
+            'secure' => true,
+        ),
+        'my/account/?' => array(
+            'module' => 'frontend',
+            'action' => 'myAccount',
             'secure' => true,
         ),
         'my/orders/?' => array(
@@ -141,6 +151,11 @@ return array(
             'url' => 'my/profile/?',
             'module' => 'frontend',
             'action' => 'myProfile',
+            'secure' => true,
+        ),
+        'my/account/?' => array(
+            'module' => 'frontend',
+            'action' => 'myAccount',
             'secure' => true,
         ),
         'my/orders/?' => array(
