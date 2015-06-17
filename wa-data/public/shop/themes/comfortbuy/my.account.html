@@ -6,64 +6,49 @@
 
     <!-- navigation breadcrumbs -->
     <div class="breadcrumbs">
-        <a href="{$wa_app_url}">[`Home`]</a> » <a href="{$wa->getUrl('/frontend/my')}">[`My Account`]</a> » <span class="gray">[`My orders`]</span>
+        <a href="{$wa_app_url}">[`Home`]</a> » <a href="{$wa->getUrl('/frontend/my')}">[`My Account`]</a> » <span class="gray">[`My account`]</span>
     </div>
     
     <div class="info-page menu">{$wa->myNav()}</div>
    
     <h1>[`My orders`]</h1>
+
+	<div class="sidebar left230px">
+		<div class="block">
+			<img style="" src="/tmp/sela_red_card.png">
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="block fields">
+	
+			<div class="field-group">
+				<div class="field">
+					<div class="name">Номер карты:</div>
+					<div class="value"><strong>050000000001</strong></div>
+				</div>
+				<div class="field">
+					<div class="name">Статус карты:</div>
+					<div class="value"><strong>Стилист</strong></div>
+				</div>
+			</div>
+		
+			<div class="field-group">
+				<div class="field">
+					<div class="name">Общая сумма покупок по карте:</div>
+					<div class="value"><strong>3 580 руб.</strong></div>
+				</div>
+				<div class="field">
+					<div class="name">Общая сумма бонусов, доступных к использованию:</div>
+					<div class="value"><strong>700</strong></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+
+    <img src="/tmp/card_milestones.png">
     
-    <table class="table">
-        <tr class="coll-name ahover">
-            <th>[`Order`]</th>
-            <th>[`Order status`]</th>
-            <th>[`Description`]</th>
-            <th>[`Shipping`]</th>
-            <th>[`Payment`]</th>
-            <th>[`Date`]</th> 
-        </tr>
-    {foreach $orders as $o}
-        <tr class="{if $o@iteration is div by 2}zebra{/if}">
-            <td class="nowrap">
-                <a href="{$o.url}" class="bold">
-                    {$o.id_str}
-                </a>
-            </td>
-            <td class="nowrap">
-                <span class="nowrap order-status" style="{$o.state->getStyle(1)}">
-                    {$o.state->getName()}
-                </span>
-            </td>
-            <td>
-                {if !empty($o.items)}
-                    {foreach $o.items as $i}
-                        {$i.name|escape} <span class="gray">x {$i.quantity}</span><br />
-                    {/foreach}
-                {/if}
-            </td>
-            <td>
-                {if $o.shipping_name}
-                    {$o.shipping_name|escape}
-                {else}
-                    &nbsp;
-                {/if}
-            </td>
-            <td>
-                {if $o.payment_name}
-                    {$o.payment_name|escape}
-                {else}
-                    &nbsp;
-                {/if}
-            </td>
-            <td>
-                <span class="gray">{$o.create_datetime|wa_date:'humandate'}</span>
-            </td>
-        </tr>
-    {foreachelse}
-    	<tr class="no-border">
-            <td>[`You have no order history yet.`]</td>
-      	</tr>
-    {/foreach}
-    </table>
     
 </div>
