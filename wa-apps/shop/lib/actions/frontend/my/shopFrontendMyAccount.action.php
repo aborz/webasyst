@@ -1,6 +1,6 @@
 <?php
 /**
- * User profile form in customer account, and submit controller for it.
+ * User account form in customer account, and submit controller for it.
  */
 class shopFrontendMyAccountAction extends waMyProfileAction
 {
@@ -18,32 +18,21 @@ class shopFrontendMyAccountAction extends waMyProfileAction
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
-/*
-        $sp_creditentials = [
-	        'store_department_key' => 59074706,
-	        'store_department_id' => 1408,
-	        'pin_code' => 9671
-        ];
-        
-        $responce = file_get_contents('https://sailplay.ru/api/v1/login/?'.http_build_query($sp_creditentials));
-        if ($responce) {
-	        $result = json_decode($responce);
-	        $sp_token = isset($result->token) ? $result->token : '';
-        }
-        
-        $sp_creditentials = [
-	        'store_department_id' => 1408,
-	        'token' => $sp_token,
-	        'user_phone' => 79265935591,
-	        'history' => 1
-        ];
-        $responce = file_get_contents('https://sailplay.ru/api/v2/users/info/?'.http_build_query($sp_creditentials));
 
+        $params['token'] = shopSailplayHelper::getToken();
+        $phone = wa()->getUser()->get('phone')[0]['value'];
         
+        $params['user_phone'] = $phone;
+        $sp_user_info = shopSailplayHelper::usersInfo($params);
+        //$sp_user_info = wa()->getUser()->get('phone');
+        $this->view->assign('sp_user_info', print_r($sp_user_info, true));
+        
+/*
         print_r('<pre>');
-        print_r(json_decode($responce));
+        print_r();
         print_r('</pre>');
 */
+
     }
 
     protected function getForm()
