@@ -7,7 +7,7 @@
   <files>
     <file path="index.html" custom="0" modified="1">
       <description locale="en_US">Core layout of the ComfortBuy theme family</description>
-      <description locale="ru_RU"/>
+      <description locale="ru_RU"></description>
     </file>
     <file path="comfortbuy.css" custom="0" modified="1">
       <description locale="en_US">Core CSS of the ComfortBuy theme family</description>
@@ -54,7 +54,7 @@
       <description locale="en_US">Display template logo store.</description>
     </file>
     <file path="color.css.html" custom="0" modified="1">
-      <description locale="ru_RU"></description>
+      <description locale="ru_RU"/>
       <description locale="en_US">Color page elements</description>
     </file>
     <file path="scheme.settings.html" custom="0">
