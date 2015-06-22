@@ -7,7 +7,7 @@ return array (
     'port' => false,
     'user' => 'webasyst',
     'password' => 'webAsyst1',
-    'database' => 'webasyst',
+    'database' => 'sela-test1',
     'type' => 'mysqli',
   ),
 );
