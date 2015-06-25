@@ -14,11 +14,11 @@ class boxberryShipping extends waShipping
 		
 		$data = [];
 		$data['weight'] = $this->getTotalWeight();
+		$data['weight'] = str_ireplace(',', '.', $data['weight'])*1000;
 		$data['ordersum'] = $this->getTotalPrice();
 		$data['target'] = $shipping['point_id'];
 
 		$shipping = $this->sendRequest('DeliveryCosts', $data);
-		file_put_contents('data.txt', print_r($shipping,1));
 		if (!isset($shipping['price'])) {return 'Ошибка получения данных';}
 		$arr = array(
 				    'boxberry' => array(
