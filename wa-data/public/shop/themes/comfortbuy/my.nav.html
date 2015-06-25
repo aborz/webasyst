@@ -1,3 +1,7 @@
+<li class="shop {if $my_nav_selected == 'purchases'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myPurchases')}">[`My purchases`]</a>
+</li>
+
 <li class="shop {if $my_nav_selected == 'account'}selected{/if}">
     <a href="{$wa->getUrl('/frontend/myAccount')}">[`My account`]</a>
 </li>
