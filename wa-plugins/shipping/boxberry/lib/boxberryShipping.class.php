@@ -24,10 +24,10 @@ class boxberryShipping extends waShipping
 				    'boxberry' => array(
 				        'name' => 'Доставка в пункт самовывоза', //название варианта доставки, например, “Наземный  транспорт”, “Авиа”, “Express Mail” и т. д.
 				        'description' => 'RUB', //необязательное описание варианта  доставки
-				        'est_delivery' => '', //произвольная строка, содержащая  информацию о примерном времени доставки
+				        'est_delivery' => $shipping['delivery_period'].' рабочих дн.', //произвольная строка, содержащая  информацию о примерном времени доставки
 				        'currency' => 'RUB', //ISO3-код валюты, в которой рассчитана  стоимость  доставки
-				        'rate_min' => '10', //минимальная граница стоимости, если стоимость рассчитана приблизительно
-				        'rate_max' => '100', //максимальная граница стоимости, если стоимость рассчитана приблизительно
+				        'rate_min' => '', //минимальная граница стоимости, если стоимость рассчитана приблизительно
+				        'rate_max' => '', //максимальная граница стоимости, если стоимость рассчитана приблизительно
 				        'rate' => $shipping['price'],//$shipping['price'],
 				    ),
 				);
@@ -40,6 +40,7 @@ class boxberryShipping extends waShipping
 		$data['method'] = $method;
 		$request = 'http://api.boxberry.de/json.php?'.http_build_query($data);
 		$response = file_get_contents($request);
+		//file_put_contents('data.txt', $request);
 		return json_decode($response,true);
 	}
 
@@ -118,7 +119,6 @@ class boxberryShipping extends waShipping
     {
         return 'kg';
     }
-
 
     public function requestedAddressFields()
     {
