@@ -49,6 +49,41 @@ return array(
             'action' => 'myOrders',
             'secure' => true,
         ),
+        'my/earn/?' => array(
+            'module' => 'frontend',
+            'action' => 'myEarn',
+            'secure' => true,
+        ),
+        'my/selaspecial/?' => array(
+            'module' => 'frontend',
+            'action' => 'mySelaSpecial',
+            'secure' => true,
+        ),
+        'my/wishlist/?' => array(
+            'module' => 'frontend',
+            'action' => 'myWishlist',
+            'secure' => true,
+        ),
+        'my/feedback/?' => array(
+            'module' => 'frontend',
+            'action' => 'myFeedback',
+            'secure' => true,
+        ),
+        'my/ideas/?' => array(
+            'module' => 'frontend',
+            'action' => 'myIdeas',
+            'secure' => true,
+        ),
+        'my/contests/?' => array(
+            'module' => 'frontend',
+            'action' => 'myContests',
+            'secure' => true,
+        ),
+        'my/rateservice/?' => array(
+            'module' => 'frontend',
+            'action' => 'myRateService',
+            'secure' => true,
+        ),
         'my/affiliate/?' => array(
             'module' => 'frontend',
             'action' => 'myAffiliate',
@@ -114,6 +149,41 @@ return array(
             'action' => 'myOrders',
             'secure' => true,
         ),
+        'my/earn/?' => array(
+            'module' => 'frontend',
+            'action' => 'myEarn',
+            'secure' => true,
+        ),
+        'my/selaspecial/?' => array(
+            'module' => 'frontend',
+            'action' => 'mySelaSpecial',
+            'secure' => true,
+        ),
+        'my/wishlist/?' => array(
+            'module' => 'frontend',
+            'action' => 'myWishlist',
+            'secure' => true,
+        ),
+        'my/feedback/?' => array(
+            'module' => 'frontend',
+            'action' => 'myFeedback',
+            'secure' => true,
+        ),
+        'my/ideas/?' => array(
+            'module' => 'frontend',
+            'action' => 'myIdeas',
+            'secure' => true,
+        ),
+        'my/contests/?' => array(
+            'module' => 'frontend',
+            'action' => 'myContests',
+            'secure' => true,
+        ),
+        'my/rateservice/?' => array(
+            'module' => 'frontend',
+            'action' => 'myRateService',
+            'secure' => true,
+        ),
         'my/affiliate/?' => array(
             'module' => 'frontend',
             'action' => 'myAffiliate',
@@ -177,6 +247,41 @@ return array(
             'url' => 'my/orders/?',
             'module' => 'frontend',
             'action' => 'myOrders',
+            'secure' => true,
+        ),
+        'my/earn/?' => array(
+            'module' => 'frontend',
+            'action' => 'myEarn',
+            'secure' => true,
+        ),
+        'my/selaspecial/?' => array(
+            'module' => 'frontend',
+            'action' => 'mySelaSpecial',
+            'secure' => true,
+        ),
+        'my/wishlist/?' => array(
+            'module' => 'frontend',
+            'action' => 'myWishlist',
+            'secure' => true,
+        ),
+        'my/feedback/?' => array(
+            'module' => 'frontend',
+            'action' => 'myFeedback',
+            'secure' => true,
+        ),
+        'my/ideas/?' => array(
+            'module' => 'frontend',
+            'action' => 'myIdeas',
+            'secure' => true,
+        ),
+        'my/contests/?' => array(
+            'module' => 'frontend',
+            'action' => 'myContests',
+            'secure' => true,
+        ),
+        'my/rateservice/?' => array(
+            'module' => 'frontend',
+            'action' => 'myRateService',
             'secure' => true,
         ),
         'my/affiliate/?' => array(

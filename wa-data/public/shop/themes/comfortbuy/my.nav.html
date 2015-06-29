@@ -1,9 +1,9 @@
-<li class="shop {if $my_nav_selected == 'purchases'}selected{/if}">
-    <a href="{$wa->getUrl('/frontend/myPurchases')}">[`My purchases`]</a>
-</li>
-
 <li class="shop {if $my_nav_selected == 'account'}selected{/if}">
     <a href="{$wa->getUrl('/frontend/myAccount')}">[`My account`]</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'purchases'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myPurchases')}">[`My purchases`]</a>
 </li>
 
 <li class="shop {if $my_nav_selected == 'orders'}selected{/if}">
@@ -21,6 +21,34 @@
         <a href="{$wa->getUrl('/frontend/myProfile')}">[`My profile`]</a>
     </li>
 {*/if*}
+
+<li class="shop {if $my_nav_selected == 'earn'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myEarn')}">Заработать дополнительные бонусы</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'selaspecial'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/mySelaSpecial')}">Спец. предложения от SELA</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'wishlist'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myWishlist')}">Список желаемых покупок</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'feedback'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myFeedback')}">Обратная связь</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'ideas'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myIdeas')}">Мои идеи и предложения</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'contests'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myContests')}">Конкурсы</a>
+</li>
+
+<li class="shop {if $my_nav_selected == 'rateservice'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myRateService')}">Оцени сервис</a>
+</li>
 
 <!-- plugin hook: 'frontend_my_nav' -->
 {* @event frontend_my_nav.%plugin_id% *}
