@@ -25,7 +25,7 @@ class shopSailplayHelper
 	        'store_department_id' => self::STORE_DEPARTMENT_ID,
         ];
         $sp_creditentials['token'] = isset($params['token']) ? $params['token'] : '';
-        $sp_creditentials['user_phone'] = isset($params['user_phone']) ? $params['user_phone'] : '7';
+        $sp_creditentials['user_phone'] = isset($params['user_phone']) ? $params['user_phone'] : wa()->getUser()->get('phone')[0]['value'];
         $sp_creditentials['history'] = isset($params['history']) ? $params['history'] : 1;
         
         $response = file_get_contents('https://sailplay.ru/api/v2/users/info/?'.http_build_query($sp_creditentials));
@@ -36,4 +36,32 @@ class shopSailplayHelper
 	}
 	
 	
+	public static function eventsList($params) {
+        $sp_creditentials = [
+	        'store_department_id' => self::STORE_DEPARTMENT_ID,
+        ];
+        $sp_creditentials['token'] = isset($params['token']) ? $params['token'] : '';
+        
+        $response = file_get_contents('https://sailplay.ru/api/v2/events/list/?'.http_build_query($sp_creditentials));
+        if ($response) {
+	        $result = json_decode($response);
+        }
+        return $result;
+	}	
+
+
+	public static function getUserAuthHash() {
+        $sp_creditentials = [
+	        'store_department_id' => self::STORE_DEPARTMENT_ID,
+        ];
+        $sp_creditentials['token'] = self::getToken();
+        $sp_creditentials['user_phone'] = wa()->getUser()->get('phone')[0]['value'];
+        
+        $response = file_get_contents('https://sailplay.ru/api/v2/users/info/?'.http_build_query($sp_creditentials));
+        if ($response) {
+	        $result = json_decode($response,true);
+	        $result = $result['auth_hash'];
+        }
+        return $result;
+	}	
 }

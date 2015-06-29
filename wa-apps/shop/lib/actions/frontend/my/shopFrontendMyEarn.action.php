@@ -20,12 +20,10 @@ class shopFrontendMyEarnAction extends waMyProfileAction
         }
 
         $params['token'] = shopSailplayHelper::getToken();
-        $phone = wa()->getUser()->get('phone')[0]['value'];
-        
-        $params['user_phone'] = $phone;
-        $sp_user_info = shopSailplayHelper::usersInfo($params);
+        $sp_user_info = '';shopSailplayHelper::getUserAuthHash();
         //$sp_user_info = wa()->getUser()->get('phone');
         $this->view->assign('sp_user_info', print_r($sp_user_info, true));
+        $this->view->assign('sp_user_auth_hash', shopSailplayHelper::getUserAuthHash());
         
 /*
         print_r('<pre>');

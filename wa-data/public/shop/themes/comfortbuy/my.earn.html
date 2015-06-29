@@ -1,4 +1,5 @@
 <link href="{$wa_theme_url}my.earn.css" rel="stylesheet" type="text/css">
+<script charset="utf-8" type="text/javascript" src="{$wa_url}wa-content/js/sailplay-hub/sailplay_hub.min.js"></script>
 <div class="sidebar left230px">
     {include file="sidebar.html"}
 </div>
@@ -12,57 +13,38 @@
     
     <div class="info-page menu">{$wa->myNav()}</div>
    
-    <h1>Список заданий</h1>
+	<pre>
+		{$sp_user_info}
+	</pre>
 
-	<script>
-	    SAILPLAY.send('init', {
-	        partner_id: 5,
-	        dep_id: 55,
-	        domain: 'https://crm.papajohns.ru',
-	        lang: 'ru'
-	    });
+    <h1>Список заданий</h1>
+//!incomplete
+<script>
+	SAILPLAY.send('init', { partner_id: 1127 }); //инициируем модуль для партнера с айди = 206
+
+	SAILPLAY.on('init.success', function(){ //после успешной инициализации
+		SAILPLAY.send('login', '{$sp_user_auth_hash}'); //авторизуем пользователя
+	});
+
+	SAILPLAY.on('login.success', function(){ //после успешной авторизации
+		SAILPLAY.send('load.user.info'); //загружаем данные пользователя
+		SAILPLAY.send('load.user.history'); //загружаем историю действий пользователя
+		SAILPLAY.send('load.gifts.list'); //загружаем список подарков
+		SAILPLAY.send('load.badges.list'); //загружаем список бейджиков
+		SAILPLAY.send('load.actions.list'); //загружаем список действий
+	});
 	
-	    SAILPLAY.on('init.success', function () {
-	        SAILPLAY.send('pj.bootstrap', document.body);
-	                    SAILPLAY.send('pj.pizzameter', 280);
-	            SAILPLAY.send('login', '9000ded44b4f7bd84401c716d60d32e4d947717c'); //авторизуем пользователя
-	            if (typeof showStep3SailplayWidget === 'function') {
-	                showStep3SailplayWidget();
-	            }
-	            });
-	
-	    SAILPLAY.on('login.success', function () {
-	        SAILPLAY.send('load.user.info'); //загружаем данные пользователя
-	        SAILPLAY.send('load.user.history'); //загружаем историю действий пользователя
-	    });
-	
-	    SAILPLAY.on('load.user.info.success', function(res){
-	        SAILPLAY.send('badge.receive.show', res.last_badge);
-	    });
-	
-	    SAILPLAY.on('gifts.purchase.success', function(res){
-	        var st = $(window).scrollTop();
-	        var h = $(window).height();
-	        var $t = $("#b-modal__s-gift-add");
-	        var top = st+(h-$t.height())/2;
-	        $t.show()
-	            .css({
-	                top: '-100px',
-	                opacity: 0
-	            }).animate({
-	                top: top<0?0:top,
-	                opacity: 1
-	            },250);
-	
-	    });
-	
-	    var showLoginPopup = function(){
-	        $('a[href="#b-login"]:first').click()
-	    };
-	    SAILPLAY.on('actions.perform.auth.error', showLoginPopup);
-	    SAILPLAY.on('gifts.login.request', showLoginPopup);
-	</script>
-	
+/*
+	SAILPLAY.on('load.actions.list.success', function(data){ //после загрузки списка действий
+		
+console.dir(data)
+	});
+*/
+SAILPLAY.on('load.actions.list.success', function(data){ //после загрузки списка действий
+console.dir(data)
+  //SAILPLAY.send('actions.perform', data.actions[1]); //пользователь выполняет второе действие из списка
+});
+</script>	
     <div class="actions_wrapper">
 	    <p class="myriad">Выполняйте задания и получайте за них дополнительные баллы</p>
 	    <ul class="actions_list">
