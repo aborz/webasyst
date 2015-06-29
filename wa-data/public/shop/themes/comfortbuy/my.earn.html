@@ -1,3 +1,4 @@
+<link href="{$wa_theme_url}my.earn.css" rel="stylesheet" type="text/css">
 <div class="sidebar left230px">
     {include file="sidebar.html"}
 </div>
@@ -11,46 +12,127 @@
     
     <div class="info-page menu">{$wa->myNav()}</div>
    
-    <h1>[`My orders`]</h1>
+    <h1>Список заданий</h1>
 
-	<div class="sidebar left230px">
-		<div class="block">
-			<img style="" src="/tmp/sela_red_card.png">
-		</div>
-	</div>
-
-	<div class="content">
-		<div class="block fields">
+	<script>
+	    SAILPLAY.send('init', {
+	        partner_id: 5,
+	        dep_id: 55,
+	        domain: 'https://crm.papajohns.ru',
+	        lang: 'ru'
+	    });
 	
-			<div class="field-group">
-				<div class="field">
-					<div class="name">Номер карты:</div>
-					<div class="value"><strong>050000000001</strong></div>
-				</div>
-				<div class="field">
-					<div class="name">Статус карты:</div>
-					<div class="value"><strong>Стилист</strong></div>
-				</div>
-			</div>
-		
-			<div class="field-group">
-				<div class="field">
-					<div class="name">Общая сумма покупок по карте:</div>
-					<div class="value"><strong>3 580 руб.</strong></div>
-				</div>
-				<div class="field">
-					<div class="name">Общая сумма бонусов, доступных к использованию:</div>
-					<div class="value"><strong>700</strong></div>
-				</div>
-			</div>
+	    SAILPLAY.on('init.success', function () {
+	        SAILPLAY.send('pj.bootstrap', document.body);
+	                    SAILPLAY.send('pj.pizzameter', 280);
+	            SAILPLAY.send('login', '9000ded44b4f7bd84401c716d60d32e4d947717c'); //авторизуем пользователя
+	            if (typeof showStep3SailplayWidget === 'function') {
+	                showStep3SailplayWidget();
+	            }
+	            });
 	
-		</div>
-	</div>
-
-	<pre>
-		{$sp_user_info}
-	</pre>
-    <img src="/tmp/card_milestones.png">
+	    SAILPLAY.on('login.success', function () {
+	        SAILPLAY.send('load.user.info'); //загружаем данные пользователя
+	        SAILPLAY.send('load.user.history'); //загружаем историю действий пользователя
+	    });
+	
+	    SAILPLAY.on('load.user.info.success', function(res){
+	        SAILPLAY.send('badge.receive.show', res.last_badge);
+	    });
+	
+	    SAILPLAY.on('gifts.purchase.success', function(res){
+	        var st = $(window).scrollTop();
+	        var h = $(window).height();
+	        var $t = $("#b-modal__s-gift-add");
+	        var top = st+(h-$t.height())/2;
+	        $t.show()
+	            .css({
+	                top: '-100px',
+	                opacity: 0
+	            }).animate({
+	                top: top<0?0:top,
+	                opacity: 1
+	            },250);
+	
+	    });
+	
+	    var showLoginPopup = function(){
+	        $('a[href="#b-login"]:first').click()
+	    };
+	    SAILPLAY.on('actions.perform.auth.error', showLoginPopup);
+	    SAILPLAY.on('gifts.login.request', showLoginPopup);
+	</script>
+	
+    <div class="actions_wrapper">
+	    <p class="myriad">Выполняйте задания и получайте за них дополнительные баллы</p>
+	    <ul class="actions_list">
+			<!-- Рассказать о покупке ВК -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo vk share"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Рассказать о покупке в ВК</p>
+				</div>
+			</li>
+			<!-- Рассказать о покупке ОК -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo оk share"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Рассказать о покупке в ОК</p>
+				</div>
+			</li>
+			<!-- Рассказать о покупке ТВ -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo tw share"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Рассказать о покупке в TW</p>
+				</div>
+			</li>
+			<!-- Рассказать о покупке ФБ -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo fb share"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Рассказать о покупке в FB</p>
+				</div>
+			</li>
+			<!-- Вступить в группу в ВК -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo vk like"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Вступить в группу в ВК</p>
+				</div>
+			</li>
+			<!-- Вступить в группу в ОК -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo ok like"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Вступить в группу в ОК</p>
+				</div>
+			</li>
+			<!-- Вступить в группу в ТВ -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo tw like"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Подписаться на нас в TW</p>
+				</div>
+			</li>
+			<!-- Вступить в группу в ФБ -->
+			<li colspan="1" class="action">
+			<div class="action_card" data-ng-click="earnPoints(action)">
+				<div class="social_logo fb like"></div>
+				<div class="action_points">10</div>
+				<p class="myriad">Вступить в группу в FB</p>
+				</div>
+			</li>
+	    </ul>
+    </div>
+    
     
     
 </div>

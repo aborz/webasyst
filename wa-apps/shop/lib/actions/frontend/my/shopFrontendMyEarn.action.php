@@ -2,7 +2,7 @@
 /**
  * User earn in customer account, and submit controller for it.
  */
-class shopFrontendMyEarn extends waMyProfileAction
+class shopFrontendMyEarnAction extends waMyProfileAction
 {
     public function execute()
     {
