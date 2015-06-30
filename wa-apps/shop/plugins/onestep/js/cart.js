@@ -411,6 +411,35 @@ $(function () {
         },
         addressChange: function () {
             var self = this;
+		    //boxberry hack
+		    $("input.wa-address").change(function () {
+                if ($(this).data('ignore')) {
+                    return true;
+                }
+                var shipping_id = $("input[name=shipping_id]:checked").val();
+                var loaded_flag = false;
+                setTimeout(function () {
+                    if (!loaded_flag && !$(".shipping-" + shipping_id + " .price .loading").length) {
+                        $(".shipping-" + shipping_id + " .price").append(' <i class="icon16 loading"></i>');
+                    }
+                }, 300);
+                var v = $(this).val();
+                var name = $(this).attr('name').replace(/customer_\d+/, '');
+                $(".checkout-options input:radio").each(function () {
+                    if ($(this).val() != shipping_id) {
+                        var el = $(this).closest('li').find('[name="customer_' + $(this).val() + name + '"]');
+                        if (el.attr('type') != 'hidden') {
+                            el.val(v);
+                            $(this).data('changed', 1);
+                        }
+                    }
+                });
+                $.post(self.options.shipping_url, $("form").serialize(), function (response) {
+                    loaded_flag = true;
+                    self.responseCallback(shipping_id, response.data);
+                }, "json");
+            });
+		    //end of boxberry hack
             $(".wa-address").find('input,select').change(function () {
                 if ($(this).data('ignore')) {
                     return true;

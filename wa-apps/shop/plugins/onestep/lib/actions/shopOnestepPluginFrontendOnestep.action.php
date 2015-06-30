@@ -604,6 +604,7 @@ class shopOnestepPluginFrontendOnestepAction extends shopFrontendAction {
         }
 
         // A/B tests
+/*
         $abtest_variants_model = new shopAbtestVariantsModel();
         foreach (waRequest::cookie() as $k => $v) {
             if (substr($k, 0, 5) == 'waabt') {
@@ -617,6 +618,7 @@ class shopOnestepPluginFrontendOnestepAction extends shopFrontendAction {
                 }
             }
         }
+*/
 
         $order['params']['ip'] = waRequest::getIp();
         $order['params']['user_agent'] = waRequest::getUserAgent();

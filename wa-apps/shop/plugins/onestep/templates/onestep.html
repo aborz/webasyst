@@ -61,13 +61,13 @@
     .onestep-cart .wa-form .wa-field { clear: left; margin: 0; padding-top: 3px; }
     .onestep-cart .wa-form .wa-field .wa-name { float: left; width: 155px; padding-top: 0.05em; padding-bottom: 10px; font-size: 0.95em; }
     .onestep-cart .wa-form .wa-field.wa-separator { height: 10px; }
-    .onestep-cart .wa-form .wa-field .wa-value { margin-left: 180px; margin-bottom: 5px; position: relative; }
+    .onestep-cart .wa-form .wa-field .wa-value { margin-left: 0px; margin-bottom: 5px; position: relative; }
     .onestep-cart .wa-form .wa-field .wa-value input.wa-error { border: 2px solid red; }
     .onestep-cart .wa-form .wa-field .wa-value .wa-error-msg { font-size: 0.9em; color: red; display: block; }
     .onestep-cart .wa-form .wa-field .wa-value input[type="text"],
     .onestep-cart .wa-form .wa-field .wa-value input[type="email"],
     .onestep-cart .wa-form .wa-field .wa-value input[type="password"] { width: 30%; min-width: 260px;  margin:0;}
-    .onestep-cart .wa-form .wa-field .wa-value textarea { min-width: 300px; height: 70px; }
+    .onestep-cart .wa-form .wa-field .wa-value textarea { min-width: 260px; height: 70px; }
     .onestep-cart .wa-form .wa-field .wa-value input.wa-captcha-input { width: 100px; min-width: 0; }
     .onestep-cart .wa-form .wa-field .wa-value label { display: block; }
     .onestep-cart .wa-form .wa-field .wa-value .wa-captcha img { margin-left: 0; }
@@ -118,7 +118,7 @@
     .onestep-cart .checkout-header h3 a { text-transform: uppercase; text-decoration: none; color: #777; }
     .onestep-cart .checkout-header h3 a:hover { color: #a00 !important; }
     .onestep-cart .checkout-header strong { color: #666; }
-    .onestep-cart .checkout { margin: 20px 70px 50px; border-top: 3px solid #888; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) }
+    .onestep-cart .checkout { margin: 20px 20px 50px; border-top: 3px solid #888; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) }
     .onestep-cart .checkout ul.checkout-options { padding-left: 25px; }
     .onestep-cart .checkout ul.checkout-options li { list-style: none; position: relative; margin-bottom: 50px; clear: both; }
     .onestep-cart .checkout ul.checkout-options li h3 { font-weight: bold; margin-bottom: 10px; }
@@ -152,6 +152,9 @@
     .onestep-cart .checkout .errormsg.inline { display: inline; margin-left: 10px; }
     .onestep-cart .checkout .checkout-step h3{ color: #000; }
     .onestep-cart .error { color: #a33; }
+    .onestep-cart .checkout div.checkout-step.step-contactinfo{ width: 40%; float: left; border-right:none; }
+    .onestep-cart .checkout div.checkout-step.step-shipping { margin-left: 40%; overflow: hidden; }
+    .onestep-cart .checkout div.checkout-step.step-payment { margin-left: 40%; overflow: hidden; }
 
     @media screen and (max-width: 760px) {
         .onestep-cart table.cart td { padding: 7px 2px 10px; display: inline-block; border: 0; }
@@ -289,16 +292,16 @@
             </tr>
 
             <!-- checkout -->
+                    {if shopAffiliate::isEnabled() && !empty($add_affiliate_bonus)}
             <tr class="no-border">
                 <td colspan="4">
 
-                    {if shopAffiliate::isEnabled() && !empty($add_affiliate_bonus)}
                         <em class="affiliate float-right">{sprintf("[`This order will add +%s points to your affiliate bonus.`]", $add_affiliate_bonus)}</em>
-                    {/if}
                 </td>
 
                 <td>&nbsp;</td>
             </tr>
+                    {/if}
         </table>
 
         <!-- plugin hook: 'frontend_cart' -->

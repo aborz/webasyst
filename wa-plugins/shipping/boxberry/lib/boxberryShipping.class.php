@@ -47,14 +47,10 @@ class boxberryShipping extends waShipping
     public function customFields(waOrder $order)
     {
         return array(
-				'MControl' => array( //как бы массивчик параметров
-		            'control_type'=>waHtmlControl::CUSTOM, //декларация кастомного(не стандартного(CHECKBOX, TEXTAREA, etc...)) элемента
-		            'title' => 'Пункт самовывоза',
-		            'description' => '<a href="#" onclick="boxberry.open(boxberry_input); return false">Выбрать</a>'
-		            //'callback' => array('boxberryShipping', 'myFunction') //Декларация(classname, methodname) коллбек метода моего плагина(deliveryShipping) который ретурнит HTML код выводимый на странице фронтенда списка доступных доставок сайта
-					),
 				'pos_address' => array(
+		            'title' => 'Пункт самовывоза:',
 		            'control_type' => waHtmlControl::TEXTAREA,
+		            'description' => '<script type="text/javascript"src="http://points.boxberry.ru/js/boxberry.js" /></script><a href="#" onclick="boxberry.open(boxberry_input); return false">Выбрать</a>',
 		            'id' => 'pos_address',
 		            'name' => 'pos_address',
 		            'value' => '',
@@ -102,12 +98,6 @@ class boxberryShipping extends waShipping
     {
         $data = wa()->getStorage()->get('shop/checkout');
         return isset($data[$key]) ? $data[$key] : $default;
-    }
-
-	public function myFunction() {  
-        $view = wa()->getView();
-        //$out = $view->fetch('/Users/bstuff/Sites/sela.ru/wa-plugins/shipping/boxberry/templates/form113.html'); //вьюшка с ХТМЛ кодом для вывода
-        return $out;
     }
 
     public function allowedCurrency()

@@ -67,21 +67,6 @@
     {/foreach}
 </ul>
 <script type="text/javascript">
-    //boxberry hack
-	function boxberry_input(result){
-		// устанавливаем в скрытое поле ID ПВЗ
-		document.querySelector('input[id^=point_id]').value = result.id;
-		// показываем пользователю название точки и адрес доствки
-		document.querySelector('textarea[id^=pos_address]').innerHTML = result.name +'\n'+ result.address 
-		$("input.wa-address").trigger("change");
-	};
-	
-	$('textarea[id^=pos_address]').attr('readonly', 'true');
-	$('input[id^=point_id]').attr('readonly', 'true');
-	$('input[id^=point_id]').prop('hidden', 'true');
-
-    //end of boxberry hack
-
     $(function () {
 
     {if $external_methods}
@@ -238,7 +223,7 @@
 
         $.post("{$wa->getUrl('/frontend/shipping')}", $("form").serialize(), function (response) {
             loaded_flag = true;
-            responseCallback(shipping_id, response.data);
+            .onestep.responseCallback(shipping_id, response.data);
         }, "json");
     });
     //end of boxberry hack
