@@ -81,7 +81,13 @@
 		$('input[id^=point_id]').prop('hidden', 'true');
 	
 	    //end of boxberry hack
-
+		//pickpoint
+		function pickpoint_input(result){
+			// устанавливаем в скрытое поле ID терминала
+			document.querySelector('input[id^=point_id]').value=result['id'];
+			// показываем пользователю название точки и адрес доствки
+			document.querySelector('textarea[id^=pos_address]').innerHTML = result['name'];		}
+		//end of pickpoint
         $(function() {
         {if $external_methods}
             $.get("{$wa->getUrl('/frontend/shipping')}", {
