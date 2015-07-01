@@ -56,8 +56,8 @@ class boxberryShipping extends waShipping
 		            'value' => '',
 					),
 				'point_id' => array(
-		            'control_type' => waHtmlControl::INPUT,
-		            'title' => 'Идентификатор пункта вывоза',
+		            'control_type' => waHtmlControl::HIDDEN,
+		            'title' => '',
 		            'id' => 'point_id',
 		            'name' => 'point_id',
 		            'value' => '',

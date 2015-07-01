@@ -58,14 +58,16 @@ class pickpointShipping extends waShipping
 		            'value' => '',
 					),
 				'point_id' => array(
-		            'control_type' => waHtmlControl::INPUT,
-		            'title' => 'Идентификатор пункта',
+		            'control_type' => waHtmlControl::HIDDEN,
+		            'title' => '',
 		            'id' => 'pppoint_id',
 		            'name' => 'pppoint_id',
 		            'value' => '',
  			        'class' => 'wa-address',
-					)
-
+ 			        'options' => array(
+	 			        	'id' => 'aidishnik',
+ 			        	),
+					),
 				);
     }
     
