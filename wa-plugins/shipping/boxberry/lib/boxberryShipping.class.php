@@ -48,7 +48,7 @@ class boxberryShipping extends waShipping
     {
         return array(
 				'pos_address' => array(
-		            'title' => 'Пункт самовывоза:',
+		            'title' => 'Пункт самовывоза',
 		            'control_type' => waHtmlControl::TEXTAREA,
 		            'description' => '<script type="text/javascript"src="http://points.boxberry.ru/js/boxberry.js" /></script><a href="#" onclick="boxberry.open(boxberry_input); return false">Выбрать</a>',
 		            'id' => 'pos_address',
@@ -57,6 +57,7 @@ class boxberryShipping extends waShipping
 					),
 				'point_id' => array(
 		            'control_type' => waHtmlControl::INPUT,
+		            'title' => 'Идентификатор пункта вывоза',
 		            'id' => 'point_id',
 		            'name' => 'point_id',
 		            'value' => '',

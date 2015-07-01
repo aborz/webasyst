@@ -50,7 +50,7 @@ class pickpointShipping extends waShipping
     {
         return array(
 				'pos_address' => array(
-		            'title' => 'Пункт самовывоза:',
+		            'title' => 'Пункт самовывоза',
 		            'control_type' => waHtmlControl::TEXTAREA,
 		            'description' => '<script type="text/javascript" src="http://pickpoint.ru/select/postamat.js"></script><a href="#" onclick="PickPoint.open(pickpoint_input, {fromcity:\'Ростов-на-Дону\'});return false">Выбрать</a>',
 		            'id' => 'pppos_address',
@@ -59,6 +59,7 @@ class pickpointShipping extends waShipping
 					),
 				'point_id' => array(
 		            'control_type' => waHtmlControl::INPUT,
+		            'title' => 'Идентификатор пункта',
 		            'id' => 'pppoint_id',
 		            'name' => 'pppoint_id',
 		            'value' => '',
