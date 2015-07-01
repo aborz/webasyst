@@ -82,11 +82,16 @@
 	
 	    //end of boxberry hack
 		//pickpoint
+		$('textarea[id^=pppos_address]').attr('readonly', 'true');
+		$('input[id^=pppoint_id]').attr('readonly', 'true');
+		$('input[id^=pppoint_id]').prop('hidden', 'true');
 		function pickpoint_input(result){
 			// устанавливаем в скрытое поле ID терминала
-			document.querySelector('input[id^=point_id]').value=result['id'];
+			document.querySelector('input[id^=pppoint_id]').value=result['id'];
 			// показываем пользователю название точки и адрес доствки
-			document.querySelector('textarea[id^=pos_address]').innerHTML = result['name'];		}
+			document.querySelector('textarea[id^=pppos_address]').innerHTML = result['name']+'\n'+result['address']+'\nТарифная зона:'+result['zone']+
+'\nКоэффициент:'+result['coeff'];
+		}
 		//end of pickpoint
         $(function() {
         {if $external_methods}
