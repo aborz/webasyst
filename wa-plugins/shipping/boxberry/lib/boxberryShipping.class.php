@@ -10,7 +10,7 @@ class boxberryShipping extends waShipping
 	{
 		$shipping = $this->getInfoFromRequest();
 		if(!$shipping) {$shipping = $this->getInfoFromStorage();}
-		if(!$shipping) {return [];}
+		if(!$shipping) {return [array('rate' => null, 'comment' => 'Для расчета стоимости доставки укажите пункт вывоза заказа')];}
 		
 		$data = [];
 		$data['weight'] = $this->getTotalWeight();
@@ -69,7 +69,9 @@ class boxberryShipping extends waShipping
     
     private function getInfoFromStorage()
     {
+/*
 	    $data = $this->getSessionData('params', array());
+		file_put_contents('data.txt', print_r($data,1));
 		if (!isset($data['shipping'])) {
 			return false;
 		} else if (isset($data['shipping']['point_id'])) {
@@ -78,6 +80,7 @@ class boxberryShipping extends waShipping
 				return $shipping;
 			}
 		}
+*/
 	    return false;
     }
 

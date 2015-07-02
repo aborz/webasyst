@@ -10,23 +10,34 @@ class pickpointShipping extends waShipping
 	{
 		$shipping = $this->getInfoFromRequest();
 		if(!$shipping) {$shipping = $this->getInfoFromStorage();}
-		if(!$shipping) {return [];}
-		
-		$data = [];
-		$data['weight'] = $this->getTotalWeight();
-		$data['weight'] = str_ireplace(',', '.', $data['weight'])*1000;
-		$data['ordersum'] = $this->getTotalPrice();
-		$data['target'] = $shipping['point_id'];
+		if(!$shipping) {return [array('rate' => null, 'comment' => 'Для расчета стоимости доставки укажите пункт вывоза заказа')];}
 
-		$shipping = $this->sendRequest('DeliveryCosts', $data);
-		if (!isset($shipping['price'])) {return [];}
-		$shipping['delivery_period'] = 2;
-		$shipping['price'] = rand(15000,30000)/100;
+		$this->sessionId = $this->getSessionID();
+		$data = [];
+		$data['SessionId'] = $this->sessionId;
+		$data['IKN'] = $this->getSettings('IKN');
+		$data['FromCity'] = 'Москва';
+		$data['FromRegion'] = 'Московская обл.';
+		$data['PTNumber'] = '7701-063';
+		$data['Length'] = '50';
+		$data['Depth'] = '30';
+		$data['Width'] = '40';
+		$data['Weight'] = $this->getTotalWeight();
+		$data['Weight'] = str_ireplace(',', '.', $data['Weight']);
+
+		$shipping = $this->sendRequest('calctariff', $data);
+		if (!isset($shipping['Services'])) {
+			return 'Ошибка';
+		} else {
+			$shipping = $shipping['Services']['0'];
+		}
+		$shipping['price'] = $shipping['NDS'] + $shipping['Tariff'];
+		$this->getSessionID();
 		$arr = array(
-				    'boxberry' => array(
+				    'pickpoint' => array(
 				        'name' => 'Доставка в пункт самовывоза', //название варианта доставки, например, “Наземный  транспорт”, “Авиа”, “Express Mail” и т. д.
 				        'description' => 'RUB', //необязательное описание варианта  доставки
-				        'est_delivery' => $shipping['delivery_period'].' рабочих дн.', //произвольная строка, содержащая  информацию о примерном времени доставки
+				        'est_delivery' => '', //произвольная строка, содержащая  информацию о примерном времени доставки
 				        'currency' => 'RUB', //ISO3-код валюты, в которой рассчитана  стоимость  доставки
 				        'rate_min' => '', //минимальная граница стоимости, если стоимость рассчитана приблизительно
 				        'rate_max' => '', //максимальная граница стоимости, если стоимость рассчитана приблизительно
@@ -36,23 +47,48 @@ class pickpointShipping extends waShipping
 		return $arr;
 	}
 
-	private function sendRequest($method, $data)
+	private function sendRequest($method, $data = [])
 	{
-		$data['token'] = $this->getSettings('api_id');
-		$data['method'] = $method;
-		$request = 'http://api.boxberry.de/json.php?'.http_build_query($data);
-		$response = file_get_contents($request);
-		//file_put_contents('data.txt', $request);
-		return json_decode($response,true);
-	}
+		if (isset($this->sessionId)) {
+			$data['SessionId'] = $this->sessionId;
+		}
+		$data = json_encode($data);
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, 'http://e-solution.pickpoint.ru/api/'. $method);
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 50);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 60);
 
+		$res = curl_exec($curl);
+		curl_close($curl);
+		
+		$res = json_decode($res,true);
+		
+		return $res;
+	}
+	
+	private function getSessionID()
+	{
+		$data = [];
+		$data['Login'] = $this->getSettings('login');
+		$data['Password'] = $this->getSettings('password');
+
+		$res = $this->sendRequest('login', $data);
+		if (!$res['SessionId']) {return false;}
+
+		return $res['SessionId'];
+	}
+	
     public function customFields(waOrder $order)
     {
         return array(
 				'pos_address' => array(
 		            'title' => 'Пункт самовывоза',
 		            'control_type' => waHtmlControl::TEXTAREA,
-		            'description' => '<script type="text/javascript" src="http://pickpoint.ru/select/postamat.js"></script><a href="#" onclick="PickPoint.open(pickpoint_input, {fromcity:\'Ростов-на-Дону\'});return false">Выбрать</a>',
+		            'description' => '<script type="text/javascript" src="http://pickpoint.ru/select/postamat.js"></script><a href="#" onclick="PickPoint.open(pickpoint_input, {fromcity:\'Москва\'});return false">Выбрать</a>',
 		            'id' => 'pppos_address',
 		            'name' => 'pppos_address',
 		            'value' => '',
@@ -60,8 +96,8 @@ class pickpointShipping extends waShipping
 				'point_id' => array(
 		            'control_type' => waHtmlControl::HIDDEN,
 		            'title' => '',
-		            'id' => 'pppoint_id',
-		            'name' => 'pppoint_id',
+		            'id' => 'point_id',
+		            'name' => 'point_id',
 		            'value' => '',
  			        'class' => 'wa-address',
  			        'options' => array(
@@ -73,6 +109,7 @@ class pickpointShipping extends waShipping
     
     private function getInfoFromStorage()
     {
+/*
 	    $data = $this->getSessionData('params', array());
 		if (!isset($data['shipping'])) {
 			return false;
@@ -82,6 +119,7 @@ class pickpointShipping extends waShipping
 				return $shipping;
 			}
 		}
+*/
 	    return false;
     }
 
