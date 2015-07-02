@@ -89,8 +89,8 @@ class pickpointShipping extends waShipping
 		            'title' => 'Пункт самовывоза',
 		            'control_type' => waHtmlControl::TEXTAREA,
 		            'description' => '<script type="text/javascript" src="http://pickpoint.ru/select/postamat.js"></script><a href="#" onclick="PickPoint.open(pickpoint_input, {fromcity:\'Москва\'});return false">Выбрать</a>',
-		            'id' => 'pppos_address',
-		            'name' => 'pppos_address',
+		            'id' => 'pos_address',
+		            'name' => 'pos_address',
 		            'value' => '',
 					),
 				'point_id' => array(

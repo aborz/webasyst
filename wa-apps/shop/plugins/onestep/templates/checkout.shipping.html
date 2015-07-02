@@ -74,7 +74,7 @@
 			var point_id = $("input[name='shipping_" + shipping_id + "[point_id]']");
 			point_id.attr("id", "shipping_" + shipping_id + "[point_id]']");
 			document.getElementById("shipping_" + shipping_id + "[point_id]']").value = result.id;
-			document.querySelector('textarea[id^=pos_address]').innerHTML = result.name +'\n'+ result.address 
+			document.querySelector('textarea[name^=shipping_' + shipping_id + ']').innerHTML = result.name +'\n'+ result.address;
 			$("input.wa-address").trigger("change");
 		};
 		
@@ -87,8 +87,7 @@
 			var point_id = $("input[name='shipping_" + shipping_id + "[point_id]']");
 			point_id.attr("id", "shipping_" + shipping_id + "[point_id]']");
 			document.getElementById("shipping_" + shipping_id + "[point_id]']").value = result['id'];
-			document.querySelector('textarea[id^=pppos_address]').innerHTML = result['name']+'\n'+result['address']+'\nТарифная зона:'+result['zone']+
-'\nКоэффициент:'+result['coeff'];
+			document.querySelector('textarea[name^=shipping_' + shipping_id + ']').innerHTML = result['name']+'\n'+result['address'];//+'\nТарифная зона:'+result['zone']+'\nКоэффициент:'+result['coeff'];
 			$("input.wa-address").trigger("change");
 		}
 		//end of pickpoint
