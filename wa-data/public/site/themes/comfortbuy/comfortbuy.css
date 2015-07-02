@@ -853,6 +853,57 @@ min-height: 500px;
 }
 .show_popup{cursor:pointer}
 .productuz .new_box{max-width:360px}
+
+/*
+* MY
+*/
+
+.green { color: #40cb2e; }
+
+/* My account */
+/* PROFILE
+-------------------------------------------- */
+.profile .image { float: left; }
+.profile .details { margin-left: 55px; }
+.profile.image20px .details { margin-left: 28px; min-height: 25px; }
+.profile.image20px img.userpic { width: 20px; height: 20px; }
+.profile.image32px .details { margin-left: 37px; min-height: 37px; }
+.profile.image32px img.userpic { width: 32px; height: 32px; }
+.profile.image50px .details { margin-left: 65px; min-height: 55px; }
+.profile.image50px img.userpic { width: 50px; height: 50px; }
+.profile.image96px .details { margin-left: 105px; min-height: 105px; }
+.profile.image96px img.userpic { width: 96px; height: 96px; }
+
+/* FIELDS: name-value data display & forms
+-------------------------------------------- */
+.fields { float: left /* to handle clear within the form */; margin-bottom: 10px; overflow: visible; } /* wrapper for .field */
+.field-group { margin: 5px 0 30px; }
+.field { clear: left; margin: 0; padding-top: 3px; }
+.field .name { float: left; width: 155px; padding-top: 0.05em; padding-bottom: 10px; color: #888; font-size: 0.95em; font-family: 'Helvetica Neue', Arial, sans-serif; }
+.field .name.large { font-size: 1.2em; font-weight:bold; color:#000; }
+.fields.form .field .name { padding-top: 0.45em; /* color: #000; */ /* class="fields form" is for forms with text inputs */ }
+.fields.form .field .value.no-shift { padding-top: 0.3em; /* use in class="fields form" forms for elements with no inputs within class="value" to exclude unwanted paddings */ }
+.fields .field .value.bottom-padded { padding-bottom: 10px; }
+.field .value { margin-left: 180px; margin-bottom: 5px; position: relative; }
+.field .value.submit { margin-left: 170px /* a little offset */; }
+.field .value .error-message { display: none; }
+.field .value input[type="text"], .field .value input[type="password"], .field .value textarea { width: 30%; min-width: 200px; margin: 0; }
+.field .value textarea { min-width: 400px; height: 70px; }
+.field .value input.semi { width: 10%; min-width: 80px; }
+.field .value input[type="text"].large, .field .value input[type="password"].large { width: 35%; }
+.field .value img.overhanging { position: absolute; left: -20px; }
+.field .value i.icon16.overhanging { position: absolute; left: -20px; margin: 0; top: 2px; }
+.field .value i.icon10.overhanging { position: absolute; margin-left: -17px; margin-right: 7px; }
+.field .value i.icon16 { vertical-align: middle; }
+.field .value.no-shift i.icon16.overhanging { top: 8px; }
+.field .value .address-subfield { padding:1px 0; }
+.field .value input, .field .value select { vertical-align:middle; }
+.fields.width100px .name { width: 105px; }
+.fields.width100px .value { margin-left: 120px; }
+.fields.width100px .value.submit { margin-left: 110px; }
+
+
+
 @media (max-width:829px){.productuz{ overflow:scroll!important; margin-left:0px!important; left:1%!important; top:4%!important; right:1%!important; max-width:100%!important; height:100%!important}
 .productuz .align-center{display:block!important; margin:0 auto!important}
 .zoomContainer {
