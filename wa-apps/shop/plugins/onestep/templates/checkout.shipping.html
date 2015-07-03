@@ -77,10 +77,11 @@
 			document.querySelector('textarea[name^=shipping_' + shipping_id + ']').innerHTML = result.name +'\n'+ result.address;
 			$("input.wa-address").trigger("change");
 		};
-		
-	
 	    //end of boxberry hack
 		//pickpoint
+		function pickpoint_select(){
+			PickPoint.open(pickpoint_input, { fromcity:'Москва',city:$("input[name='customer[address.shipping][city]']").val() });
+		};
 		function pickpoint_input(result){
             var shipping_id = $("input[name=shipping_id]:checked").val();
 			var point_id = $("input[name='shipping_" + shipping_id + "[point_id]']");
