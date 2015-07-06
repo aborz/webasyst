@@ -83,4 +83,29 @@ return array (
   'categories' => 
   array (
   ),
+//
+	'my_sizes' => array(
+	),
+	'fav_style' => array(
+	),
+	'fav_color' => array(
+	),
+	'family_friends' => array(
+	),
+	'hobbies' => array(
+	),
+	'pets' => array(
+	),
+	'heroes' => array(
+	),
+	'cloth_brands' => array(
+	),
+	'shoe_brands' => array(
+	),
+	'cosmetic_shops' => array(
+	),
+	'grocery_stores' => array(
+	),
+	'other_shops' => array(
+	),
 );

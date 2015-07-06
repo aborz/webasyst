@@ -1,6 +1,5 @@
 <?php
 return array (
-  0 => 
   waContactAddressField::__set_state(array(
      'id' => 'address',
      'options' => 
@@ -202,4 +201,66 @@ return array (
     ),
      '_type' => 'waContactAddressField',
   )),
+//  
+	new waContactStringField(
+		'my_sizes',
+		array('en_US' => 'My sizes', 'ru_RU' => "Мои размеры",)
+	),
+	new waContactStringField(
+		'fav_style',
+		array('en_US' => 'My preferred style', 'ru_RU' => "Мой любимый стиль",),
+		array(
+			'multi' => true,
+			'pa_hidden' => true,
+		)
+	),
+	new waContactStringField(
+		'fav_color',
+		array('en_US' => 'My favorite color', 'ru_RU' => "Мой любимый цвет",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'family_friends',
+		array('en_US' => 'My family/friends', 'ru_RU' => "Моя семья/друзья",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'hobbies',
+		array('en_US' => 'My hobbies', 'ru_RU' => "Мои хобби",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'pets',
+		array('en_US' => 'My pets', 'ru_RU' => "Мои питомцы",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'heroes',
+		array('en_US' => 'My heroes', 'ru_RU' => "Мои герои",)
+	),
+	new waContactStringField(
+		'cloth_brands',
+		array('en_US' => 'My favorite clothing brands', 'ru_RU' => "Мои любимые бренды одежды",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'shoe_brands',
+		array('en_US' => 'My favorite shoe brands', 'ru_RU' => "Мои любимые бренды обуви",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'cosmetic_shops',
+		array('en_US' => 'My favorite selfcare shops', 'ru_RU' => "Мои любимые магазины косметики",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'grocery_stores',
+		array('en_US' => 'My favorite grocery stores', 'ru_RU' => "Мои любимые магазины продуктов",),
+		array('multi' => true,)
+	),
+	new waContactStringField(
+		'other_shops',
+		array('en_US' => 'Other favorite shops', 'ru_RU' => "Другие любимые магазины",),
+		array('multi' => true,)
+	),
 );
