@@ -24,16 +24,13 @@ class shopFrontendMyAccountAction extends waMyProfileAction
         
         $params['user_phone'] = $phone;
         $sp_user_info = shopSailplayHelper::usersInfo($params);
-        //$sp_user_info = wa()->getUser()->get('phone');
+        
+        $sp_user_info = shopSailplayHelper::sendRequest('/v1/purchases/get/', array('order_num' => '10019'));
+        
+        
+
         $this->view->assign('sp_user_info', print_r($sp_user_info, true));
         $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = 13580));
-        
-/*
-        print_r('<pre>');
-        print_r();
-        print_r('</pre>');
-*/
-
     }
 
     protected function getForm()
@@ -93,10 +90,12 @@ class shopFrontendMyAccountAction extends waMyProfileAction
 			    $html .= '100';
 		    } else {
 			    $html .= intval(100*($price - $delimeters[$i-1]) / ($delimeters[$i] - $delimeters[$i-1]));
+			    $target = '<p>Совершите покупки еще на '.$this->formatPrice($delimeters[$i] - $price).' руб. и получите статус "".</p>';
 		    }
 		    $html .= '%">&nbsp;</div></div></div></div>';
 	    }
 	    $html .= '</div>';
+	    if (isset($target)) $html .= $target;
 	    return $html;
     }
     

@@ -63,5 +63,14 @@ class shopSailplayHelper
 	        $result = $result['auth_hash'];
         }
         return $result;
-	}	
+	}
+	
+	public static function sendRequest($method, $data) {
+		$data['store_department_id'] = self::STORE_DEPARTMENT_ID;
+        $data['token'] = self::getToken();
+        $response = file_get_contents('http://sailplay.ru/api' .$method .'?' .http_build_query($data));
+        if ($response) {
+	        return json_decode($response,true);
+        }
+	}
 }
