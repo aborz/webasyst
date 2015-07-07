@@ -92,7 +92,7 @@ class shopFrontendMyAccountAction extends waMyProfileAction
 		    } else if ($price > $delimeters[$i]) {
 			    $html .= '100';
 		    } else {
-			    $html .= intval(100*($price - $delimeters[$i-1]) / ($delimeters[$i] - $delimeters[$i-11]));
+			    $html .= intval(100*($price - $delimeters[$i-1]) / ($delimeters[$i] - $delimeters[$i-1]));
 		    }
 		    $html .= '%">&nbsp;</div></div></div></div>';
 	    }
