@@ -1,5 +1,5 @@
 <?php
-return array (
+$arr= array (
   waContactAddressField::__set_state(array(
      'id' => 'address',
      'options' => 
@@ -209,30 +209,82 @@ return array (
 	new waContactStringField(
 		'fav_style',
 		array('en_US' => 'My preferred style', 'ru_RU' => "Мой любимый стиль",),
-		array(
-			'multi' => true,
-			'pa_hidden' => true,
-		)
+		array()
 	),
-	new waContactStringField(
+	new waContactSelectField(
 		'fav_color',
 		array('en_US' => 'My favorite color', 'ru_RU' => "Мой любимый цвет",),
-		array('multi' => true,)
+		array(
+/*
+			'multi' => true,
+			'ext' => array('one'=>'one','two'=>'two'),
+*/
+			'options' => array(
+				'black' => 'черный',
+				'brown' => 'коричневый',
+				'white' => 'белый',
+				'red' => 'красный',
+				'blue' => 'синий',
+				'green' => 'зеленый',
+				'orange' => 'оранжевый',
+				'yellow' => 'желтый',
+				'grey' => 'серый',
+				'pink' => 'розовый',
+				'purple' => 'фиолетовый',
+				'aqua' => 'бирюзовый',
+				'bordeaux' => 'бордовый',
+				'bronze' => 'бронзовый',
+				'light_blue' => 'голубой',
+				'mustard' => 'горчичный',
+				'gold' => 'золотой',
+				'milk' => 'молочный',
+				'silver' => 'серебряный',
+				'khaki' => 'хаки',
+			),
+		)
 	),
-	new waContactStringField(
+	new waContactCompositeField(
 		'family_friends',
 		array('en_US' => 'My family/friends', 'ru_RU' => "Моя семья/друзья",),
-		array('multi' => true,)
+		array(
+			'fields' => array(
+				new waContactSelectField(
+					'relative',
+					array('en_US' => 'My favorite color', 'ru_RU' => "Родство",),
+					array(
+						'options' => array(
+							'son' => 'Сын',
+							'daughter' => 'Дочь',
+							'husband' => 'Муж',
+							'wife' => 'Жена',
+							'mother' => 'Мама',
+							'father' => 'Папа',
+							'brother' => 'Брат',
+							'sister' => 'Сестра',
+							'mfriend' => 'Друг',
+							'ffriend' => 'Подруга',
+						),
+					)
+				),
+/*
+				new waContactBirthdayField(
+					'rel_birthday',
+					'Дата рождения',
+					array('storage' => 'info', 'prefix' => '',)
+				),
+*/
+			),
+		)//'multi' => true,)
 	),
 	new waContactStringField(
 		'hobbies',
 		array('en_US' => 'My hobbies', 'ru_RU' => "Мои хобби",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 	new waContactStringField(
 		'pets',
 		array('en_US' => 'My pets', 'ru_RU' => "Мои питомцы",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 	new waContactStringField(
 		'heroes',
@@ -241,26 +293,28 @@ return array (
 	new waContactStringField(
 		'cloth_brands',
 		array('en_US' => 'My favorite clothing brands', 'ru_RU' => "Мои любимые бренды одежды",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 	new waContactStringField(
 		'shoe_brands',
 		array('en_US' => 'My favorite shoe brands', 'ru_RU' => "Мои любимые бренды обуви",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 	new waContactStringField(
 		'cosmetic_shops',
 		array('en_US' => 'My favorite selfcare shops', 'ru_RU' => "Мои любимые магазины косметики",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 	new waContactStringField(
 		'grocery_stores',
 		array('en_US' => 'My favorite grocery stores', 'ru_RU' => "Мои любимые магазины продуктов",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 	new waContactStringField(
 		'other_shops',
 		array('en_US' => 'Other favorite shops', 'ru_RU' => "Другие любимые магазины",),
-		array('multi' => true,)
+		array()//'multi' => true,)
 	),
 );
+file_put_contents('data.txt', print_r($arr,1));
+return $arr;
