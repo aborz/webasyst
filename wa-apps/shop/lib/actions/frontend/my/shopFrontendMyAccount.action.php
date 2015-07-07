@@ -26,6 +26,7 @@ class shopFrontendMyAccountAction extends waMyProfileAction
         $sp_user_info = shopSailplayHelper::usersInfo($params);
         //$sp_user_info = wa()->getUser()->get('phone');
         $this->view->assign('sp_user_info', print_r($sp_user_info, true));
+        $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = 13580));
         
 /*
         print_r('<pre>');
@@ -74,6 +75,33 @@ class shopFrontendMyAccountAction extends waMyProfileAction
                 'url' => wa()->getRouteUrl('/frontend/my'),
             ),
         );
+    }
+    
+    private function getPurchasesProgressbarHtml ($price = 1000) {
+	    $delimeters = array(500,10000,25000,50000,75000);
+	    $html = '<p class="large"><strong>Накопительная сумма покупок:</strong></p><div class="purchase-progressbar"><div class="pp-heading">';
+	    foreach ($delimeters as $d) {
+		    $html .= '<div class="sector">'.$this->formatPrice($d).' руб</div>';
+	    }
+	    $html .= '</div><div style="clear:both"></div>';
+	    for ($i = 1; $i<count($delimeters); $i++) {
+		    $html .= '<div class="sector">';
+		    $html .= '<div class="sector-cell"><div class="filling"><div class="filled" style="width:';
+		    if ($price < $delimeters[$i-1]) {
+			    $html .= '0';
+		    } else if ($price > $delimeters[$i]) {
+			    $html .= '100';
+		    } else {
+			    $html .= intval(100*($price - $delimeters[$i-1]) / ($delimeters[$i] - $delimeters[$i-11]));
+		    }
+		    $html .= '%">&nbsp;</div></div></div></div>';
+	    }
+	    $html .= '</div>';
+	    return $html;
+    }
+    
+    private function formatPrice($price = 0) {
+	    return number_format($price,0,'',' ');
     }
 }
 

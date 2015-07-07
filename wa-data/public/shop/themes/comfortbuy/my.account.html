@@ -1,8 +1,4 @@
-<div class="sidebar left230px">
-    {include file="sidebar.html"}
-</div>
-
-<div class="content left230px">
+<div class="content">
 
     <!-- navigation breadcrumbs -->
     <div class="breadcrumbs">
@@ -11,6 +7,31 @@
     
     <div class="info-page menu">{$wa->myNav()}</div>
    
+	<h3><i>Здравствуйте, {$wa->user('name')}!</i></h3>
+
+	<div class="block">
+		<div class="profile image96px">
+	    	<div class="image">
+	        	<img class="userpic" style="margin: 10px auto;" src="{$wa->user()->getPhoto(100)}">
+	    	</div>
+			<div class="details">
+				<p>
+					<a href="">Изменить личные данные</a>
+				</p>
+				<p>
+					<a href="">Изменить пароль</a>
+				</p>
+				<p>
+					<a href="">Управление моими рассылками</a>
+					&nbsp;&nbsp;&nbsp;<span class="large green">+300 бонусов</span>
+				</p>
+				<p>
+					<a href="">Подробнее о клубной программе</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	
 	<div class="block fields" style="float: right; width:40%; border:1px solid;">
 		<p class=""><strong>Мои бонусы по состоянию на {time()|wa_date}</strong></h3>
 		<div class="field-group">
@@ -45,32 +66,7 @@
 		<p class="small"><sup>*</sup>Доступными бонусами считаются только подтвержденные бонусы</p>
 	</div>
 
-	<h3><i>Здравствуйте, {$wa->user('name')}!</i></h3>
-
-	<div class="block">
-		<div class="profile image96px">
-	    	<div class="image">
-	        	<img class="userpic" style="margin: 10px auto;" src="{$wa->user()->getPhoto(100)}">
-	    	</div>
-			<div class="details">
-				<p>
-					<a href="">Изменить личные данные</a>
-				</p>
-				<p>
-					<a href="">Изменить пароль</a>
-				</p>
-				<p>
-					<a href="">Управление моими рассылками</a>
-					&nbsp;&nbsp;&nbsp;<span class="large green">+300 бонусов</span>
-				</p>
-				<p>
-					<a href="">Подробнее о клубной программе</a>
-				</p>
-			</div>
-		</div>
-	</div>
-	
-	<div class="block fields" style="width:690px; border:1px solid;">
+	<div class="block fields" style="width:54%; border:1px solid;">
 			<img style="float:right;" src="/tmp/sela_red_card.png">
 		<div class="field-group">
 			<div class="field">
@@ -86,7 +82,7 @@
 		<div class="field-group">
 			<div class="field">
 				<div class="name">Общая сумма покупок по карте:</div>
-				<div class="value"><strong>3 580 руб.</strong></div>
+				<div class="value"><strong>13 580 руб.</strong></div>
 			</div>
 			<div class="field">
 				<div class="name">Общая сумма бонусов, доступных к использованию:</div>
@@ -95,8 +91,7 @@
 		</div>
 		<div>
 			<p>&nbsp;</p>
-			<p class="large"><strong>Накопительная сумма покупок:</strong></p>
-			<img src="/tmp/card_milestones.png">
+			{$purchases_progressbar}
 		</div>
 	</div>
 
@@ -105,7 +100,32 @@
 	<pre>
 		{$sp_user_info}
 	</pre>
--->
-    
+-->    
     
 </div>
+<!--
+			<p class="large"><strong>Накопительная сумма покупок:</strong></p>
+			<div class="purchase-progressbar">
+				<div class="pp-heading">
+					<div class="sector">500руб</div>
+					<div class="sector">50000руб</div>
+					<div class="sector">50000руб</div>
+					<div class="sector">50000руб</div>
+					<div class="sector">50000руб</div>
+				</div>
+				<div style="clear:both"></div>
+				<div class="sector">
+					<div class="sector-cell"><div class="filling"><div class="filled">&nbsp;</div></div></div>
+				</div>
+				<div class="sector">
+					<div class="sector-cell"><div class="filling"><div class="filled">&nbsp;</div></div></div>
+				</div>
+				<div class="sector">
+					<div class="sector-cell"><div class="filling"><div class="filled" style="width:70%">&nbsp;</div></div></div>
+				</div>
+				<div class="sector">
+					<div class="sector-cell"><div class="filling"><div class="filled" style="width:0%">&nbsp;</div></div></div>
+				</div>
+			</div>
+-->
+
