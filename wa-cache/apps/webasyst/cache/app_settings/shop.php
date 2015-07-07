@@ -138,4 +138,22 @@ return array (
     'name' => 'discount_coupons',
     'value' => '1',
   ),
+  23 => 
+  array (
+    'app_id' => 'shop.onestep',
+    'name' => 'status',
+    'value' => '1',
+  ),
+  24 => 
+  array (
+    'app_id' => 'shop.onestep',
+    'name' => 'min_sum',
+    'value' => '0',
+  ),
+  25 => 
+  array (
+    'app_id' => 'shop.onestep',
+    'name' => 'update_time',
+    'value' => '1413865006',
+  ),
 );

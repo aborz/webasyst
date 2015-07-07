@@ -141,7 +141,7 @@ return array (
     'version' => '0.3',
     'rights' => 1,
     'vendor' => 817747,
-    'build' => 1433424743,
+    'build' => 1436263242,
     'id' => 'logs',
     'img' => 'wa-apps/logs/img/logs48.png',
   ),
