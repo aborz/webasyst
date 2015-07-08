@@ -9,6 +9,7 @@ class shopSailplayUserInfo
 	private $sp_auth_hash='';
 	private $origin_user_id='';
 	private $sp_points='';
+	private $sp_history='';
 	
 	
 	public function __construct () {
@@ -40,6 +41,17 @@ class shopSailplayUserInfo
         return $this;
 	}
 	
+	function fetchUserHistory() {
+		$data['user_phone'] = $this->wa_user_phone;
+		$data['token'] = $this->token;
+		$data['history'] = '1';
+		$data['extra_fields'] = 'history';
+
+		$history = shopSailplayHelper::sendRequest('/api/v2/users/info/', $data);
+		if (isset($history['history'])) {$this->sp_history = $history['history'];}
+        return $this;
+	}
+	
 	function getAuthHash() {
 		return $this->sp_auth_hash;
 	}
@@ -51,4 +63,9 @@ class shopSailplayUserInfo
 	function getConfirmedPoints() {
 		return isset($this->sp_points['confirmed']) ? $this->sp_points['confirmed'] : 'Unknown';
 	}
+	
+	function getUserHistory() {
+		return ($this->sp_history) ? $this->sp_history : false;
+	}
+
 }

@@ -18,6 +18,12 @@ class shopFrontendMyPointsAction extends waMyProfileAction
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
+
+
+        $sp_user_info = new shopSailplayUserInfo();
+        $sp_user_info->fetchUserInfo()->fetchUserHistory();
+        
+        $this->view->assign('sp_user_info', print_r($sp_user_info,1));
     }
 
     protected function getForm()
