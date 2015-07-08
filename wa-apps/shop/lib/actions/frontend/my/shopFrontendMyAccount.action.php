@@ -19,17 +19,12 @@ class shopFrontendMyAccountAction extends waMyProfileAction
             $this->layout->assign('nofollow', true);
         }
 
-        $params['token'] = shopSailplayHelper::getToken();
-        $phone = wa()->getUser()->get('phone')[0]['value'];
+        $sp_user_info = new shopSailplayUserInfo();
+        $sp_user_info->fetchUserInfo();
         
-        $params['user_phone'] = $phone;
-        $sp_user_info = shopSailplayHelper::usersInfo($params);
+        //$sp_user_info = shopSailplayHelper::sendRequest('/v1/purchases/get/', array('order_num' => '10019'));
         
-        $sp_user_info = shopSailplayHelper::sendRequest('/v1/purchases/get/', array('order_num' => '10019'));
-        
-        
-
-        $this->view->assign('sp_user_info', print_r($sp_user_info, true));
+        $this->view->assign('sp_user_info', $sp_user_info);
         $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = 13580));
     }
 

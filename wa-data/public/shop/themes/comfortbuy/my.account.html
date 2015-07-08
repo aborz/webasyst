@@ -16,10 +16,7 @@
 	    	</div>
 			<div class="details">
 				<p>
-					<a href="">Изменить личные данные</a>
-				</p>
-				<p>
-					<a href="">Изменить пароль</a>
+					<a href="{$wa->getUrl('/frontend/my')}profile">Изменить личные данные</a>
 				</p>
 				<p>
 					<a href="">Управление моими рассылками</a>
@@ -57,7 +54,7 @@
 			</div>
 			<div class="field">
 				<div class="name"><strong>Общее количество доступных<sup>*</sup> бонусов</strong></div>
-				<div class="value"><strong>700</strong></div>
+				<div class="value"><strong>{$sp_user_info->getConfirmedPoints()}</strong></div>
 			</div>
 		</div>
 		<br>
@@ -71,7 +68,7 @@
 		<div class="field-group">
 			<div class="field">
 				<div class="name">Номер карты:</div>
-				<div class="value"><strong>050000000001</strong></div>
+				<div class="value"><strong>{$sp_user_info->getOriginUserId()}</strong></div>
 			</div>
 			<div class="field">
 				<div class="name">Статус карты:</div>
@@ -86,7 +83,7 @@
 			</div>
 			<div class="field">
 				<div class="name">Общая сумма бонусов, доступных к использованию:</div>
-				<div class="value"><strong>700</strong></div>
+				<div class="value"><strong>{$sp_user_info->getConfirmedPoints()}</strong></div>
 			</div>
 		</div>
 		<div>
@@ -97,7 +94,6 @@
 
 
 	<pre>
-		{$sp_user_info}
 	</pre>
     
 </div>

@@ -30,7 +30,7 @@ class shopSailplayHelper
         
         $response = file_get_contents('https://sailplay.ru/api/v2/users/info/?'.http_build_query($sp_creditentials));
         if ($response) {
-	        $result = json_decode($response);
+	        $result = json_decode($response,true);
         }
         return $result;
 	}
@@ -67,8 +67,8 @@ class shopSailplayHelper
 	
 	public static function sendRequest($method, $data) {
 		$data['store_department_id'] = self::STORE_DEPARTMENT_ID;
-        $data['token'] = self::getToken();
-        $response = file_get_contents('http://sailplay.ru/api' .$method .'?' .http_build_query($data));
+        if (!isset($data['token'])) {$data['token'] = self::getToken();}
+        $response = file_get_contents('http://sailplay.ru' .$method .'?' .http_build_query($data));
         if ($response) {
 	        return json_decode($response,true);
         }

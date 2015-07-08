@@ -1,5 +1,5 @@
 <?php
-$arr= array (
+return array (
   waContactAddressField::__set_state(array(
      'id' => 'address',
      'options' => 
@@ -316,5 +316,3 @@ $arr= array (
 		array()//'multi' => true,)
 	),
 );
-file_put_contents('data.txt', print_r($arr,1));
-return $arr;
