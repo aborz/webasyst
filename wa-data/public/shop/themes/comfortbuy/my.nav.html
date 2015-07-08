@@ -22,6 +22,10 @@
     </li>
 {*/if*}
 
+<li class="shop {if $my_nav_selected == 'points'}selected{/if}">
+    <a href="{$wa->getUrl('/frontend/myPoints')}">Мои бонусы</a>
+</li>
+
 <li class="shop {if $my_nav_selected == 'earn'}selected{/if}">
     <a href="{$wa->getUrl('/frontend/myEarn')}">Заработать дополнительные бонусы</a>
 </li>

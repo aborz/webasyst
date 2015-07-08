@@ -1,0 +1,35 @@
+<!--
+<div class="sidebar left230px">
+    {include file="sidebar.html"}
+</div>
+-->
+
+<div class="content left230px">
+
+    <!-- navigation breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="{$wa_app_url}">[`Home`]</a> » <a href="{$wa->getUrl('/frontend/my')}">[`My Account`]</a> » <span class="gray">[`My profile`]</span>
+    </div>
+    
+    <div class="info-page menu">{$wa->myNav()}</div>
+
+    <h1>[`My profile`]</h1>
+    
+    {if $saved}
+        <strong><i class="icon16 saved"></i><span style="color: green;">[`Contact information successfully updated!`]</span></strong>
+    {/if}
+    
+    <form action="" method="post">
+    <div class="wa-form">
+    
+        {$form->html()}
+    
+        <div class="wa-field">
+            <div class="wa-value">
+                <input type="submit" value="[`Save`]">
+            </div>
+        </div>
+    </div>
+    </form>
+    
+</div>

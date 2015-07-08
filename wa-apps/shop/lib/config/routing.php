@@ -39,6 +39,11 @@ return array(
             'action' => 'myPurchases',
             'secure' => true,
         ),
+        'my/points/?' => array(
+            'module' => 'frontend',
+            'action' => 'myPoints',
+            'secure' => true,
+        ),
         'my/account/?' => array(
             'module' => 'frontend',
             'action' => 'myAccount',
@@ -136,6 +141,11 @@ return array(
         'my/purchases/?' => array(
             'module' => 'frontend',
             'action' => 'myPurchases',
+            'secure' => true,
+        ),
+        'my/points/?' => array(
+            'module' => 'frontend',
+            'action' => 'myPoints',
             'secure' => true,
         ),
         'my/account/?' => array(
@@ -236,6 +246,11 @@ return array(
         'my/purchases/?' => array(
             'module' => 'frontend',
             'action' => 'myPurchases',
+            'secure' => true,
+        ),
+        'my/points/?' => array(
+            'module' => 'frontend',
+            'action' => 'myPoints',
             'secure' => true,
         ),
         'my/account/?' => array(
