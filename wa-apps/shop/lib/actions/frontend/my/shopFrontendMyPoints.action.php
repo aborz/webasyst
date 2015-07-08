@@ -1,17 +1,17 @@
 <?php
 /**
- * User profile form in customer account, and submit controller for it.
+ * User Points form in customer account, and submit controller for it.
  */
-class shopFrontendMyProfileAction extends waMyProfileAction
+class shopFrontendMyPointsAction extends waMyProfileAction
 {
     public function execute()
     {
         parent::execute();
 
-        $this->view->assign('my_nav_selected', 'profile');
+        $this->view->assign('my_nav_selected', 'points');
 
         // Set up layout and template from theme
-        $this->setThemeTemplate('my.profile.html');
+        $this->setThemeTemplate('my.points.html');
         if (!waRequest::isXMLHttpRequest()) {
             $this->setLayout(new shopFrontendLayout());
             $this->getResponse()->setTitle(_w('Account'));
