@@ -250,5 +250,21 @@
     {*	{if $wa->shop}{include file="main.addition.html"}{/if}*}
 	</div>
 	<!--noindex--><div class="wrapper-lt-ie8">{include file="lt-ie8.html" themeId=$them[1]}</div><!--/noindex-->
+<script type="text/javascript">
+    (function (atm, doIt) {
+        // atm.order_match = '546'; // OPTIONAL: Order MATCH
+        // atm.order_value = '19.99'; // OPTIONAL: Order value
+        // atm.product_id = 'product-id'; // OPTIONAL: Product name or product ID
+ 
+        // Do not modify any of the code below.
+        atm.client_id = "2cdf0666588ffa49481267b16fce5ca9"; // CLIENT: Sela.ru
+        atm.allow_flash = false; // Is Flash plugin allowed on page
+        doIt(atm);
+    })({ }, function(d){ var a=document.createElement("iframe");a.style.cssText="width: 0; height: 0; border: 0; position: absolute; left: -5px;";a.src="javascript:false";var c=function(){ setTimeout(function(){ var c=a.contentDocument||a.contentWindow.document,b=c.createElement("script");b.src="//static-trackers.adtarget.me/javascripts/pixel.min.js";b.id="GIHhtQfW-atm-pixel";b["data-pixel"]=d.client_id;b["allow-flash"]=d.allow_flash;b.settings_obj=d;c.body.appendChild(b)},0)};a.addEventListener?a.addEventListener("load",c,!1):a.attachEvent?a.attachEvent("onload",c):a.onload=c;document.body.appendChild(a)});
+ 
+    //  After the pixel above is loaded, you can use custom AJAX calls to register custom events (like button clicks, form fillouts and etc. )
+    //__AtmUrls = window.__AtmUrls || [];
+    //__AtmUrls.push('add-to-cart');
+</script>
 </body>
 </html>
