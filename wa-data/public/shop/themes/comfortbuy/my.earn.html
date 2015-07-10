@@ -37,6 +37,21 @@ SAILPLAY.on('login.success', function(){ //после успешной авто�
 
 SAILPLAY.on('load.actions.list.success', function(data){ //после загрузки списка действий
 	var actions = data.actions;
+	function humanSN(social_network) {
+		switch(social_network) {
+		    case "vk": return "Вконтакте";
+		    case "fb": return "Facebook";
+		    case "tw": return "Twitter";
+		    case "ok": return "Одноклассиках";
+		}
+	}
+	function humanAction(api_action) {
+		switch(api_action) {
+		    case "like": return "Вступить в группу ";
+		    case "purchase": return "Рассказать о покупке в ";
+		    case "partner_page": return "Рассказать о SELA в ";
+		}
+	}
 	for (i = 0; i < actions.length; ++i) {
 		action = data.actions[i];
 		
@@ -48,20 +63,7 @@ SAILPLAY.on('load.actions.list.success', function(data){ //после загру
 	
 		var pnode = document.createElement("p");
 		pnode.className = "myriad";
-		switch(action.action) {
-		    case "like":
-		        text = "Вступить в группу " + action.socialType;
-		        break;
-		    case "purchase":
-		        text = "Рассказать о покупке в " + action.socialType;
-		        break;
-		    case "partner_page":
-		        text = "Рассказать о SELA в " + action.socialType;
-		        break;
-		    default :
-		    	text = '';
-		}
-		pnode.appendChild(document.createTextNode(text));
+		pnode.appendChild(document.createTextNode(humanAction(action.action) + humanSN(action.socialType)));
 		
 		var divap = document.createElement("div");
 		divap.className = "action-points";
