@@ -41,77 +41,50 @@ console.dir(data)
 	});
 */
 SAILPLAY.on('load.actions.list.success', function(data){ //после загрузки списка действий
-console.dir(data)
-  //SAILPLAY.send('actions.perform', data.actions[1]); //пользователь выполняет второе действие из списка
+//console.dir(data)
+//SAILPLAY.send('actions.perform', data.actions[1]); //пользователь выполняет второе действие из списка
+var actions = data.actions;
+for (i = 0; i < actions.length; ++i) {
+	action = data.actions[i];
+	
+	var node = document.createElement("LI");
+	node.className = "action";
+
+	var divac = document.createElement("div");
+	divac.className = "action-card";
+
+	var pnode = document.createElement("p");
+	pnode.className = "myriad";
+	pnode.appendChild(document.createTextNode(action.action + " " + action.socialType));                              // Append the text to <li>
+	
+	var divap = document.createElement("div");
+	divap.className = "action-points";
+	divap.appendChild(document.createTextNode(action.points));
+
+	var divsl = document.createElement("div");
+	divsl.className = "social-logo " + action.action + " " + action.socialType;
+	
+
+	divac.appendChild(divsl);
+	divac.appendChild(divap);
+	divac.appendChild(pnode);
+	node.appendChild(divac);
+	document.getElementById("actions-list").appendChild(node);
+
+
+	(function(){
+
+		var act = action;
+
+		divac.addEventListener('click', function() {  SAILPLAY.send('actions.perform', act); }, false);
+
+	}());
+}
 });
 </script>	
-    <div class="actions_wrapper">
+    <div id="actions-wrapper" class="actions-wrapper">
 	    <p class="myriad">Выполняйте задания и получайте за них дополнительные баллы</p>
-	    <ul class="actions_list">
-			<!-- Рассказать о покупке ВК -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo vk share"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Рассказать о покупке в ВК</p>
-				</div>
-			</li>
-			<!-- Рассказать о покупке ОК -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo оk share"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Рассказать о покупке в ОК</p>
-				</div>
-			</li>
-			<!-- Рассказать о покупке ТВ -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo tw share"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Рассказать о покупке в TW</p>
-				</div>
-			</li>
-			<!-- Рассказать о покупке ФБ -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo fb share"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Рассказать о покупке в FB</p>
-				</div>
-			</li>
-			<!-- Вступить в группу в ВК -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo vk like"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Вступить в группу в ВК</p>
-				</div>
-			</li>
-			<!-- Вступить в группу в ОК -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo ok like"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Вступить в группу в ОК</p>
-				</div>
-			</li>
-			<!-- Вступить в группу в ТВ -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo tw like"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Подписаться на нас в TW</p>
-				</div>
-			</li>
-			<!-- Вступить в группу в ФБ -->
-			<li colspan="1" class="action">
-			<div class="action_card" data-ng-click="earnPoints(action)">
-				<div class="social_logo fb like"></div>
-				<div class="action_points">10</div>
-				<p class="myriad">Вступить в группу в FB</p>
-				</div>
-			</li>
+	    <ul id="actions-list" class="actions-list">
 	    </ul>
     </div>
     
