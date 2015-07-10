@@ -824,29 +824,17 @@
     background-image: url("img/sailplay-social.png")
 }
 
-.social-logo.vk {
-	background-position-y: -110px;
-}
+.social-logo.vk { background-position-y: -110px; }
 
-.social-logo.tw {
-	background-position-y: -220px;
-}
+.social-logo.tw { background-position-y: -220px; }
 
-.social-logo.ok {
-	background-position-y: -330px;
-}
+.social-logo.ok { background-position-y: -330px; }
 
-.social-logo.like {
-	background-position-x: -110px;
-}
+.social-logo.like { background-position-x: -110px; }
 
-.social-logo.purchase {
-	background-position-x: 0px;
-}
+.social-logo.purchase { background-position-x: 0px; }
 
-.social-logo.partner_page {
-	background-position-x: -220px;
-}
+.social-logo.partner_page { background-position-x: -220px; }
 
 
 .myriad {

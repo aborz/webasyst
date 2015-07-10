@@ -71,7 +71,7 @@
         			<!-- auth links -->
        		     		{if $wa->user()->isAuth()}
        	    	 			<div class="auth">
-       	    	 			    {if $wa->shop}<a href="{$wa->getUrl('shop/frontend/my')}">[`Account`]</a>{else}{$wa->user('firstname')}{/if} | <a href="?logout">[s`Log out`]</a>
+       	    	 			    {if $wa->shop}<a href="{$wa->getUrl('shop/frontend/my')}">Вход в личный кабинет</a>{else}{$wa->user('firstname')}{/if} | <a href="?logout">[s`Log out`]</a>
        	    	 			</div>
             			{else}
     	        			<div class="auth">
