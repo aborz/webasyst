@@ -20,12 +20,15 @@ class shopFrontendMyAccountAction extends waMyProfileAction
         }
 
         $sp_user_info = new shopSailplayUserInfo();
-        $sp_user_info->fetchUserInfo();
+        $sp_user_info->fetchUserInfo()
+	        ->fetchUserHistory()
+	        ->fetchUserPurchases();
         
         //$sp_user_info = shopSailplayHelper::sendRequest('/v1/purchases/get/', array('order_num' => '10019'));
         
+        file_put_contents('data.txt', print_r($sp_user_info,1));
         $this->view->assign('sp_user_info', $sp_user_info);
-        $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = 13580));
+        $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = $sp_user_info->getTotalSpent()));
     }
 
     protected function getForm()

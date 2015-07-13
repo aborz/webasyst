@@ -10,6 +10,7 @@ class shopSailplayUserInfo
 	private $origin_user_id='';
 	private $sp_points='';
 	private $sp_history='';
+	private $sp_total_spent;
 	
 	
 	public function __construct () {
@@ -37,7 +38,7 @@ class shopSailplayUserInfo
 			$this->origin_user_id = $ui['origin_user_id'];
 			$this->sp_points = $ui['points'];
 		}
-		file_put_contents('data.txt', print_r($this,1));
+		//file_put_contents('data.txt', print_r($this,1));
         return $this;
 	}
 	
@@ -51,7 +52,28 @@ class shopSailplayUserInfo
 		if (isset($history['history'])) {$this->sp_history = $history['history'];}
         return $this;
 	}
+
+	function fetchUserPurchases() {
+		if (!$this->sp_history) {
+			return $this;
+		}
+		$purchases = array();
+		$spent = 0;
+		foreach($this->sp_history as $act) {
+			if ($act['action'] == 'purchase') {
+				$purchases[] = $act;
+				$spent += $act['price'];
+			}
+		}
+		$this->sp_purchases = $purchases;
+		$this->sp_total_spent = $spent;
+        return $this;
+	}
 	
+	function getTotalSpent($formatted = false) {
+		return $formatted ? number_format($this->sp_total_spent,0,'',' ') : $this->sp_total_spent;
+	}
+
 	function getAuthHash() {
 		return $this->sp_auth_hash;
 	}
