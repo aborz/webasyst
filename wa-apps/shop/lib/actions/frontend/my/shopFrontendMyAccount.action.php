@@ -24,9 +24,6 @@ class shopFrontendMyAccountAction extends waMyProfileAction
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases();
         
-        //$sp_user_info = shopSailplayHelper::sendRequest('/v1/purchases/get/', array('order_num' => '10019'));
-        
-        file_put_contents('data.txt', print_r($sp_user_info,1));
         $this->view->assign('sp_user_info', $sp_user_info);
         $this->view->assign('sp_bonus_card', $this->getBonusCard($price = $sp_user_info->getTotalSpent() ));
         $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = $sp_user_info->getTotalSpent()));
@@ -101,7 +98,7 @@ class shopFrontendMyAccountAction extends waMyProfileAction
 			    $html .= '100';
 		    } else {
 			    $html .= intval(100*($price - $milestones[$i-1]['amount']) / ($milestones[$i]['amount'] - $milestones[$i-1]['amount']));
-			    $target = '<p>Совершите покупки еще на '.$this->formatPrice($milestones[$i]['amount'] - $price).' руб. и получите ' .$milestones[$i]['card_rp'] .' карту SELA.</p>';
+			    $target = '<p>Совершите покупки еще на '.$this->formatPrice($milestones[$i]['amount'] - $price + 1).' руб. и получите ' .$milestones[$i]['card_rp'] .' карту SELA.</p>';
 		    }
 		    $html .= '%">&nbsp;</div></div></div></div>';
 	    }
