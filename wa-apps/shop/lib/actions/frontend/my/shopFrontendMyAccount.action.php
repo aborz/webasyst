@@ -93,6 +93,7 @@ class shopFrontendMyAccountAction extends waMyProfileAction
 		    $html .= '%">&nbsp;</div></div></div></div>';
 	    }
 	    $html .= '</div>';
+	    $html .= '<img style="width:98%" src="/tmp/sela_cards.png">';
 	    if (isset($target)) $html .= $target;
 	    return $html;
     }
