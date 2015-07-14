@@ -73,4 +73,39 @@ class shopSailplayHelper
 	        return json_decode($response,true);
         }
 	}
+	
+	public static function getCardMilestones() {
+		return array (
+			array(
+				'amount' => 500,
+				'card' => 'Зеленая',
+				'card_rp' => 'Зеленую',
+				'img' => 'img/sela_card_green.png',
+			),
+			array(
+				'amount' => 10000,
+				'card' => 'Красная',
+				'card_rp' => 'Красную',
+				'img' => 'img/sela_card_red.png',
+			),
+			array(
+				'amount' => 25000,
+				'card' => 'Серебряная',
+				'card_rp' => 'Серебряную',
+				'img' => 'img/sela_card_silver.png',
+			),
+			array(
+				'amount' => 50000,
+				'card' => 'Золотая',
+				'card_rp' => 'Золотую',
+				'img' => 'img/sela_card_gold.png',
+			),
+			array(
+				'amount' => 75000,
+				'card' => 'Лиловая',
+				'card_rp' => 'Лиловую',
+				'img' => 'img/sela_card_lilac.png',
+			),
+		);
+	}
 }

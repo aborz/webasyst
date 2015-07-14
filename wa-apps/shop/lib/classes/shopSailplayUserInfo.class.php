@@ -69,8 +69,9 @@ class shopSailplayUserInfo
 		$this->sp_total_spent = $spent;
         return $this;
 	}
-	
+
 	function getTotalSpent($formatted = false) {
+		//return 55000;
 		return $formatted ? number_format($this->sp_total_spent,0,'',' ') : $this->sp_total_spent;
 	}
 

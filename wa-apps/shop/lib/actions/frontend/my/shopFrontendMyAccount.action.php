@@ -28,6 +28,7 @@ class shopFrontendMyAccountAction extends waMyProfileAction
         
         file_put_contents('data.txt', print_r($sp_user_info,1));
         $this->view->assign('sp_user_info', $sp_user_info);
+        $this->view->assign('sp_bonus_card', $this->getBonusCard($price = $sp_user_info->getTotalSpent() ));
         $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = $sp_user_info->getTotalSpent()));
     }
 
@@ -71,29 +72,41 @@ class shopFrontendMyAccountAction extends waMyProfileAction
             ),
         );
     }
+
+	function getBonusCard($price) {
+	    $milestones = shopSailplayHelper::getCardMilestones();
+	    $result = array('status' => '', 'img_url' => '');
+	    foreach ($milestones as $m) {
+		    if ($price > $m['amount']) {
+			    $result['status'] = $m['card'];
+			    $result['img_url'] = $m['img'];			    
+		    }
+	    }
+		return $result;
+	}
     
     private function getPurchasesProgressbarHtml ($price = 1000) {
-	    $delimeters = array(500,10000,25000,50000,75000);
+	    $milestones = shopSailplayHelper::getCardMilestones();
 	    $html = '<p class="large"><strong>Накопительная сумма покупок:</strong></p><div class="purchase-progressbar"><div class="pp-heading">';
-	    foreach ($delimeters as $d) {
-		    $html .= '<div class="sector">'.$this->formatPrice($d).' руб</div>';
+	    foreach ($milestones as $d) {
+		    $html .= '<div class="sector">'.$this->formatPrice($d['amount']).' руб</div>';
 	    }
 	    $html .= '</div><div style="clear:both"></div>';
-	    for ($i = 1; $i<count($delimeters); $i++) {
+	    for ($i = 1; $i<count($milestones); $i++) {
 		    $html .= '<div class="sector">';
 		    $html .= '<div class="sector-cell"><div class="filling"><div class="filled" style="width:';
-		    if ($price < $delimeters[$i-1]) {
+		    if ($price < $milestones[$i-1]['amount']) {
 			    $html .= '0';
-		    } else if ($price > $delimeters[$i]) {
+		    } else if ($price > $milestones[$i]['amount']) {
 			    $html .= '100';
 		    } else {
-			    $html .= intval(100*($price - $delimeters[$i-1]) / ($delimeters[$i] - $delimeters[$i-1]));
-			    $target = '<p>Совершите покупки еще на '.$this->formatPrice($delimeters[$i] - $price).' руб. и получите статус "".</p>';
+			    $html .= intval(100*($price - $milestones[$i-1]['amount']) / ($milestones[$i]['amount'] - $milestones[$i-1]['amount']));
+			    $target = '<p>Совершите покупки еще на '.$this->formatPrice($milestones[$i]['amount'] - $price).' руб. и получите ' .$milestones[$i]['card_rp'] .' карту SELA.</p>';
 		    }
 		    $html .= '%">&nbsp;</div></div></div></div>';
 	    }
 	    $html .= '</div>';
-	    $html .= '<img style="width:98%" src="/tmp/sela_cards.png">';
+	    $html .= '<img style="width:98%" src="' .$this->getThemeUrl() .'img/sela_cards.png">';
 	    if (isset($target)) $html .= $target;
 	    return $html;
     }
