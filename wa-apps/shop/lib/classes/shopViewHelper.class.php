@@ -204,6 +204,9 @@ class shopViewHelper extends waAppViewHelper
         if (!empty($product['image_desc']) && !isset($attributes['alt'])) {
             $attributes['alt'] = htmlspecialchars($product['image_desc']);
         }
+        if (isset($attributes['alt'])) {
+            $attributes['alt'] = 'SELA ' . $attributes['alt'];//ab 2015-07-14
+        }
         if (!empty($product['image_desc']) && !isset($attributes['title'])) {
             $attributes['title'] = htmlspecialchars($product['image_desc']);
         }
