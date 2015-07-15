@@ -4,6 +4,7 @@ class shopSailplayUserInfo
 	public $store_department_id='';
 	private $token='';
 	private $sp_purchases;
+	private $sp_detailed_purchases;
 	public $wa_user_phone='';
 	private $sp_user_info;
 	private $sp_auth_hash='';
@@ -68,6 +69,28 @@ class shopSailplayUserInfo
 		$this->sp_purchases = $purchases;
 		$this->sp_total_spent = $spent;
         return $this;
+	}
+
+	function fetchDetailedPurchases() {
+		if (!$this->sp_purchases) {
+			return $this;
+		}
+		$purchases = array();
+		foreach($this->sp_purchases as $p) {
+			$data['token'] = $this->token;
+			$data['order_num'] = $p['order_num'];
+			$data['store_department_id'] = $p['store_department_id'];
+			
+			$purchase = shopSailplayHelper::sendRequest('/api/v2/purchases/get/', $data);
+			if ($purchase) {$purchases[] = $purchase;}
+		}
+		
+		$this->sp_detailed_purchases = $purchases;
+        return $this;
+	}
+
+	function getDetailedPurchases() {
+        return $this->sp_detailed_purchases;
 	}
 
 	function getTotalSpent($formatted = false) {

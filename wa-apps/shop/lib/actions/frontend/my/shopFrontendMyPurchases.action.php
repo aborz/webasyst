@@ -19,20 +19,12 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
             $this->layout->assign('nofollow', true);
         }
 
-        $params['token'] = shopSailplayHelper::getToken();
-        $phone = wa()->getUser()->get('phone')[0]['value'];
-        
-        $params['user_phone'] = $phone;
-        $sp_user_info = shopSailplayHelper::usersInfo($params);
-        //$sp_user_info = wa()->getUser()->get('phone');
-        $this->view->assign('sp_user_info', print_r($sp_user_info, true));
-        
-/*
-        print_r('<pre>');
-        print_r();
-        print_r('</pre>');
-*/
-
+        $sp_user_info = new shopSailplayUserInfo();
+        $sp_user_info->fetchUserInfo()
+	        ->fetchUserHistory()
+	        ->fetchUserPurchases()
+	        ->fetchDetailedPurchases();
+        $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
     }
 
     protected function getForm()
