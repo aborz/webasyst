@@ -1,0 +1,102 @@
+<script type="application/javascript">
+var KmPhoneMaskAndValidate = function (phone, check, phone_mask, placeholder ,error_msg) {
+    var error = $('<div class="wa-error-msg">' + error_msg + '</div>');
+
+    var init = function () {
+        if (!phone.data('kmphonemaskvalidate')) {
+            phone.data('kmphonemaskvalidate', true);
+            if (phone.val().length > 0 && !validate()) {
+                phone.on('keyup.kmphonemaskvalidate', function(event) {
+                    if (phone.val().length === 0) {
+                        init_mask();
+                    }
+                });
+            } else {
+                init_mask();
+            }
+            console.log ? console.log('KmPhoneMaskAndValidate init') : '';
+        }
+    };
+    var init_mask = function () {
+        phone.off('keyup.kmphonemaskvalidate');
+
+        phone.mask(phone_mask, {
+            placeholder: placeholder,
+            selectOnFocus: true
+        });
+
+        phone
+                .on('keydown.kmphonemaskvalidate', function(e){
+                    if (e.keyCode == 13 && !validate()) {
+                        e.preventDefault();
+                        return false;
+                    } else {
+                        removeError.call(this);
+                    }
+                })
+                .on('focus.kmphonemaskvalidate', function () {
+                    removeError();
+                })
+                .on('blur.kmphonemaskvalidate', function () {
+                    if (validate()) {
+                        removeError();
+                    } else {
+                        showError();
+                    }
+                });
+    };
+
+    var replaceArray = function (replaceString, find, replace) {
+        var regex;
+        for (var i = 0; i < find.length; i++) {
+            regex = new RegExp(find[i], "g");
+            replaceString = replaceString.replace(regex, replace[i]);
+        }
+        return replaceString;
+    };
+    var escapeRegex = function (str) {
+        var specials = ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'];
+        str = str.replace(new RegExp('(\\' + specials.join('|\\') + ')', 'gim'), '\\$1');
+        return new RegExp(replaceArray(str, ['0', '#', '9'],['\\d', '+', '\\d?']),'i');
+    };
+    var removeError = function () {
+        phone.removeClass('wa-error')
+                .closest('form.checkout-form').find(':input[type="submit"]:last').prop('disabled', false);
+        error.remove();
+    };
+    var showError = function () {
+        phone.addClass('wa-error').after(error)
+                .closest('form.checkout-form').find(':input[type="submit"]:last').prop('disabled', true);
+    };
+    var validate = function () {
+        return check ? escapeRegex(phone_mask).test(phone.val()) : true;
+    };
+
+    init();
+};
+
+(function(){
+
+//{if $where == 'everywhere'}
+
+    setInterval(function(){
+        var phone_input = $('{$phone_input_names}');
+        if (phone_input.length) {
+            phone_input.each(function (i, el) {
+                new KmPhoneMaskAndValidate($(el), {$validate}, '{$phone_mask}', '{$phone_placeholder}', '{$error_msg|escape}');
+            });
+        }
+    }, 1000);
+
+//{else}
+
+    var phone_input = $('{$phone_input_names}');
+    phone_input.each(function (i, el) {
+        new KmPhoneMaskAndValidate($(el), {$validate}, '{$phone_mask}', '{$phone_placeholder}', '{$error_msg|escape}');
+    });
+
+//{/if}
+
+}());
+
+</script>

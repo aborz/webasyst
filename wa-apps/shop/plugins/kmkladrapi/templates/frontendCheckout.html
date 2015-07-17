@@ -1,0 +1,375 @@
+<script>
+var KmKladrApi = function(el) {
+    var self = $(el),
+        input_wrapper = self.find('.wa-value p'),
+        old_order = [],
+        street_house_wrapper = input_wrapper.find('.wa-field-address-street'),
+        street_house = street_house_wrapper.find(':input'),
+        city_wrapper = input_wrapper.find('.wa-field-address-city'),
+        city = city_wrapper.find(':input'),
+        region_old_wrapper = input_wrapper.find('.wa-field-address-region'),
+        region_old = region_old_wrapper.find(':input:first'),
+        zip_wrapper = input_wrapper.find('.wa-field-address-zip'),
+        zip = zip_wrapper.find(':input'),
+        country_wrapper = input_wrapper.find('.wa-field-address-country'),
+        country = country_wrapper.find('select'),
+        region_wrapper = $('<span class="field wa-field-address-region"><span>Регион</span><input type="text" value="" data-ignore></span>'),
+        region = region_wrapper.find('input'),
+        street_wrapper = $('<span class="field wa-field-address-street"><span>Улица</span><input type="text" value="" data-ignore></span>'),
+        street = street_wrapper.find('input'),
+        building_wrapper = $('<span class="field wa-field-address-building"><span>Дом, корпус, строение</span><input type="text" value="" data-ignore></span>'),
+        building = building_wrapper.find('input'),
+        apartment_wrapper = $('<span class="field wa-field-address-apartment"><span>Квартира / офис</span><input type="text" value="" data-ignore></span>'),
+        apartment = apartment_wrapper.find('input'),
+        shipping_wrapper = self.closest('[class^="shipping-"]'),
+        region_error = $('<div class="wa-error-msg">{$region_error_msg}</div>'),
+        hint = $('<div class="hint kladr-hint">{$hint_msg}</div>');
+
+    var log = function (msg, obj) {
+        if (window.console) {
+            console.groupCollapsed(msg);
+            if (obj) {
+                console.log(obj);
+            }
+            console.groupEnd();
+        }
+    };
+
+    var exclude = function() {
+        return false;
+    };
+
+    var init = function () {
+        // plugin init only once per address
+        if (!self.data('kmkladrapi') && !exclude()) {
+            log('Init plugin kmkladrapi for ', self);
+            self.data('kmkladrapi', true);
+
+            // if hidden fields - assume that values are set
+            if (!country_wrapper.length) {
+                country = input_wrapper.find('[name$="][country]"]');
+            } else {
+                input_wrapper.prepend(country_wrapper);
+            }
+            if (!region_old_wrapper.length) {
+                region_old = input_wrapper.find('[name$="][region]"]');
+            }
+            if (!city_wrapper.length) {
+                city = input_wrapper.find('[name$="][city]"]');
+            }
+
+            if (country.length) { // we have county select or just input
+                country.on('change.kmkladrapi', function () {
+                    if ((self.is(':visible') || shipping_wrapper.find('[name="shipping_id"]').is(':checked') || self.closest('[data-step-id="contactinfo"]').length) &&
+                            country.val() === 'rus') { // if russia - use kladr-api
+                        init_kladr();
+                    } else { // default functionality
+                        remove_kladr();
+                    }
+                });
+
+                country.trigger('change.kmkladrapi');
+            } else { // if no country and plugin is on we assume that default country is rus
+                init_kladr();
+            }
+
+            // init or remove kladr on change shipping options
+            shipping_wrapper.find('[name="shipping_id"]').on('change', function() {
+                if ($(this).is(':checked') && country.length && country.val() === 'rus') {
+                    init_kladr();
+                } else {
+                    remove_kladr();
+                }
+            });
+
+            input_wrapper.find('.field').each(function(i, el){
+                old_order.push($(el));
+            });
+        }
+    };
+
+    var init_kladr = function () {
+        // but we can init kladr event many times
+        if (!self.data('kmkladrinit')) {
+            log('Init kladr for', self);
+
+            self.data('kmkladrinit', true);
+            $.kladr.url = '{$wa->getUrl("shop/frontend/kmkladrapi/")}',
+            $.kladr.setDefault({
+                parentInput: input_wrapper,
+                labelFormat: function (obj, query) {
+                    var label = '';
+
+                    var name = obj.name.toLowerCase();
+                    query = query.name.toLowerCase();
+
+                    var start = name.indexOf(query);
+                    start = start > 0 ? start : 0;
+
+                    if (obj.typeShort) {
+                        label += obj.typeShort + '. ';
+                    }
+
+                    if (query.length < obj.name.length) {
+                        label += obj.name.substr(0, start);
+                        label += '<strong>' + obj.name.substr(start, query.length) + '</strong>';
+                        label += obj.name.substr(start + query.length, obj.name.length - query.length - start);
+                    } else {
+                        label += '<strong>' + obj.name + '</strong>';
+                    }
+
+                    if (obj.parents) {
+                        for (var k = obj.parents.length - 1; k > -1; k--) {
+                            var parent = obj.parents[k];
+                            if (parent.name) {
+                                if (label) label += '<small>, </small>';
+                                label += '<small>' + parent.name + ' ' + parent.typeShort + '.</small>';
+                            }
+                        }
+                    }
+
+                    return label;
+                },
+                valueFormat: function (obj, query) {
+                    var value = '';
+                    if (obj.typeShort && obj.contentType !== $.kladr.type.city) {
+                        value += obj.typeShort + '. ';
+                    }
+
+                    if (obj.zip) {
+                        zip.val(obj.zip);
+                    }
+
+                    return value + obj.name;
+                },
+                change: function (obj) {
+                    if (obj) {
+                        // set region name
+                        if (obj.contentType === $.kladr.type.city) {
+                            if (obj.parents && obj.parents.length) {
+                                //                                region_wrapper.show();
+                                for (var k = obj.parents.length - 1; k > -1; k--) {
+                                    var parent = obj.parents[k];
+                                    if (parent.name && parent.contentType === $.kladr.type.region) {
+                                        region.kladr('controller').setValueByObject(parent);
+                                    }
+                                }
+                            }
+                            var region_code = parseInt(obj.id.substr(0, 2));
+                            if (region_code === 77 || region_code === 78) {
+                                region.kladr('controller').setValueById(region_code + '00000000000')
+                            }
+                        }
+                    }
+                },
+                checkBefore: function () {
+                    var input = $(this);
+
+                    if (!$.trim(input.val())) {
+                        return false;
+                    }
+                }
+            });
+
+            if (region.data('kladrData') === undefined) {
+                region.kladr({
+                    'type': $.kladr.type.region,
+                    parentInput: null
+                });
+            }
+            if (city.data('kladrData') === undefined) {
+                city.kladr({
+                    'type': $.kladr.type.city,
+                    'withParents': true,
+                    parentInput: null
+                });
+            }
+            if (street.data('kladrData') === undefined) {
+                street.kladr({
+                    'type': $.kladr.type.street,
+                    'withParents': true
+                });
+            }
+            if (building.data('kladrData') === undefined) {
+                building.kladr({
+                    'type': $.kladr.type.building
+                });
+            }
+
+            init_kladr_values();
+
+            region.on('kladr_change.kmkladrinit', function(e, obj) {
+                // set region id
+                if (region_old_wrapper.length && obj) { // if not set
+                    var region_code = obj.id.substr(0, 2);
+                    if (region_old.find('option[value="' + region_code + '"]').length) {
+                        region_old.val(region_code).trigger('change');
+                        region_error.remove();
+                        city.removeClass('wa-error');
+                        region.removeClass('wa-error');
+                    } else {
+                        region.after(region_error);
+                        region.addClass('wa-error');
+                        city.addClass('wa-error');
+                    }
+                }
+            });
+
+            city.on('blur.kmkladrinit', function(e) {
+                city.kladr('controller').setValueByName($.trim(city.val()));
+                city.trigger('change');
+            });
+
+            street.on('keyup.kmkladrinit', function(e) {
+                street_house.val(street.val());
+            });
+
+            building.on('keyup.kmkladrinit', function(e) {
+                var street_val = street.val();
+                street_house.val(street_val + ', ' + building.val());
+            });
+            building.on('kladr_change.kmkladrinit', function(e, obj) {
+                zip.trigger('change');
+            });
+
+            apartment.on('keyup.kmkladrinit', function(e) {
+                var street_val = street.val(),
+                        building_val = building.val();
+                street_house.val(street_val + ', ' + building_val + ', ' + apartment.val());
+            });
+
+            // shippping plugin specified code
+            if (shipping_wrapper.length && shipping_wrapper.find('[src="/wa-plugins/shipping/cdek/img/logo.png"]').length) {
+                init_kladr_cdek();
+                order_kladr_cdek();
+            } else {
+                order_kladr();
+            }
+
+            // disable submit on enter key
+            input_wrapper.find(':input').on('keydown.kmkladrapi', function(e){
+                if (e.keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+    };
+
+    var init_kladr_values = function() {
+        var region_val = region_old.val() ? parseInt(region_old.val() + '00000000000') : '',
+            street_house_val = street_house.val().split(','),
+            city_val = city.val();
+
+        // removing short type
+        city_val = city_val.replace(/[волость|г|дп|кп|п\/о|пгт|рп|с\/а|с\/мо|с\/о|с\/п|с\/с|тер]\.\s/gi,'');
+
+        if (region_val) {
+            region.kladr('controller').setValueById(region_val);
+        }
+        if (city_val) {
+            city.kladr('controller').setValueByName(city_val);
+        }
+
+        street.val(street_house_val[0] ? $.trim(street_house_val[0]) : '');
+        building.val(street_house_val[1] ? $.trim(street_house_val[1]) : '');
+        apartment.val(street_house_val[2] ? $.trim(street_house_val[2]) : '');
+
+
+    };
+
+    var init_kladr_cdek = function() {
+        shipping_wrapper.find('select[name^="shipping_"]').on('change.kmkladrinit', function() {
+            city.kladr('controller').setValueByName($(this).val());
+        });
+
+        shipping_wrapper.on('change.kmkladrinit', 'select[name^="rate_id["]', function() {
+            if ($(this).val() == 'door') {
+                street_wrapper.show();
+                building_wrapper.show();
+                apartment_wrapper.show();
+            } else {
+                street_wrapper.hide();
+                building_wrapper.hide();
+                apartment_wrapper.hide();
+            }
+        }).trigger('change');
+    };
+
+    var remove_kladr = function() {
+        if (self.data('kmkladrinit')) {
+            log('Remove kladr from ', self);
+
+            order_default();
+
+            city
+                .off('.kladr')
+                .removeData('kladrData kladrId kladrInputChange kladrType')
+                .removeAttr('autocomplete data-kladr-type data-kladr-id');
+
+            // remove all kmkladrapi event handlers
+            if (shipping_wrapper.length) { // handle shipping option
+                shipping_wrapper.find(':input').off('.kmkladrinit');
+            } else {
+                input_wrapper.find(':input').off('.kmkladrinit');
+            }
+
+            self.data('kmkladrinit', false);
+        }
+    };
+
+    var order_kladr_cdek = function() {
+        // change input order
+        input_wrapper.prepend(country_wrapper, region_old_wrapper, region_wrapper, street_wrapper, building_wrapper, apartment_wrapper);
+
+        street_house_wrapper.css({
+            position: 'absolute',
+            height: 0,
+            border: 0,
+            padding: 0,
+            overflow: 'hidden'
+        });
+        region_old_wrapper.hide();
+    };
+
+    var order_kladr = function() {
+        // change input order
+        input_wrapper.prepend(country_wrapper, city_wrapper, region_old_wrapper, region_wrapper, street_wrapper, building_wrapper, apartment_wrapper, zip_wrapper);
+
+        {if $hint_msg}
+        input_wrapper.prepend(hint);
+        {/if}
+
+        if (!region_old_wrapper.length) { // region is already set
+            region_wrapper.hide();
+        }
+
+        street_house_wrapper.hide();
+        region_old_wrapper.hide();
+    };
+
+    var order_default = function() {
+        {if $hint_msg}
+        hint.remove();
+        {/if}
+
+        // restore input order
+        input_wrapper.prepend(old_order);
+
+        street_house_wrapper.show();
+        region_old_wrapper.show();
+
+        region_wrapper.remove();
+        street_wrapper.remove();
+        building_wrapper.remove();
+        apartment_wrapper.remove();
+    };
+
+    init();
+};
+
+$('.checkout-step .wa-field-address').each(function(i, el) {
+    new KmKladrApi($(el));
+});
+
+</script>

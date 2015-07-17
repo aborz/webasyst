@@ -37,12 +37,14 @@
         {$product_available = $product.status}
         <div class="options">
         {$featureButton = $wa->globals("featureButton")}
+        <!--AB featureButton={$featureButton}-->
         <span class="bold skus-select-text">[`Please select`]: </span>
             {foreach $features_selectable as $f}
             <div class="option-item" {if $f.name=='Цвет'}style='visibility:hidden'{/if}>
                 <span class="option-name">{$f.name}</span>
                 {if $f.name=='Размер'}
-                    {foreach $f.values as $v_id => $v}<span data-value-id="{$v_id}" class="feature-btn{if $v_id == ifset($default_sku_features[$f.id])} selected{/if}">{$v}</span>
+                    {$f_values = $wa->shop->sort_sizes($f.values)}
+                    {foreach $f_values as $v_id => $v}<span data-value-id="{$v_id}" class="feature-btn{if $v_id == ifset($default_sku_features[$f.id])} selected{/if}">{$v}</span>
 					
 					{/foreach}
                 {/if}

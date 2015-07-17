@@ -501,4 +501,102 @@ class shopViewHelper extends waAppViewHelper
         }
         return in_array($product_id, $ids) ? $ids : array();
     }
+    
+    //AB 2015-07-15 special sorting of sizes
+    
+    private $_xxx = array( "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL" );
+    private $_sepa = array( "-", "/", "(" );
+    function comp_sizes($v1a, $v2a)
+    {
+        $v1 = $v1a;
+        for( $i = 0; $i < count($this->$_sepa); $i++ )
+        {
+            $pos = strpos($v1a, $this->$_sepa[ $i ]);
+            if ($pos === false) {
+                //echo "Строка '$findme' не найдена в строке '$mystring'";
+            }
+            else {
+                $v1 = substr($v1a, 0, $pos);
+                break;
+            }
+        }
+    
+        $v2 = $v2a;
+        for( $i = 0; $i < count($this->$_sepa); $i++ )
+        {
+            $pos = strpos($v2a, $this->$_sepa[ $i ]);
+            if ($pos === false) {
+                //echo "Строка '$findme' не найдена в строке '$mystring'";
+            }
+            else {
+                $v2 = substr($v2a, 0, $pos);
+                break;
+            }
+        }
+        
+        if( ctype_digit ( $v1 ) && ctype_digit ( $v2 ) )
+        {   //convert to integers
+            $v1b = intval( $v1 ); 
+            $v2b = intval( $v2 ); 
+            return ( $v1b <= $v2b ) ? -1 : 1;
+        }
+        
+        //sizes like XXS
+        $val1 = 0;
+        $val2 = 0;
+        for (; $val1 < count($this->$_xxx); $val1++)
+        {
+            if ($this->$_xxx[$val1] == $v1) break;
+        }
+        for (; $val2 < count($this->$_xxx); $val2++)
+        {
+            if ($this->$_xxx[$val2] == $v2) break;
+        }
+        return ($val1 <= $val2 ? -1 : 1);
+    }
+
+    public function sort_sizes($values)
+    {
+        //echo("special sorting of sizes");
+        $f_v = array();
+        $f_key = array();
+        $f_val = array();
+        $i = 0;
+        foreach ($values as $v_id => $v)
+        {
+            //echo "sort " . $v_id . "=>" . $v ;
+            $f_key[$i] = $v_id;
+            $f_val[$i] = $v;
+            $i++;
+        }
+        $tot = $i;
+        
+        //sort
+        $bDone = 0;
+        while( $bDone == 0 ) {
+            $bDone = 1;
+            for( $i = 0; $i < $tot - 1; $i++ )
+            {
+                if( $this->comp_sizes($f_val[ $i ], $f_val[ $i + 1 ]) > 0 )
+                {   //switch
+                    $tmp = $f_val[ $i ];
+                    $f_val[ $i ] = $f_val[ $i + 1 ];
+                    $f_val[ $i + 1 ] = $tmp;
+                    
+                    $tmp = $f_key[ $i ];
+                    $f_key[ $i ] = $f_key[ $i + 1 ];
+                    $f_key[ $i + 1 ] = $tmp;
+                    
+                    $bDone = 0;
+                }
+            }                
+        }
+        
+        //compose new array
+        for( $i = 0; $i < $tot; $i++ )
+        {
+            $f_v[ $f_key[$i] ] = $f_val[$i];
+        }
+        return $f_v;
+    }
 }
