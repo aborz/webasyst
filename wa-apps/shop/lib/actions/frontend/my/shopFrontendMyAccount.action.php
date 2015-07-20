@@ -23,7 +23,7 @@ class shopFrontendMyAccountAction extends waMyProfileAction
         $sp_user_info->fetchUserInfo()
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases();
-        
+
         $this->view->assign('sp_user_info', $sp_user_info);
         $this->view->assign('sp_bonus_card', $this->getBonusCard($price = $sp_user_info->getTotalSpent() ));
         $this->view->assign('purchases_progressbar', $this->getPurchasesProgressbarHtml ($price = $sp_user_info->getTotalSpent()));

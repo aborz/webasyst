@@ -33,24 +33,20 @@
 		<p class=""><strong>Мои бонусы по состоянию на {time()|wa_date}</strong></h3>
 		<div class="field-group">
 			<div class="field">
-				<div class="name black"><strong>Вид бонусов</strong></div>
+				<div class="name black"><strong>Бонусы</strong></div>
 				<div class="value"><strong>количество</strong></div>
 			</div>
 			<div class="field">
-				<div class="name">Приветственные бонусы</div>
-				<div class="value">200</div>
+				<div class="name">Накоплено бонусов</div>
+				<div class="value">{$sp_user_info->getTotalPoints()}</div>
 			</div>
 			<div class="field">
-				<div class="name">Бонусы за покупки</div>
-				<div class="value">150</div>
+				<div class="name">Потрачено бонусов</div>
+				<div class="value">{$sp_user_info->getSpentPoints()}</div>
 			</div>
 			<div class="field">
-				<div class="name">Бонусы за вступление в группу vk.com</div>
-				<div class="value">50</div>
-			</div>
-			<div class="field">
-				<div class="name">Бонусы в честь дня рождения</div>
-				<div class="value">300</div>
+				<div class="name">Неподтвержденные бонусы</div>
+				<div class="value">{$sp_user_info->getUnConfirmedPoints()}</div>
 			</div>
 			<div class="field">
 				<div class="name"><strong>Общее количество доступных<sup>*</sup> бонусов</strong></div>

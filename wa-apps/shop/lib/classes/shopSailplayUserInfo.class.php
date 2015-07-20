@@ -60,6 +60,9 @@ class shopSailplayUserInfo
 		}
 		$purchases = array();
 		$spent = 0;
+		
+		//! Здесь не учитываются возвраты!!!(надо доделать)
+		
 		foreach($this->sp_history as $act) {
 			if ($act['action'] == 'purchase') {
 				$purchases[] = $act;
@@ -108,6 +111,18 @@ class shopSailplayUserInfo
 
 	function getConfirmedPoints() {
 		return isset($this->sp_points['confirmed']) ? $this->sp_points['confirmed'] : 'Unknown';
+	}
+	
+	function getUnConfirmedPoints() {
+		return isset($this->sp_points['unconfirmed']) ? $this->sp_points['unconfirmed'] : 'Unknown';
+	}
+	
+	function getSpentPoints() {
+		return isset($this->sp_points['spent']) ? $this->sp_points['spent'] : 'Unknown';
+	}
+	
+	function getTotalPoints() {
+		return isset($this->sp_points['total']) ? $this->sp_points['total'] : 'Unknown';
 	}
 	
 	function getUserHistory() {
