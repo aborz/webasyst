@@ -17,7 +17,7 @@ class boxberryShipping extends waShipping
 		$data['weight'] = str_ireplace(',', '.', $data['weight'])*1000;
 		$data['ordersum'] = $this->getTotalPrice();
 		$data['target'] = $shipping['point_id'];
-
+		
 		$shipping = $this->sendRequest('DeliveryCosts', $data);
 		if (!isset($shipping['price'])) {return 'Ошибка получения данных';}
 		$arr = array(
@@ -40,7 +40,6 @@ class boxberryShipping extends waShipping
 		$data['method'] = $method;
 		$request = 'http://api.boxberry.de/json.php?'.http_build_query($data);
 		$response = file_get_contents($request);
-		//file_put_contents('data.txt', $request);
 		return json_decode($response,true);
 	}
 
@@ -50,7 +49,8 @@ class boxberryShipping extends waShipping
 				'pos_address' => array(
 		            'title' => 'Пункт самовывоза',
 		            'control_type' => waHtmlControl::TEXTAREA,
-		            'description' => '<script type="text/javascript"src="http://points.boxberry.ru/js/boxberry.js" /></script><a href="#" onclick="boxberry.open(boxberry_input); return false">Выбрать</a>',
+		            'description' => '<script type="text/javascript"src="http://points.boxberry.ru/js/boxberry.js" />
+</script><a href="#" onclick="boxberry.open(boxberry_input' .(($sel_city = $this->getSelectedCityId($this->getAddress('city'))) ? (', '.$sel_city) : "" ) .'); return false">Выбрать</a>',
 		            'id' => 'pos_address',
 		            'name' => 'pos_address',
 		            'value' => '',
@@ -96,6 +96,15 @@ class boxberryShipping extends waShipping
 			}
 		}
 	    return false;
+    }
+
+    private function getSelectedCityId($city = '')
+    {
+		$cities = $this->sendRequest('ListCities', []);
+		foreach ($cities as $c) {
+			if (stristr($c['Name'], $city)) return $c['Code'];
+		}
+		return null;
     }
 
     protected function getSessionData($key, $default = null)

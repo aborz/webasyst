@@ -18,7 +18,7 @@ class pickpointShipping extends waShipping
 		$data['IKN'] = $this->getSettings('IKN');
 		$data['FromCity'] = 'Москва';
 		$data['FromRegion'] = 'Московская обл.';
-		$data['PTNumber'] = '7701-063';
+		$data['PTNumber'] = $shipping['point_id'];
 		$data['Length'] = '50';
 		$data['Depth'] = '30';
 		$data['Width'] = '40';
