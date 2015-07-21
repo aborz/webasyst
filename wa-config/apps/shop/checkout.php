@@ -7,8 +7,8 @@ return array (
     array (
       'firstname' => 
       array (
-        'localized_names' => 'Фамилия и имя',
-        'required' => '1',
+        'localized_names' => 'Имя',
+        'required' => '',
       ),
       'phone' => 
       array (
@@ -18,7 +18,7 @@ return array (
       'email' => 
       array (
         'localized_names' => 'Электронная почта',
-        'required' => '1',
+        'required' => '',
       ),
       'about' => 
       array (
