@@ -92,6 +92,10 @@ class shopSailplayUserInfo
         return $this;
 	}
 
+	function getSpHistory() {
+		return ($this->sp_history) ? $this->sp_history : false;
+	}
+
 	function getDetailedPurchases() {
         return $this->sp_detailed_purchases;
 	}

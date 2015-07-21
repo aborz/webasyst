@@ -24,6 +24,7 @@ class shopFrontendMyPointsAction extends waMyProfileAction
         $sp_user_info->fetchUserInfo()->fetchUserHistory();
         
         $this->view->assign('sp_user_info', print_r($sp_user_info,1));
+        $this->view->assign('points_table', $this->getPointsTable($sp_user_info->getSpHistory() ));
     }
 
     protected function getForm()
@@ -66,5 +67,140 @@ class shopFrontendMyPointsAction extends waMyProfileAction
             ),
         );
     }
+
+    private function getPointsTable($history = array()) {
+		if (!count($history)) return false;
+		
+		//сначала промаркируем все бонусы
+		$social_bonus = array();
+		$p_online_bonus = array();
+		$p_offline_bonus = array();
+		for ($i = 0; $i < count($history); $i++) {
+			$history[$i]['wa_key'] = 'other';
+			if (isset($history[$i]['points_delta'])) {
+				if ($history[$i]['points_delta'] < 0) {
+					$history[$i]['wa_key'] = 'spent';
+					continue;
+				}
+			}
+			
+			if ($history[$i]['action'] == 'purchase') {
+				if ($history[$i]['store_department_id'] == '1408') {
+					$history[$i]['wa_key'] = 'p_online';
+				} else {
+					$history[$i]['wa_key'] = 'p_offline';
+				}
+				continue;
+			}
+			
+			if (isset($history[$i]['social_action'])) {
+				$history[$i]['wa_key'] = 'social';
+				continue;
+			}
+		}
+
+		$other_bonus = array();
+		
+		$html = '
+			<table class="user-bonus">
+				<thead>
+				<tr>
+					<th class="action"></th>
+					<th>Вид бонусов</th>
+					<th class="align-center">Общее кол-во начисленных бонусов</th>
+					<th class="align-center">Общее кол-во бонусов, доступных для списания</th>
+					<th class="align-center">Ближайшая дата сгорания бонусных баллов</th>
+					<th class="align-center">Кол-во сгорающих баллов</th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				<tr class="greeting-bonus">
+					<td class="action">+</td>
+					<td>Приветственные бонусы</td>
+					<td class="align-center">200</td>
+					<td class="align-center">200</td>
+					<td class="align-center">20.05.2016</td>
+					<td class="align-center">200</td>
+				</tr>';
+				
+		if ($p_offline_bonus) $html .= '
+			<tr class="retail-bonus">
+				<td class="action">+</td>
+				<td>Бонусы за покупку в розничном магазине</td>
+				<td class="align-center">200</td>
+				<td class="align-center">200</td>
+				<td class="align-center">20.05.2016</td>
+				<td class="align-center">200</td>
+			</tr>
+		';
+		
+		if ($p_online_bonus) $html .= '
+			<tr class="online-bonus">
+				<td class="action">+</td>
+				<td>Бонусы за покупку в интернет-магазине</td>
+				<td class="align-center">200</td>
+				<td class="align-center">0</td>
+				<td class="align-center"></td>
+				<td class="align-center">200</td>
+			</tr>
+		';
+		
+		if ($social_bonus) $html .= '
+			<tr class="social-bonus">
+				<td class="action">+</td>
+				<td>Бонусы за активность в соцсетях</td>
+				<td class="align-center">200</td>
+				<td class="align-center">200</td>
+				<td class="align-center">20.05.2016</td>
+				<td class="align-center">200</td>
+			</tr>
+		';
+		
+		if ($other_bonus) $html .= '
+			<tr class="birthday-bonus">
+				<td class="action">+</td>
+				<td>Бонусы в честь дня рождения</td>
+				<td class="align-center">200</td>
+				<td class="align-center">200</td>
+				<td class="align-center">20.05.2016</td>
+				<td class="align-center">200</td>
+			</tr>
+		';
+		
+		$html .= '
+				</tbody>
+				
+				<tfoot>
+				<tr class="total" style="height:30px;">
+					<td class="action"></td>
+					<td>Итого</td>
+					<td class="align-center">700</td>
+					<td class="align-center">650</td>
+					<td class="align-center"></td>
+					<td class="align-center">600</td>
+				</tr>
+				</tfoot>
+			</table>
+		';
+
+	    return $html;
+    }
+
+    private function getTableRow($history = array(), $key, $options = array()) {
+	    $arr = array();
+	    foreach ($history as $h) {
+		    if ($h['wa_key'] == $key) $arr[] = $h;
+	    }
+	    $html = '<tr'
+	    	.(isset($options['id']) ? ' id="'.$options['id'].'"' : '')
+	    	.(isset($options['class']) ? ' class="'.$options['class'].'"' : '')
+	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
+	    	.'>';
+	    	
+	    $html .= '</tr>';
+	    return $html;
+    }
+
 }
 
