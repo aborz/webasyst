@@ -123,51 +123,13 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 					<td class="align-center">20.05.2016</td>
 					<td class="align-center">200</td>
 				</tr>';
+		
+		$html .= $this->getTableRow($history, 'p_offline')
+			.$this->getTableRow($history, 'p_online')
+			.$this->getTableRow($history, 'social')
+			.$this->getTableRow($history, 'spent')
+			.$this->getTableRow($history, 'other');
 				
-		if ($p_offline_bonus) $html .= '
-			<tr class="retail-bonus">
-				<td class="action">+</td>
-				<td>Бонусы за покупку в розничном магазине</td>
-				<td class="align-center">200</td>
-				<td class="align-center">200</td>
-				<td class="align-center">20.05.2016</td>
-				<td class="align-center">200</td>
-			</tr>
-		';
-		
-		if ($p_online_bonus) $html .= '
-			<tr class="online-bonus">
-				<td class="action">+</td>
-				<td>Бонусы за покупку в интернет-магазине</td>
-				<td class="align-center">200</td>
-				<td class="align-center">0</td>
-				<td class="align-center"></td>
-				<td class="align-center">200</td>
-			</tr>
-		';
-		
-		if ($social_bonus) $html .= '
-			<tr class="social-bonus">
-				<td class="action">+</td>
-				<td>Бонусы за активность в соцсетях</td>
-				<td class="align-center">200</td>
-				<td class="align-center">200</td>
-				<td class="align-center">20.05.2016</td>
-				<td class="align-center">200</td>
-			</tr>
-		';
-		
-		if ($other_bonus) $html .= '
-			<tr class="birthday-bonus">
-				<td class="action">+</td>
-				<td>Бонусы в честь дня рождения</td>
-				<td class="align-center">200</td>
-				<td class="align-center">200</td>
-				<td class="align-center">20.05.2016</td>
-				<td class="align-center">200</td>
-			</tr>
-		';
-		
 		$html .= '
 				</tbody>
 				
@@ -189,14 +151,28 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 
     private function getTableRow($history = array(), $key, $options = array()) {
 	    $arr = array();
+	    $total_earned = 0;
+	    $action_date = '';
 	    foreach ($history as $h) {
-		    if ($h['wa_key'] == $key) $arr[] = $h;
+		    if ($h['wa_key'] == $key) {
+			    $arr[] = $h;
+			    if ($h['points_delta'] > 0) $total_earned += $h['points_delta'];
+			    $action_date = $h['action_date'];
+		    }
 	    }
+	    if (!$arr) return '';
+	    
 	    $html = '<tr'
 	    	.(isset($options['id']) ? ' id="'.$options['id'].'"' : '')
 	    	.(isset($options['class']) ? ' class="'.$options['class'].'"' : '')
 	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
 	    	.'>';
+	    $html .= '<td class="action">+</td>'
+	    	.'<td>' .$key .'</td>'
+	    	.'<td class="align-center">' .$total_earned .'</td><td></td>'
+	    	.'<td class="align-center">' .$action_date .'</td><td></td>'
+	    	.'</tr>';
+	    
 	    	
 	    $html .= '</tr>';
 	    return $html;
