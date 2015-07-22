@@ -176,6 +176,9 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 	    return $html;
     }
 	
+	/*
+	* возвращает человекопонятные названия типов бонусов
+	*/
 	private function getSpKeyName($key) {
 		switch ($key) {
 			case 'p_offline': return 'Бонусы за покупки оффлайн';
