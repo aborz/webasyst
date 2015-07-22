@@ -72,9 +72,6 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 		if (!count($history)) return false;
 		
 		//сначала промаркируем все бонусы
-		$social_bonus = array();
-		$p_online_bonus = array();
-		$p_offline_bonus = array();
 		for ($i = 0; $i < count($history); $i++) {
 			$history[$i]['wa_key'] = 'other';
 			if (isset($history[$i]['points_delta'])) {
@@ -98,8 +95,6 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 				continue;
 			}
 		}
-
-		$other_bonus = array();
 		
 		$html = '
 			<table class="user-bonus" style="width:100%">
@@ -115,11 +110,11 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 				
 				<tbody>';
 		
-		$html .= $this->getTableRow($history, 'p_offline', array('id' => 'p_offline'))
-			.$this->getTableRow($history, 'p_online', array('id' => 'p_online'))
-			.$this->getTableRow($history, 'social', array('id' => 'social'))
-			.$this->getTableRow($history, 'spent', array('id' => 'spent'))
-			.$this->getTableRow($history, 'other', array('id' => 'other'));
+		$html .= $this->getTableRow($history, 'p_offline', array('id' => 'p_offline', 'class' => 'large'))
+			.$this->getTableRow($history, 'p_online', array('id' => 'p_online', 'class' => 'large'))
+			.$this->getTableRow($history, 'social', array('id' => 'social', 'class' => 'large'))
+			.$this->getTableRow($history, 'spent', array('id' => 'spent', 'class' => 'large'))
+			.$this->getTableRow($history, 'other', array('id' => 'other', 'class' => 'large'));
 				
 		$html .= '
 				</tbody>
@@ -158,7 +153,7 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
 	    	.'>';
 	    $html .= '<td class="action" onclick="toggleTableVisibility(\'' .$options['id'] .'\')" role="button">+&nbsp;</td>'
-	    	.'<td>' .$key .'</td>'
+	    	.'<td>' .$this->getSpKeyName($key) .'</td>'
 	    	.'<td class="align-center">' .$total_earned .'</td>'
 	    	.'<td class="align-center">' .str_replace('T', ' ', $action_date) .'</td><td></td>'
 	    	.'</tr>';
@@ -180,6 +175,16 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 	    }
 	    return $html;
     }
-
+	
+	private function getSpKeyName($key) {
+		switch ($key) {
+			case 'p_offline': return 'Бонусы за покупки оффлайн';
+			case 'p_online': return 'Бонусы за покупки онлайн';
+			case 'social': return 'Бонусы за социальную активность';
+			case 'spent': return 'Потраченные бонусы';
+			case 'other': return 'Другое';
+			default: return 'x';
+		}
+	}
 }
 
