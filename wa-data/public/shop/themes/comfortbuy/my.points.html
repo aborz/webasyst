@@ -9,16 +9,25 @@
 
     <h3 class="align-center">Успейте оплатить свои покупки бонусными баллами!<br>Чтобы их заработать, совершайте заказы и выполняйте задания.</h3>
     
+	<div class="block">
+		{$points_table}
+	</div>
+	
     <pre>
 	    {$sp_user_info}
     </pre>
     
 	<div class="block">
-		{$points_table}
-	</div>
-	
-	<div class="block">
 		<p><a href="{$wa->getUrl('/frontend/myEarn')}">Заработать больше бонусов</a></p>
 	</div>
 	
 </div>
+<script>
+
+function toggleTableVisibility(div_class) {
+	$('.' + div_class + '-detailed').toggle({ duration: 400});
+	var action_id = $('#' + div_class + ' .action');
+	//alert(action_id.html());
+	if (action_id.html() == '+&nbsp;') { action_id.html('--&nbsp;');} else { action_id.html('+&nbsp;');};
+}
+</script>	

@@ -102,33 +102,24 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 		$other_bonus = array();
 		
 		$html = '
-			<table class="user-bonus">
+			<table class="user-bonus" style="width:100%">
 				<thead>
 				<tr>
 					<th class="action"></th>
 					<th>Вид бонусов</th>
-					<th class="align-center">Общее кол-во начисленных бонусов</th>
-					<th class="align-center">Общее кол-во бонусов, доступных для списания</th>
-					<th class="align-center">Ближайшая дата сгорания бонусных баллов</th>
+					<th class="align-center">Количество начисленных бонусов</th>
+					<th class="align-center">Ближайшая дата начисления бонусных баллов</th>
 					<th class="align-center">Кол-во сгорающих баллов</th>
 				</tr>
 				</thead>
 				
-				<tbody>
-				<tr class="greeting-bonus">
-					<td class="action">+</td>
-					<td>Приветственные бонусы</td>
-					<td class="align-center">200</td>
-					<td class="align-center">200</td>
-					<td class="align-center">20.05.2016</td>
-					<td class="align-center">200</td>
-				</tr>';
+				<tbody>';
 		
-		$html .= $this->getTableRow($history, 'p_offline')
-			.$this->getTableRow($history, 'p_online')
-			.$this->getTableRow($history, 'social')
-			.$this->getTableRow($history, 'spent')
-			.$this->getTableRow($history, 'other');
+		$html .= $this->getTableRow($history, 'p_offline', array('id' => 'p_offline'))
+			.$this->getTableRow($history, 'p_online', array('id' => 'p_online'))
+			.$this->getTableRow($history, 'social', array('id' => 'social'))
+			.$this->getTableRow($history, 'spent', array('id' => 'spent'))
+			.$this->getTableRow($history, 'other', array('id' => 'other'));
 				
 		$html .= '
 				</tbody>
@@ -138,7 +129,6 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 					<td class="action"></td>
 					<td>Итого</td>
 					<td class="align-center">700</td>
-					<td class="align-center">650</td>
 					<td class="align-center"></td>
 					<td class="align-center">600</td>
 				</tr>
@@ -167,14 +157,27 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 	    	.(isset($options['class']) ? ' class="'.$options['class'].'"' : '')
 	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
 	    	.'>';
-	    $html .= '<td class="action">+</td>'
+	    $html .= '<td class="action" onclick="toggleTableVisibility(\'' .$options['id'] .'\')" role="button">+&nbsp;</td>'
 	    	.'<td>' .$key .'</td>'
-	    	.'<td class="align-center">' .$total_earned .'</td><td></td>'
-	    	.'<td class="align-center">' .$action_date .'</td><td></td>'
+	    	.'<td class="align-center">' .$total_earned .'</td>'
+	    	.'<td class="align-center">' .str_replace('T', ' ', $action_date) .'</td><td></td>'
 	    	.'</tr>';
 	    
 	    	
 	    $html .= '</tr>';
+
+	    $i = 0;
+	    foreach ($arr as $row) {
+		    $i++;
+		    $html.= '<tr class="' .$options['id'] .'-detailed" style="display:none">'
+		    	.'<td>' .$i .'</td>'
+		    	.'<td>' .$row['name'] .'</td>'
+		    	.'<td class="align-center">' .$row['points_delta'] .'</td>'
+		    	.'<td class="align-center">' .str_replace('T', ' ', $row['action_date']) .'</td>'
+		    	.'<td class="align-center"></td>'
+		    	.'</tr>';
+		    	
+	    }
 	    return $html;
     }
 
