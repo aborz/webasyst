@@ -503,17 +503,16 @@ class shopViewHelper extends waAppViewHelper
     }
     
     //AB 2015-07-15 special sorting of sizes
-    
-    private $_xxx = array( "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL" );
-    private $_sepa = array( "-", "/", "(" );
+    //AB 2015-07-22 outside arrays are empty?? - declare inside
     function comp_sizes($v1a, $v2a)
     {
+        $_sepa = array( "-", "/", "(" );
         $v1 = $v1a;
-        for( $i = 0; $i < count($this->$_sepa); $i++ )
+        for( $i = 0; $i < count($_sepa); $i++ )
         {
-            $pos = strpos($v1a, $this->$_sepa[ $i ]);
+            $pos = strpos($v1a, $_sepa[ $i ]);
             if ($pos === false) {
-                //echo "Строка '$findme' не найдена в строке '$mystring'";
+                //echo "Строка '" . $_sepa[ $i ] . "' не найдена в строке '" . $v1a . "'";
             }
             else {
                 $v1 = substr($v1a, 0, $pos);
@@ -522,17 +521,18 @@ class shopViewHelper extends waAppViewHelper
         }
     
         $v2 = $v2a;
-        for( $i = 0; $i < count($this->$_sepa); $i++ )
+        for( $i = 0; $i < count($_sepa); $i++ )
         {
-            $pos = strpos($v2a, $this->$_sepa[ $i ]);
+            $pos = strpos($v2a, $_sepa[ $i ]);
             if ($pos === false) {
-                //echo "Строка '$findme' не найдена в строке '$mystring'";
+                //echo "Строка '" . $_sepa[ $i ] . "' не найдена в строке '" . $v2a . "'";
             }
             else {
                 $v2 = substr($v2a, 0, $pos);
                 break;
             }
         }
+        //echo("v1=" . $v1 . ", v2=" . $v2 . ", cnt=" . count($_sepa));
         
         if( ctype_digit ( $v1 ) && ctype_digit ( $v2 ) )
         {   //convert to integers
@@ -542,15 +542,16 @@ class shopViewHelper extends waAppViewHelper
         }
         
         //sizes like XXS
+        $_xxx = array( "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL" );
         $val1 = 0;
         $val2 = 0;
-        for (; $val1 < count($this->$_xxx); $val1++)
+        for (; $val1 < count($_xxx); $val1++)
         {
-            if ($this->$_xxx[$val1] == $v1) break;
+            if ($_xxx[$val1] == $v1) break;
         }
-        for (; $val2 < count($this->$_xxx); $val2++)
+        for (; $val2 < count($_xxx); $val2++)
         {
-            if ($this->$_xxx[$val2] == $v2) break;
+            if ($_xxx[$val2] == $v2) break;
         }
         return ($val1 <= $val2 ? -1 : 1);
     }
