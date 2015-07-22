@@ -18,13 +18,15 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
-
+		
+/*
         $sp_user_info = new shopSailplayUserInfo();
         $sp_user_info->fetchUserInfo()
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
         $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
+*/
     }
 
     protected function getForm()
