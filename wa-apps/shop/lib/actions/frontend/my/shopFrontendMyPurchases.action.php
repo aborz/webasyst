@@ -25,7 +25,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
         $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
-        $this->view->assign('purchases_table', $this->getPurchasesTable());
+        $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases()));
     }
 
     protected function getForm()
@@ -71,57 +71,28 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 
 	//!incomplete
     private function getPurchasesTable($purchases = array()) {
-/*
-		if (!count($purchases)) return false;
-		
-		//сначала промаркируем все подготовим все покупки к выводу
-		for ($i = 0; $i < count($history); $i++) {
-			$history[$i]['wa_key'] = 'other';
-			if (isset($history[$i]['points_delta'])) {
-				if ($history[$i]['points_delta'] < 0) {
-					$history[$i]['wa_key'] = 'spent';
-					continue;
-				}
-			}
-			
-			if ($history[$i]['action'] == 'purchase') {
-				if ($history[$i]['store_department_id'] == '1408') {
-					$history[$i]['wa_key'] = 'p_online';
-				} else {
-					$history[$i]['wa_key'] = 'p_offline';
-				}
-				continue;
-			}
-			
-			if (isset($history[$i]['social_action'])) {
-				$history[$i]['wa_key'] = 'social';
-				continue;
-			}
-		}
-		
-*/
+	    if (!$purchases) return '';
 		$html = '
 	    <table class="user-purchases" style="width:100%">
 			<thead>
 				<tr>
-					<th class="align-center">Номер карты</th>
-					<th>Номер чека / заказа</th>
-					<th class="align-center">Доставка / Магазин</th>
-					<th class="align-center">Дата</th>
-					<th class="align-center">Статус</th>
-					<th class="align-center">Сумма, руб.</th>
-					<th class="align-center">Бонусы</th>
-					<th class="align-center">Тип магазина</th>
+					<th class="align-center"><b>Номер карты</b></th>
+					<th><b>Номер чека / заказа</b></th>
+					<th class="align-center"><b>Доставка / Магазин</b></th>
+					<th class="align-center"><b>Дата</b></th>
+					<th class="align-center"><b>Статус</th>
+					<th class="align-center"><b>Сумма, руб.</b></th>
+					<th class="align-center"><b>Бонусы</b></th>
+					<th class="align-center"><b>Тип магазина</b></th>
 					<th></th>
 				</tr>
 			</thead>
 			
 			<tbody>';
-/*
 		foreach ($purchases as $p) {
+			$p = $this->parseSPPurchase($p);
 			$html .= $this->getTableRow($p);
 		}
-*/
 				
 		$html .= '
 				</tbody>
@@ -130,47 +101,37 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 
 	    return $html;
     }
+	
+	//! тут надо обработать подробнее
+	private function parseSPPurchase($purchase = array()) {
+	    if (!$purchase) return '';
+		$purchase['wa-card-number'] = '50000005134';
+		$purchase['wa-bill-number'] = $purchase['purchase']['order_num'];
+		$purchase['wa-store'] = $purchase['purchase']['store_department_id'];
+		$purchase['wa-date'] = stristr($purchase['purchase']['purchase_date'], 'T', true);
+		$purchase['wa-status'] = $purchase['status'];
+		$purchase['wa-price'] = $purchase['purchase']['price'];
+		$purchase['wa-points'] = $purchase['purchase']['points_delta'];
+		$purchase['wa-store-type'] = $purchase['purchase']['store_department_id'];
+		return $purchase;
+	}
 
-	//!incomplete
     private function getTableRow($purchase = array()) {
-	    $arr = array();
-	    $total_earned = 0;
-	    $action_date = '';
-	    foreach ($history as $h) {
-		    if ($h['wa_key'] == $key) {
-			    $arr[] = $h;
-			    if ($h['points_delta'] > 0) $total_earned += $h['points_delta'];
-			    $action_date = $h['action_date'];
-		    }
-	    }
-	    if (!$arr) return '';
+	    if (!$purchase) return '';
 	    
-	    $html = '<tr'
-	    	.(isset($options['id']) ? ' id="'.$options['id'].'"' : '')
-	    	.(isset($options['class']) ? ' class="'.$options['class'].'"' : '')
-	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
-	    	.'>';
-	    $html .= '<td class="action" onclick="toggleTableVisibility(\'' .$options['id'] .'\')" role="button">+&nbsp;</td>'
-	    	.'<td>' .$this->getSpKeyName($key) .'</td>'
-	    	.'<td class="align-center">' .$total_earned .'</td>'
-	    	.'<td class="align-center">' .str_replace('T', ' ', $action_date) .'</td><td></td>'
+	    $html = '<tr>';
+	    $html .= '<td class="align-center">' .$purchase['wa-card-number'] .'</td>'
+	    	.'<td>' .$purchase['wa-bill-number'] .'</td>'
+	    	.'<td class="align-center">' .$purchase['wa-store'] .'</td>'
+	    	.'<td class="align-center">' .$purchase['wa-date'] .'</td>'
+	    	.'<td class="align-center">' .$purchase['wa-status'] .'</td>'
+	    	.'<td class="align-center">' .$purchase['wa-price'] .'</td>'
+	    	.'<td class="align-center">' .$purchase['wa-points'] .'</td>'
+	    	.'<td class="align-center">' .$purchase['wa-store-type'] .'</td>'
+	    	.'<td class="align-center">Детализация</td>'
 	    	.'</tr>';
-	    
-	    	
-	    $html .= '</tr>';
 
-	    $i = 0;
-	    foreach ($arr as $row) {
-		    $i++;
-		    $html.= '<tr class="' .$options['id'] .'-detailed" style="display:none">'
-		    	.'<td>' .$i .'</td>'
-		    	.'<td>' .$row['name'] .'</td>'
-		    	.'<td class="align-center">' .$row['points_delta'] .'</td>'
-		    	.'<td class="align-center">' .str_replace('T', ' ', $row['action_date']) .'</td>'
-		    	.'<td class="align-center"></td>'
-		    	.'</tr>';
-		    	
-	    }
+	    $html .= '</tr>';
 	    return $html;
     }
 }
