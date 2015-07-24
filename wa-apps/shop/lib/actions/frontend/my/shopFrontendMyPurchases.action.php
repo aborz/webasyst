@@ -25,7 +25,8 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
         $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
-        $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases()));
+        $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases(), waRequest::get()));
+        $this->view->assign('datepicker_form', $this->getDatepickerForm());
     }
 
     protected function getForm()
@@ -70,7 +71,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
     }
 
 	//!incomplete
-    private function getPurchasesTable($purchases = array()) {
+    private function getPurchasesTable($purchases = array(), $filter = array()) {
 	    if (!$purchases) return '';
 		$html = '
 	    <table class="user-purchases" style="width:100%">
@@ -90,7 +91,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 			
 			<tbody>';
 		foreach ($purchases as $p) {
-			$p = $this->parseSPPurchase($p);
+			$p = $this->parseSPPurchase($p, $filter);
 			$html .= $this->getTableRow($p);
 		}
 				
@@ -103,12 +104,19 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
     }
 	
 	//! тут надо обработать подробнее
-	private function parseSPPurchase($purchase = array()) {
+	private function parseSPPurchase($purchase = array(), $filter = array()) {
 	    if (!$purchase) return '';
+	    
+	    $wa_date = stristr($purchase['purchase']['purchase_date'], 'T', true);
+	    
+	    file_put_contents('data.txt', print_r($this->convertDatepickerDate($filter['to-date']),1));
+	    if(isset($filter['from-date'])) { if ( $wa_date < $this->convertDatepickerDate($filter['from-date']) ) return false;}
+	    if(isset($filter['to-date'])) { if ( $wa_date > $this->convertDatepickerDate($filter['to-date']) ) return false;}
+	    
 		$purchase['wa-card-number'] = '50000005134';
 		$purchase['wa-bill-number'] = $purchase['purchase']['order_num'];
 		$purchase['wa-store'] = $purchase['purchase']['store_department_id'];
-		$purchase['wa-date'] = stristr($purchase['purchase']['purchase_date'], 'T', true);
+		$purchase['wa-date'] = $wa_date;
 		$purchase['wa-status'] = $purchase['status'];
 		$purchase['wa-price'] = $purchase['purchase']['price'];
 		$purchase['wa-points'] = $purchase['purchase']['points_delta'];
@@ -134,5 +142,30 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	    $html .= '</tr>';
 	    return $html;
     }
+    
+    private function getDatepickerForm() {
+	    $html = '
+	    	<form id="date-chose">
+				<p>Выберите дату: c <input type="text" name="from-date" class="datepicker" value="' .htmlspecialchars(waRequest::get('from-date', '', 'string'), ENT_QUOTES) .'"/> по <input type="text" name="to-date" class="datepicker" value="' .htmlspecialchars(waRequest::get('to-date', '', 'string'), ENT_QUOTES) .'"/>';
+
+/* пока не требуется
+		$get = waRequest::get();
+		unset($get['from-date']);
+		unset($get['to-date']);
+		if ($get) foreach ($get as $key => $value) {
+			$html .= '<input type="hidden" name="' .htmlspecialchars($key, ENT_QUOTES) .'" value="' .htmlspecialchars($value, ENT_QUOTES) .'" />';
+		}
+*/
+
+		$html .='
+				<button>Применить</button></p>
+			</form>';
+		return $html;
+    }
+    
+    private function convertDatepickerDate($date) {
+	    return implode('-', array_reverse( explode('.', $date) ));
+    }
+    
 }
 
