@@ -109,7 +109,6 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	    
 	    $wa_date = stristr($purchase['purchase']['purchase_date'], 'T', true);
 	    
-	    file_put_contents('data.txt', print_r($this->convertDatepickerDate($filter['to-date']),1));
 	    if(isset($filter['from-date'])) { if ( $wa_date < $this->convertDatepickerDate($filter['from-date']) ) return false;}
 	    if(isset($filter['to-date'])) { if ( $wa_date > $this->convertDatepickerDate($filter['to-date']) ) return false;}
 	    

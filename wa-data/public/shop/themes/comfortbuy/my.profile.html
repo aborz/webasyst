@@ -1,10 +1,4 @@
-<!--
-<div class="sidebar left230px">
-    {include file="sidebar.html"}
-</div>
--->
-
-<div class="content left230px">
+<div class="content">
 
     <!-- navigation breadcrumbs -->
     <div class="breadcrumbs">
@@ -31,5 +25,71 @@
         </div>
     </div>
     </form>
-    
+
 </div>
+
+<script type="text/javascript">
+	$( ".wa-field-my_sizes-size_top" ).addClass('clearfix');
+	$( ".wa-field-fav_style" ).each(function(){ multiField(this); });	
+	
+	function addField(href) {
+		var p = $('p', $(href).parent()).last();
+		var input = $('input', p);
+		if ($(input).val()=='') return false;
+		var last_index = -1;
+		var fname = $(input).attr('name');
+		if (fname.indexOf("][") > -1) {
+			last_index = fname.slice(fname.lastIndexOf("][")+2, fname.lastIndexOf("]"));
+		}
+		
+		if (last_index == -1) {
+			last_index = 0;
+			$(input).attr('name', fname + '[0]');
+		}
+		
+		last_index++;
+		$(p).before($(p).clone());
+		input.attr('value', '');
+		input.focus();
+		fname = $(input).attr('name').slice(0,-3);
+		input.attr('name', fname + '[' + last_index + ']');
+	}
+	
+	function removeField(href) {
+		var p = $(href).parent();
+		var wa_value = $(p).parent();
+		var other_ps = $(p).siblings('p');
+		if (other_ps.length == 1) {
+			$('a[onclick^=remove]').remove();
+		}
+		p.remove();
+		enumerateInputs(wa_value);
+	}
+	
+	function enumerateInputs(wa_value) {
+		var i = 0;
+		var inputs = $('input', wa_value);
+		inputs.each(function(){
+			fname = $(this).attr('name').slice(0,-3);
+			$(this).attr('name', fname + '[' + i + ']');
+			if( $(this).val()=='' ) {
+				$(this).parent().remove();
+				i--;
+			}
+			i++;
+		})
+	}
+	
+	function multiField(field) {
+		var wa_value = $('.wa-value', field).first();
+		var inputs = $('input', wa_value);
+		var last_input = $('input', wa_value).last();
+		
+		wa_value.append('<a onclick="addField(this);">добавить поле</a>');
+
+		inputs.each(function(){
+			$(this).before('<a style="float:right;" onclick="removeField(this);">Удалить</a>')
+		});
+	}
+	
+</script>

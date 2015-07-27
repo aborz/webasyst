@@ -202,16 +202,51 @@ return array (
      '_type' => 'waContactAddressField',
   )),
 //  
-	new waContactStringField(
+
+	new waContactCompositeField(
 		'my_sizes',
-		array('en_US' => 'My sizes', 'ru_RU' => "Мои размеры",)
+		array('en_US' => 'My sizes', 'ru_RU' => "Мои размеры",),
+		array(
+			'fields' => array(
+				new waContactSelectField(
+					'size_top',
+					array('en_US' => 'My preferred style', 'ru_RU' => "Верх",),
+					array(
+						'format' => 'html',
+						'options' => array(
+						'40' => '40',
+						'42' => '42',
+						'44' => '44',
+						'46' => '44',
+						'48' => '48',
+						'50' => '50',
+						'52' => '52',
+						),
+					)
+				),
+				new waContactSelectField(
+					'size_low',
+					array('en_US' => 'My preferred style', 'ru_RU' => "Низ",),
+					array(
+						'format' => 'html',
+						'options' => array(
+						'42' => '42',
+						'44' => '44',
+						'46' => '44',
+						'48' => '48',
+						'50' => '50',
+						),
+					)
+				),
+			),
+		)
 	),
 	new waContactStringField(
 		'fav_style',
 		array('en_US' => 'My preferred style', 'ru_RU' => "Мой любимый стиль",),
-		array()
+		array('multi' => true)
 	),
-	new waContactSelectField(
+	new waContactStringField(
 		'fav_color',
 		array('en_US' => 'My favorite color', 'ru_RU' => "Мой любимый цвет",),
 		array(
@@ -219,28 +254,6 @@ return array (
 			'multi' => true,
 			'ext' => array('one'=>'one','two'=>'two'),
 */
-			'options' => array(
-				'black' => 'черный',
-				'brown' => 'коричневый',
-				'white' => 'белый',
-				'red' => 'красный',
-				'blue' => 'синий',
-				'green' => 'зеленый',
-				'orange' => 'оранжевый',
-				'yellow' => 'желтый',
-				'grey' => 'серый',
-				'pink' => 'розовый',
-				'purple' => 'фиолетовый',
-				'aqua' => 'бирюзовый',
-				'bordeaux' => 'бордовый',
-				'bronze' => 'бронзовый',
-				'light_blue' => 'голубой',
-				'mustard' => 'горчичный',
-				'gold' => 'золотой',
-				'milk' => 'молочный',
-				'silver' => 'серебряный',
-				'khaki' => 'хаки',
-			),
 		)
 	),
 	new waContactCompositeField(
@@ -252,6 +265,7 @@ return array (
 					'relative',
 					array('en_US' => 'My favorite color', 'ru_RU' => "Родство",),
 					array(
+						'format' => 'html',
 						'options' => array(
 							'son' => 'Сын',
 							'daughter' => 'Дочь',
