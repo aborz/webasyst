@@ -232,7 +232,7 @@ return array (
 						'options' => array(
 						'42' => '42',
 						'44' => '44',
-						'46' => '44',
+						'46' => '46',
 						'48' => '48',
 						'50' => '50',
 						),
@@ -249,12 +249,7 @@ return array (
 	new waContactStringField(
 		'fav_color',
 		array('en_US' => 'My favorite color', 'ru_RU' => "Мой любимый цвет",),
-		array(
-/*
-			'multi' => true,
-			'ext' => array('one'=>'one','two'=>'two'),
-*/
-		)
+		array('multi' => true)
 	),
 	new waContactCompositeField(
 		'family_friends',
@@ -293,12 +288,12 @@ return array (
 	new waContactStringField(
 		'hobbies',
 		array('en_US' => 'My hobbies', 'ru_RU' => "Мои хобби",),
-		array()//'multi' => true,)
+		array('multi' => true,)
 	),
 	new waContactStringField(
 		'pets',
 		array('en_US' => 'My pets', 'ru_RU' => "Мои питомцы",),
-		array()//'multi' => true,)
+		array('multi' => true,)
 	),
 	new waContactStringField(
 		'heroes',
@@ -307,22 +302,22 @@ return array (
 	new waContactStringField(
 		'cloth_brands',
 		array('en_US' => 'My favorite clothing brands', 'ru_RU' => "Мои любимые бренды одежды",),
-		array()//'multi' => true,)
+		array('multi' => true,)
 	),
 	new waContactStringField(
 		'shoe_brands',
 		array('en_US' => 'My favorite shoe brands', 'ru_RU' => "Мои любимые бренды обуви",),
-		array()//'multi' => true,)
+		array('multi' => true,)
 	),
 	new waContactStringField(
 		'cosmetic_shops',
 		array('en_US' => 'My favorite selfcare shops', 'ru_RU' => "Мои любимые магазины косметики",),
-		array()//'multi' => true,)
+		array('multi' => true, 'placeholder' => 'косметика',)
 	),
 	new waContactStringField(
 		'grocery_stores',
 		array('en_US' => 'My favorite grocery stores', 'ru_RU' => "Мои любимые магазины продуктов",),
-		array()//'multi' => true,)
+		array('multi' => true,)
 	),
 	new waContactStringField(
 		'other_shops',
