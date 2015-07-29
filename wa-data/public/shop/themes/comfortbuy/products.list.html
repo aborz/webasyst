@@ -81,8 +81,6 @@
                     {/if}
                     {$wa->shop->productImgHtml($p, '300', ['itemprop' => 'image', 'alt' => $p.name, 'default' => "`$wa_theme_url`img/dummy300.png"])}
                 </a><div class="quick_view">
-				
-    
 			
 			
 				<form style="visibility:hidden; position:absolute" class="addtocartz"   method="post" {if $p.sku_count > 1} data-url="{$p.frontend_url}{if strpos($p.frontend_url, '?')}&{else}?{/if}cart=2"{else} data-url="{$p.frontend_url}{if strpos($p.frontend_url, '?')}&{else}?{/if}cart=3"{/if}>
@@ -92,6 +90,13 @@
 			    <span>
 				<a onclick="submitform({$p.id})" id="winz_{$p.id}" class="quick_link show_popup">быстрый просмотр</a>
 				<a href="{$p.frontend_url}" class="more_link">подробнее</a>
+				{if $p.sizes}
+					<div class="option-item" style="padding-top:10px;">
+					{foreach $p.sizes as $ps}
+						<span class="size">{$ps.value}</span>
+					{/foreach}
+					</div>
+				{/if}
 				</span>
         </div>
             </div>

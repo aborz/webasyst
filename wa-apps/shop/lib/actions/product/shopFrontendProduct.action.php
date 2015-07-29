@@ -1,11 +1,11 @@
 <?php
 function MysqlConnect()
 {
-	global $dbcnx;
+	global $dbcnx; //!Андрей Б., ем не угодил класс waDbResultSelect?
  	 $dbhost = "localhost";          
-    $dbname = "webasyst";  
- $dbuser = "root";            
- $dbpass = "Zeloborzo1";
+    $dbname = "sela-test1";  
+ $dbuser = "webasyst";            
+ $dbpass = "webAsyst1";
   	$dbcnx=@mysql_connect($dbhost,$dbuser,$dbpass);
    	if (!$dbcnx)
     {

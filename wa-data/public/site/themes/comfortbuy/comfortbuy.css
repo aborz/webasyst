@@ -742,6 +742,15 @@ i.icon16 { background-repeat:no-repeat; height:16px; width:16px; display:inline-
     display: table-cell;
     vertical-align: middle;
 }
+.quick_view .size {
+	display: inline-block;
+	width:auto;
+	height: 1em;
+	background:#fff;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin: 0 5px 5px 0;
+}
 .image:hover .quick_view {
     opacity: 1;
 }

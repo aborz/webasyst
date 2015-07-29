@@ -181,7 +181,6 @@ class shopFrontendCategoryAction extends shopFrontendAction
                 }
             }
             $this->view->assign('filters', $filters);
-
             $this->setCollection($collection);
 
             // fix prices
@@ -268,6 +267,24 @@ class shopFrontendCategoryAction extends shopFrontendAction
             $this->setCollection($collection);
         }
 
+		//отображение дополнительных размеров
+        $products = $this->view->getVars('products');
+        $product_features_model = new shopProductFeaturesSelectableModel();
+        $pf_model = new waModel();
+     
+        foreach ($products as &$p) {
+            $sku_features = $product_features_model->getByProduct($p['id']);
+            $sizes = $sku_features[3];
+            if (!($sizes)) { $p['sizes'] = array(); break;}
+			$pf_names = $pf_model->query("SELECT `id`, `value` FROM shop_feature_values_varchar where `id` IN (" .implode(',', $sizes) .') ORDER BY `sort`;')->fetchAll();
+			foreach ($pf_names as $key => $val){
+				$sizes[$val['id']] = $val['value'];
+			}
+			$p['sizes'] = $pf_names;
+        }
+
+        $this->view->assign('products', $products);
+        
         // set meta
         $title = $category['meta_title'] ? $category['meta_title'] : $category['name'];
         wa()->getResponse()->setTitle($title);
