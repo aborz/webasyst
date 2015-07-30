@@ -289,9 +289,7 @@ class shopFrontendCategoryAction extends shopFrontendAction
         }
 
         $this->view->assign('products', $products);
-        
-        file_put_contents('data.txt', print_r($products,1));
-        
+                
         // set meta
         $title = $category['meta_title'] ? $category['meta_title'] : $category['name'];
         wa()->getResponse()->setTitle($title);

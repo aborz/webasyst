@@ -93,10 +93,10 @@
  <input id="formes_{$p.id}" type="submit" value="!">
 </form>
 			    <span>
-			    <button class="left15px" onclick="bstf_preview(this, 'left');">left</button>
-			    <button class="right15px" onclick="bstf_preview(this, 'right');">right</button>
-				<a onclick="submitform({$p.id})" id="winz_{$p.id}" class="quick_link show_popup">быстрый просмотр</a>
-				<a href="{$p.frontend_url}" class="more_link">подробнее</a>
+			    <button class="prev-slide" onclick="bstf_preview(this, 'left');"><i class="icon-caret-left"></i></button>
+			    <button class="next-slide" onclick="bstf_preview(this, 'right');"><i class="icon-caret-right"></i></button>
+				<a onclick="submitform({$p.id})" id="winz_{$p.id}" class="quick_link more_link show_popup">быстрый просмотр</a>
+<!-- 				<a href="{$p.frontend_url}" class="more_link">подробнее</a> -->
 				{if $p.sizes}
 					<div class="option-item" style="padding-top:10px;">
 					{foreach $p.sizes as $ps}
@@ -198,15 +198,15 @@ function bstf_preview(el, direction){
 		case "right":
 			var next_item = cur_item.next();
 			if (!(next_item.length)) { next_item = cur_item.siblings().first(); }
-			next_item.addClass('active');
 			cur_item.removeClass('active');
+			next_item.addClass('active');
 			break;
 
 		case "left":
 			var next_item = cur_item.prev();
 			if (!(next_item.length)) { next_item = cur_item.siblings().last(); }
-			next_item.addClass('active');
 			cur_item.removeClass('active');
+			next_item.addClass('active');
 			break;
 	}
 }

@@ -745,10 +745,12 @@ i.icon16 { background-repeat:no-repeat; height:16px; width:16px; display:inline-
 .quick_view .size {
 	display: inline-block;
 	width:auto;
-	height: 1em;
-	background:#fff;
+	height: auto;
+	background: transparent;
+	color: #fff;
+	border: 1px solid white;
 	border-radius: 3px;
-	padding: 8px 10px;
+	padding: 0px 2px;
 	margin: 0 5px 5px 0;
 }
 .image .bstf-preview img {
@@ -760,6 +762,17 @@ i.icon16 { background-repeat:no-repeat; height:16px; width:16px; display:inline-
 .image:hover .quick_view {
     opacity: 1;
 }
+
+.quick_view span button{
+	font-size: 20px;
+	color: #fff;
+	background: transparent;
+	border: none;
+	margin-top: 45%;
+	padding: 6px 14px;
+}
+.quick_view span button.prev-slide{	float: left; margin-left: -6px;}
+.quick_view span button.next-slide{	float: right; margin-right: -6px; }
 .quick_view .more_link{
  display: block;
   width: 182px; 
@@ -781,7 +794,7 @@ i.icon16 { background-repeat:no-repeat; height:16px; width:16px; display:inline-
   height: 33px!important;
   line-height: 27px;
   border: 1px solid #ffffff;
-  margin: 15px auto 0; margin-top:40%;
+  margin: 15px auto 0; margin-top:45%;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
