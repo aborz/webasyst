@@ -748,8 +748,14 @@ i.icon16 { background-repeat:no-repeat; height:16px; width:16px; display:inline-
 	height: 1em;
 	background:#fff;
 	border-radius: 3px;
-	padding: 5px 10px;
+	padding: 8px 10px;
 	margin: 0 5px 5px 0;
+}
+.image .bstf-preview img {
+	display: none;
+}
+.image .bstf-preview img.active {
+	display: inline;
 }
 .image:hover .quick_view {
     opacity: 1;

@@ -270,20 +270,27 @@ class shopFrontendCategoryAction extends shopFrontendAction
 		//отображение дополнительных размеров
         $products = $this->view->getVars('products');
         $product_features_model = new shopProductFeaturesSelectableModel();
-        $pf_model = new waModel();
      
         foreach ($products as &$p) {
             $sku_features = $product_features_model->getByProduct($p['id']);
             $sizes = $sku_features[3];
-            if (!($sizes)) { $p['sizes'] = array(); break;}
-			$pf_names = $pf_model->query("SELECT `id`, `value` FROM shop_feature_values_varchar where `id` IN (" .implode(',', $sizes) .') ORDER BY `sort`;')->fetchAll();
+            if (!($sizes)) { $p['sizes'] = array(); continue;}
+			$pf_names = $product_features_model->query("SELECT `id`, `value` FROM shop_feature_values_varchar where `id` IN (" .implode(',', $sizes) .') ORDER BY `sort`;')->fetchAll();
 			foreach ($pf_names as $key => $val){
 				$sizes[$val['id']] = $val['value'];
 			}
 			$p['sizes'] = $pf_names;
         }
+        
+        //отображение всех картинок
+        foreach ($products as &$p) {
+	        $images_full = shopViewHelper::images($p['id']);
+	        if (isset($images_full[$p['id']])) $p['image_ids'] = array_keys($images_full[$p['id']]);
+        }
 
         $this->view->assign('products', $products);
+        
+        file_put_contents('data.txt', print_r($products,1));
         
         // set meta
         $title = $category['meta_title'] ? $category['meta_title'] : $category['name'];

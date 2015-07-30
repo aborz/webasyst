@@ -74,12 +74,17 @@
 	  <div class="product-block block">
 		
             <div class="image">
-                <a href="{$p.frontend_url}" title="{$p.name|escape}{if $p.summary} &mdash; {strip_tags($p.summary)|escape}{/if}">
+                <a class="bstf-preview" href="{$p.frontend_url}" title="{$p.name|escape}{if $p.summary} &mdash; {strip_tags($p.summary)|escape}{/if}">
                     {$badge_html = $wa->shop->badgeHtml($p.badge)}
                     {if $badge_html}
                         <div class="corner bottom left">{$badge_html}</div>
                     {/if}
+                    {if $p.image_ids}
+                    {foreach $p.image_ids as $pi}
+                    {$p.image_id = $pi}
                     {$wa->shop->productImgHtml($p, '300', ['itemprop' => 'image', 'alt' => $p.name, 'default' => "`$wa_theme_url`img/dummy300.png"])}
+                    {/foreach}
+                    {/if}
                 </a><div class="quick_view">
 			
 			
@@ -88,6 +93,8 @@
  <input id="formes_{$p.id}" type="submit" value="!">
 </form>
 			    <span>
+			    <button class="left15px" onclick="bstf_preview(this, 'left');">left</button>
+			    <button class="right15px" onclick="bstf_preview(this, 'right');">right</button>
 				<a onclick="submitform({$p.id})" id="winz_{$p.id}" class="quick_link show_popup">быстрый просмотр</a>
 				<a href="{$p.frontend_url}" class="more_link">подробнее</a>
 				{if $p.sizes}
@@ -175,9 +182,33 @@
 </div>
 {/if}
 
-	    <script type="text/javascript">
+<script type="text/javascript">
 function submitform(ids){
   $('#formes_'+ids).click();
+}
+
+$('.bstf-preview img').addClass('item');
+$('.bstf-preview img:first-child').addClass('active');
+
+
+function bstf_preview(el, direction){
+	var gal = $(el).parent().parent().siblings('.bstf-preview');
+	var cur_item = $('.active', gal);
+	switch (direction) {
+		case "right":
+			var next_item = cur_item.next();
+			if (!(next_item.length)) { next_item = cur_item.siblings().first(); }
+			next_item.addClass('active');
+			cur_item.removeClass('active');
+			break;
+
+		case "left":
+			var next_item = cur_item.prev();
+			if (!(next_item.length)) { next_item = cur_item.siblings().last(); }
+			next_item.addClass('active');
+			cur_item.removeClass('active');
+			break;
+	}
 }
 
 </script>
