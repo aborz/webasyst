@@ -315,7 +315,15 @@ $(function () {
                 } else {
                     f.find('em.errormsg').remove();
                 }
-                return true;
+                
+                if ($('li.shipping-' + $("form.checkout-form").find('input[name="shipping_id"]:checked').not(':disabled').val()).find('em.error:visible').text()) {
+	                scrollToCheckoutError();
+	                return false;
+                }
+                
+                pay(this);
+                
+                return false;
             });
         },
         initContactinfo: function () {
@@ -540,3 +548,13 @@ $(function () {
         }
     };
 })(jQuery);
+
+function scrollToCheckoutError() {
+    if ($('.checkout-step .error:visible').length) {
+        var destination = $('.checkout-step .error:visible').offset().top;
+        $('html,body').animate({
+            scrollTop: destination
+        }, 1100);
+    }
+
+}
