@@ -316,12 +316,42 @@ $(function () {
                     f.find('em.errormsg').remove();
                 }
                 
-                if ($('li.shipping-' + $("form.checkout-form").find('input[name="shipping_id"]:checked').not(':disabled').val()).find('em.error:visible').text()) {
+                var shipping_id = $("form.checkout-form").find('input[name="shipping_id"]:checked').not(':disabled').val();
+                
+                if ($('li.shipping-' + shipping_id).find('em.error:visible').text()) {
 	                scrollToCheckoutError();
 	                return false;
                 }
                 
-                pay(this);
+                var shipping_price = $('li.shipping-' + shipping_id).find('.rate .price').text().replace(/[^0-9,]/g, '').replace(/[,]/g, '.');
+                var cart_price = $('td.cart-total.total').first().text().replace(/[^0-9,]/g, '').replace(/[,]/g, '.');
+                var total_price = Number(cart_price);// + Number(shipping_price);
+			    
+				if(shipping_price) { total_price += Number(shipping_price); }
+				
+				total_price = Number(total_price.toFixed(2));
+				
+
+			    var widget = new cp.CloudPayments();
+			    widget.charge({ // options
+			            publicId: 'test_api_00000000000000000000001',  //id из личного кабинета
+			            description: 'Пример оплаты (деньги сниматься не будут)', //назначение
+			            amount: total_price, //сумма
+			            currency: 'RUB', //валюта
+			            invoiceId: '1234567', //номер заказа  (необязательно)
+			            accountId: 'user@example.com', //идентификатор плательщика (необязательно)
+			            data: {
+			                myProp: 'myProp value' //произвольный набор параметров
+			            }
+			        },
+			        function (options) { // success
+			            //действие при успешной оплате
+			        },
+			        function (reason, options) { // fail
+				        //form.submit();
+			            //действие при неуспешной оплате
+			    });
+                
                 
                 return false;
             });
