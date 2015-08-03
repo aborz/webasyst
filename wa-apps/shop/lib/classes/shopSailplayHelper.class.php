@@ -66,7 +66,7 @@ class shopSailplayHelper
 	}
 	
 	public static function sendRequest($method, $data) {
-        $data = ['store_department_id' => self::STORE_DEPARTMENT_ID];
+        $data['store_department_id'] = self::STORE_DEPARTMENT_ID;
         if (!isset($data['token'])) {$data['token'] = self::getToken();}
         $response = file_get_contents('http://sailplay.ru' .$method .'?' .http_build_query($data));
         if ($response) {

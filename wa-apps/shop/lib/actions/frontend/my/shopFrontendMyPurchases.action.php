@@ -18,7 +18,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
-		shopSailplayHelper::getDepartmentInfo('1960');
+
         $sp_user_info = new shopSailplayUserInfo();
         $sp_user_info->fetchUserInfo()
 	        ->fetchUserHistory()
@@ -114,12 +114,16 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	    
 		$purchase['wa-card-number'] = '50000005134';
 		$purchase['wa-bill-number'] = $purchase['purchase']['order_num'];
-		$purchase['wa-store'] = $purchase['purchase']['store_department_id'];
+
+		$dept = isset($purchase['purchase']['store_department_id']) ? shopSailplayHelper::getDepartmentInfo($purchase['purchase']['store_department_id']) : array();
+		$purchase['wa-store'] = $dept['name'];
+		$purchase['wa-store-type'] = $dept['store_department_id'];
+
 		$purchase['wa-date'] = $wa_date;
 		$purchase['wa-status'] = $purchase['status'];
 		$purchase['wa-price'] = $purchase['purchase']['price'];
 		$purchase['wa-points'] = $purchase['purchase']['points_delta'];
-		$purchase['wa-store-type'] = $purchase['purchase']['store_department_id'];
+		
 		return $purchase;
 	}
 

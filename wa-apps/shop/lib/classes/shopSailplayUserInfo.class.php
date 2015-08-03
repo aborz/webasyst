@@ -17,8 +17,7 @@ class shopSailplayUserInfo
 	public function __construct () {
 		$this->token = shopSailplayHelper::getToken();
 		$this->store_department_id = shopSailplayHelper::STORE_DEPARTMENT_ID;
-		$phone = wa()->getUser()->get('phone');
-		$this->wa_user_phone = isset($phone[0]['value']) ? $phone[0]['value'] : '';
+		$this->wa_user_phone = wa()->getUser()->get('phone', 'default');
 	}
 
 	function setToken($token=null) {
