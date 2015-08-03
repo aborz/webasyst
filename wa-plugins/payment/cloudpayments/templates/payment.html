@@ -1,0 +1,48 @@
+<form id="payment-form" action="" method="post" target="_top">
+
+    {foreach from=$hidden_fields key=name item=value}
+    	<input type="hidden" name="{$name}" value="{if $name != 'x_header_html_payment_form'}{$value|escape}{else}{$value}{/if}" />
+    {/foreach}
+
+    {if $auto_submit}
+    <i class="icon16 loading"></i> <em class="redirecting">[`Перенаправляем на сайт Сloudpayments...`]</em>
+    <br /><br />
+    <script type="text/javascript">
+    setTimeout(function () {
+	    $('#manual-pay').show(500);
+        pay();
+    }, 3000);
+    </script>
+    {/if}
+    
+<!--     <input type="submit" value="[`Proceed to PayPal to make payment`]" /> -->
+</form>
+    <button id="manual-pay" onclick="pay();" style="display: none;">Оплатить</button>
+<script>
+	this.pay = function () {
+	    var widget = new cp.CloudPayments();
+	    var form = $('#payment-form');
+	    widget.charge({ // options
+	            publicId: 'test_api_00000000000000000000001',  //id из личного кабинета
+	            description: 'Пример оплаты (деньги сниматься не будут) ' + '{$hidden_fields["description"]}', //назначение
+	            amount: {$hidden_fields['amount']}, //сумма
+	            currency: 'RUB', //валюта
+	            invoiceId: '{$hidden_fields["item_number"]}', //номер заказа  (необязательно)
+	            accountId: '{$hidden_fields["client_email"]}' //идентификатор плательщика (необязательно)
+/*
+	            data: {
+	                myProp: 'myProp value' //произвольный набор параметров
+	            }
+*/
+	        },
+	        function (options) { // success
+		        form.find('i.icon16').removeClass('loading').addClass('saved');
+		        form.find('em.redirecting').text('Успешно');
+				$('#manual-pay').remove();
+	        },
+	        function (reason, options) { // fail
+		        form.find('i.icon16').removeClass('loading').addClass('remove');
+		        form.find('em.redirecting').text('Ошибка');
+	    });
+	};
+</script>

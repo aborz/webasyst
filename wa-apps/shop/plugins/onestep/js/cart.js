@@ -321,8 +321,9 @@ $(function () {
                 if ($('li.shipping-' + shipping_id).find('em.error:visible').text()) {
 	                scrollToCheckoutError();
 	                return false;
-                }
+                } else { return true; }
                 
+/*
                 var shipping_price = $('li.shipping-' + shipping_id).find('.rate .price').text().replace(/[^0-9,]/g, '').replace(/[,]/g, '.');
                 var cart_price = $('td.cart-total.total').first().text().replace(/[^0-9,]/g, '').replace(/[,]/g, '.');
                 var total_price = Number(cart_price);// + Number(shipping_price);
@@ -351,6 +352,7 @@ $(function () {
 				        //form.submit();
 			            //действие при неуспешной оплате
 			    });
+*/
                 
                 
                 return false;
