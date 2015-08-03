@@ -20,7 +20,7 @@ class cloudpaymentsPayment extends waPayment
         $order_data['description_en'] = str_replace(array('“', '”', '«', '»'), '"', $order_data['description_en']);
         $hidden_fields = array(
             'cmd'           => '_xclick',
-            'business'      => $this->email,
+            'api_id'        => $this->api_id,
             'client_email'  => (new waContact($order_data['contact_id']))->get('email', 'default'),
             'item_name'     => str_replace(array('«', '»'), '"', $order_data['description']),
             'item_number'   => $order_data['order_id_str'],//$this->app_id.'_'.$this->merchant_id.'_'.$order_data['order_id_str'],

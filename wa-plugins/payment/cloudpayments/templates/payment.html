@@ -24,16 +24,11 @@
 	    var form = $('#payment-form');
 	    widget.charge({ // options
 	            publicId: 'test_api_00000000000000000000001',  //id из личного кабинета
-	            description: 'Пример оплаты (деньги сниматься не будут) ' + '{$hidden_fields["description"]}', //назначение
+	            description: '{$hidden_fields["description"]}', //назначение
 	            amount: {$hidden_fields['amount']}, //сумма
 	            currency: 'RUB', //валюта
 	            invoiceId: '{$hidden_fields["item_number"]}', //номер заказа  (необязательно)
 	            accountId: '{$hidden_fields["client_email"]}' //идентификатор плательщика (необязательно)
-/*
-	            data: {
-	                myProp: 'myProp value' //произвольный набор параметров
-	            }
-*/
 	        },
 	        function (options) { // success
 		        form.find('i.icon16').removeClass('loading').addClass('saved');
