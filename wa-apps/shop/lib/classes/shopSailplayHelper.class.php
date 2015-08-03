@@ -66,7 +66,7 @@ class shopSailplayHelper
 	}
 	
 	public static function sendRequest($method, $data) {
-		$data['store_department_id'] = self::STORE_DEPARTMENT_ID;
+        $data = ['store_department_id' => self::STORE_DEPARTMENT_ID];
         if (!isset($data['token'])) {$data['token'] = self::getToken();}
         $response = file_get_contents('http://sailplay.ru' .$method .'?' .http_build_query($data));
         if ($response) {
@@ -107,5 +107,51 @@ class shopSailplayHelper
 				'img' => 'img/sela_card_lilac.png',
 			),
 		);
+	}
+	public static function getDepartmentInfo($store_department_id) {
+        $model = new waModel();
+		$db_result = $model->query("SELECT * FROM sp_departments WHERE `store_department_id` = $store_department_id; ");
+		
+		if ($db_result->count() > 0) {
+			$dept = $db_result->fetchAssoc();
+			if (time() - strtotime($dept['last_checked']) < 60*60*24*30) {
+				return $dept;
+			} else {
+				$depts = self::sendRequest('/api/v2/partners/departments/list/', array());
+				if (isset($depts['departments'])) { $depts = $depts['departments']; } else { return false; }
+				$dept = array();
+				foreach ($depts as $d) {
+					if ($d['id'] == $store_department_id) {
+						$dept = $d;
+						break;
+					}
+				}
+				if ($dept) {
+					$db_result = $model->query("UPDATE sp_departments SET "
+						."`origin_id`='" .$dept['origin_id'] ."', "
+						."`key`='" .$dept['key'] ."', "
+						."`name`='" .$dept['name'] ."', "
+						."`last_checked`='" .date("Y-m-d H:i:s") ."' WHERE `store_department_id` = $store_department_id;");
+				}
+			}
+		} else {
+			$depts = self::sendRequest('/api/v2/partners/departments/list/', array());
+			if (isset($depts['departments'])) { $depts = $depts['departments']; } else { return false; }
+			$dept = array();
+			foreach ($depts as $d) {
+				if ($d['id'] == $store_department_id) {
+					$dept = $d;
+					break;
+				}
+			}
+			if ($dept) {
+				$db_result = $model->query("INSERT INTO sp_departments (`store_department_id`, `origin_id`, `key`, `name`, `last_checked`) VALUES ('$store_department_id', '"
+				.$dept['origin_id'] ."', '"
+				.$dept['key'] ."', '"
+				.$dept['name'] ."', '"
+				.date("Y-m-d H:i:s")  ."'); ");
+			}
+		}
+		return $dept;        
 	}
 }

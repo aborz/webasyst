@@ -7,7 +7,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
     public function execute()
     {
         parent::execute();
-
+		
         $this->view->assign('my_nav_selected', 'purchases');
 
         // Set up layout and template from theme
@@ -18,13 +18,13 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
-		
+		shopSailplayHelper::getDepartmentInfo('1960');
         $sp_user_info = new shopSailplayUserInfo();
         $sp_user_info->fetchUserInfo()
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
-        $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
+        $this->view->assign('sp_user_info', print_r($sp_user_info,1));
         $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases(), waRequest::get()));
         $this->view->assign('datepicker_form', $this->getDatepickerForm());
     }
