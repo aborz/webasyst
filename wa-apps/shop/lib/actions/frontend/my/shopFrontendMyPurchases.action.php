@@ -18,7 +18,9 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
-
+		
+		
+		
         $sp_user_info = new shopSailplayUserInfo();
         $sp_user_info->fetchUserInfo()
 	        ->fetchUserHistory()
@@ -106,8 +108,19 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	//! тут надо обработать подробнее
 	private function parseSPPurchase($purchase = array(), $filter = array()) {
 	    if (!$purchase) return '';
+	    if ($purchase['status'] == 'error') {
+			$purchase['wa-card-number'] = '';
+			$purchase['wa-bill-number'] = isset($purchase['order_num']) ? $purchase['order_num'] : '';
+			$purchase['wa-store'] = '';
+			$purchase['wa-store-type'] = '';
+			$purchase['wa-date'] = '';
+			$purchase['wa-status'] = 'Ошибка';
+			$purchase['wa-price'] = '';
+			$purchase['wa-points'] = '';
+			return $purchase;
+	    }
 	    
-	    $wa_date = stristr($purchase['purchase']['purchase_date'], 'T', true);
+	    $wa_date = shopSailplayHelper::spToTimestamp($purchase['purchase']['store_department_id']);
 	    
 	    if(isset($filter['from-date'])) { if ( $wa_date < $this->convertDatepickerDate($filter['from-date']) ) return false;}
 	    if(isset($filter['to-date'])) { if ( $wa_date > $this->convertDatepickerDate($filter['to-date']) ) return false;}
@@ -119,7 +132,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 		$purchase['wa-store'] = $dept['name'];
 		$purchase['wa-store-type'] = $dept['store_department_id'];
 
-		$purchase['wa-date'] = $wa_date;
+		$purchase['wa-date'] = waDateTime::date('j f Y года', $wa_date);
 		$purchase['wa-status'] = $purchase['status'];
 		$purchase['wa-price'] = $purchase['purchase']['price'];
 		$purchase['wa-points'] = $purchase['purchase']['points_delta'];

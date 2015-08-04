@@ -84,7 +84,12 @@ class shopSailplayUserInfo
 			$data['store_department_id'] = $p['store_department_id'];
 			
 			$purchase = shopSailplayHelper::sendRequest('/api/v2/purchases/get/', $data);
-			if ($purchase) {$purchases[] = $purchase;}
+			if ($purchase) {
+				if ($purchase['status'] == 'error') {
+					$p['status'] = 'error';
+					$purchases[] = $p;
+				} else { $purchases[] = $purchase; }
+			}
 		}
 		
 		$this->sp_detailed_purchases = $purchases;

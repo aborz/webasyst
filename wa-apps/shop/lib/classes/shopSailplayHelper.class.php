@@ -150,8 +150,15 @@ class shopSailplayHelper
 				.$dept['key'] ."', '"
 				.$dept['name'] ."', '"
 				.date("Y-m-d H:i:s")  ."'); ");
+				$dept['store_department_id'] = $store_department_id;
 			}
 		}
 		return $dept;        
+	}
+	
+	public static function spToTimestamp($sp_time) {
+		//! Здесь ошибка
+		$sp_time = strtotime($sp_time);
+		return $sp_time;
 	}
 }
