@@ -26,7 +26,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
-        $this->view->assign('sp_user_info', print_r($sp_user_info,1));
+        $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
         $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases(), waRequest::get()));
         $this->view->assign('datepicker_form', $this->getDatepickerForm());
     }
@@ -72,7 +72,6 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
         );
     }
 
-	//!incomplete
     private function getPurchasesTable($purchases = array(), $filter = array()) {
 	    if (!$purchases) return '';
 		$html = '
@@ -106,24 +105,25 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
     }
 	
 	//! тут надо обработать подробнее
-	private function parseSPPurchase($purchase = array(), $filter = array()) {
+	private function parseSPPurchase($purchase = array(), $filter) {
 	    if (!$purchase) return '';
 	    if ($purchase['status'] == 'error') {
 			$purchase['wa-card-number'] = '';
 			$purchase['wa-bill-number'] = isset($purchase['order_num']) ? $purchase['order_num'] : '';
 			$purchase['wa-store'] = '';
 			$purchase['wa-store-type'] = '';
-			$purchase['wa-date'] = '';
+			$purchase['wa-date'] = '0';
 			$purchase['wa-status'] = 'Ошибка';
 			$purchase['wa-price'] = '';
 			$purchase['wa-points'] = '';
+			$purchase['wa-cart'] = '';
 			return $purchase;
 	    }
 	    
-	    $wa_date = shopSailplayHelper::spToTimestamp($purchase['purchase']['store_department_id']);
+	    $wa_date = strtotime($purchase['purchase']['completed_date']);
 	    
-	    if(isset($filter['from-date'])) { if ( $wa_date < $this->convertDatepickerDate($filter['from-date']) ) return false;}
-	    if(isset($filter['to-date'])) { if ( $wa_date > $this->convertDatepickerDate($filter['to-date']) ) return false;}
+	    if(isset($filter['from-date'])) if($filter['from-date']) if( $wa_date < $this->convertDatepickerDate($filter['from-date']) ) return false;
+	    if(isset($filter['to-date'])) if($filter['to-date']) { if( $wa_date > $this->convertDatepickerDate($filter['to-date']) ) return false;}
 	    
 		$purchase['wa-card-number'] = '50000005134';
 		$purchase['wa-bill-number'] = $purchase['purchase']['order_num'];
@@ -132,11 +132,23 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 		$purchase['wa-store'] = $dept['name'];
 		$purchase['wa-store-type'] = $dept['store_department_id'];
 
-		$purchase['wa-date'] = waDateTime::date('j f Y года', $wa_date);
+		$purchase['wa-date'] = $wa_date;
 		$purchase['wa-status'] = $purchase['status'];
 		$purchase['wa-price'] = $purchase['purchase']['price'];
 		$purchase['wa-points'] = $purchase['purchase']['points_delta'];
-		
+		$purchase['wa-cart'] = array();
+		if ($purchase['cart']) {
+			foreach ($purchase['cart']['cart']['positions'] as $p) {
+				$i = array();
+				$i['name'] = isset($p['product']['name']) ? $p['product']['name'] : '';
+				$i['sku'] = isset($p['product']['sku']) ? $p['product']['sku'] : '';
+				$i['quantity'] = isset($p['quantity']) ? $p['quantity'] : '';
+				$i['old_price'] = isset($p['price']) ? $p['price'] : '';
+				$i['price'] = isset($p['new_price']) ? $p['new_price'] : '';
+				$i['points'] = isset($p['points']) ? $p['points'] : '';
+				$purchase['wa-cart'][] = $i;
+			}
+		}
 		return $purchase;
 	}
 
@@ -147,15 +159,50 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	    $html .= '<td class="align-center">' .$purchase['wa-card-number'] .'</td>'
 	    	.'<td>' .$purchase['wa-bill-number'] .'</td>'
 	    	.'<td class="align-center">' .$purchase['wa-store'] .'</td>'
-	    	.'<td class="align-center">' .$purchase['wa-date'] .'</td>'
+	    	.'<td class="align-center">' .waDateTime::format('humandate', $purchase['wa-date']) .'</td>'
 	    	.'<td class="align-center">' .$purchase['wa-status'] .'</td>'
 	    	.'<td class="align-center">' .$purchase['wa-price'] .'</td>'
 	    	.'<td class="align-center">' .$purchase['wa-points'] .'</td>'
 	    	.'<td class="align-center">' .$purchase['wa-store-type'] .'</td>'
-	    	.'<td class="align-center">Детализация</td>'
+	    	.'<td class="align-center">'
+	    	.($purchase['wa-cart'] ? '<button onclick="$(\'.detail-purchase-' .$purchase['wa-date'] .'\').toggleClass(\'hidden\', 300)">Детализация</button>' : '') 
+	    	.'</td>'
 	    	.'</tr>';
 
 	    $html .= '</tr>';
+	    if ($purchase['wa-cart']) {
+		    $html .= '<tr class="hidden detail-purchase-' .$purchase['wa-date'] .'" >'
+		    	.'<td class="align-center">' .'' .'</td>'
+		    	.'<td>' .'' .'</td>'
+		    	.'<td class="align-center">Наименование</td>'
+		    	.'<td class="align-center">Артикул</td>'
+		    	.'<td class="align-center">Количество</td>'
+		    	.'<td class="align-center">Цена</td>'
+		    	.'<td class="align-center">Баллы</td>'
+		    	.'<td class="align-center"></td>'
+		    	.'<td class="align-center"></td>'
+		    	.'</tr>';
+			foreach( $purchase['wa-cart'] as $item) {
+				$html .= $this->getTableCartItemRow($item, $purchase['wa-date']);
+		    }
+	    }
+	    return $html;
+    }
+    
+    private function getTableCartItemRow($item, $class = '') {
+	    if (!$item) return '';
+	    
+	    $html = '<tr class="hidden detail-purchase-' .$class .'" >';
+	    $html .= '<td class="align-center">' .'' .'</td>'
+	    	.'<td>' .'' .'</td>'
+	    	.'<td class="align-center">' .$item['name'] .'</td>'
+	    	.'<td class="align-center">' .$item['sku'] .'</td>'
+	    	.'<td class="align-center">' .$item['quantity'] .'</td>'
+	    	.'<td class="align-center">' .$item['price'] .'</td>'
+	    	.'<td class="align-center">' .$item['points'] .'</td>'
+	    	.'<td class="align-center">' .'' .'</td>'
+	    	.'<td class="align-center"></td>'
+	    	.'</tr>';
 	    return $html;
     }
     
@@ -180,7 +227,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
     }
     
     private function convertDatepickerDate($date) {
-	    return implode('-', array_reverse( explode('.', $date) ));
+	    return strtotime(implode('-', array_reverse( explode('.', $date) )).'T00:00:00');
     }
     
 }

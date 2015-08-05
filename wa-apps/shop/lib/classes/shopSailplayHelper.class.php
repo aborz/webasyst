@@ -155,10 +155,4 @@ class shopSailplayHelper
 		}
 		return $dept;        
 	}
-	
-	public static function spToTimestamp($sp_time) {
-		//! Здесь ошибка
-		$sp_time = strtotime($sp_time);
-		return $sp_time;
-	}
 }
