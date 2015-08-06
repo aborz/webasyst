@@ -68,7 +68,16 @@ class shopSailplayHelper
 	public static function sendRequest($method, $data) {
         $data['store_department_id'] = self::STORE_DEPARTMENT_ID;
         if (!isset($data['token'])) {$data['token'] = self::getToken();}
-        $response = file_get_contents('http://sailplay.ru' .$method .'?' .http_build_query($data));
+        $url = 'http://sailplay.ru' .$method .'?' .http_build_query($data, false, '&', PHP_QUERY_RFC3986);
+        $response = file_get_contents($url);
+/*
+	*дебаггинг запросов
+        if($method == '/api/v2/purchases/get/') {
+	        file_put_contents('data.txt', PHP_EOL.$url.PHP_EOL, FILE_APPEND);
+	        file_put_contents('data.txt', print_r(json_decode($response,true),1).PHP_EOL, FILE_APPEND);
+        }
+*/
+        
         if ($response) {
 	        return json_decode($response,true);
         }

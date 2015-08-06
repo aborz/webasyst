@@ -26,7 +26,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
-        $this->view->assign('sp_user_info', print_r($sp_user_info->getDetailedPurchases(),1));
+        //$this->view->assign('sp_user_info', print_r($sp_user_info,1));
         $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases(), waRequest::get()));
         $this->view->assign('datepicker_form', $this->getDatepickerForm());
     }
@@ -120,7 +120,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 			return $purchase;
 	    }
 	    
-	    $wa_date = strtotime($purchase['purchase']['completed_date']);
+	    $wa_date = strtotime($purchase['purchase']['action_date']);
 	    
 	    if(isset($filter['from-date'])) if($filter['from-date']) if( $wa_date < $this->convertDatepickerDate($filter['from-date']) ) return false;
 	    if(isset($filter['to-date'])) if($filter['to-date']) { if( $wa_date > $this->convertDatepickerDate($filter['to-date']) ) return false;}

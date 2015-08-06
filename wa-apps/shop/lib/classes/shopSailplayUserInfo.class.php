@@ -88,7 +88,10 @@ class shopSailplayUserInfo
 				if ($purchase['status'] == 'error') {
 					$p['status'] = 'error';
 					$purchases[] = $p;
-				} else { $purchases[] = $purchase; }
+				} else {
+					$purchase['purchase']['action_date'] = $p['action_date'];
+					$purchases[] = $purchase;
+				}
 			}
 		}
 		
