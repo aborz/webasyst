@@ -26,7 +26,7 @@ class shopFrontendMyPurchasesAction extends waMyProfileAction
 	        ->fetchUserHistory()
 	        ->fetchUserPurchases()
 	        ->fetchDetailedPurchases();
-        //$this->view->assign('sp_user_info', print_r($sp_user_info,1));
+        $this->view->assign('sp_user_info', print_r($sp_user_info,1));
         $this->view->assign('purchases_table', $this->getPurchasesTable($sp_user_info->getDetailedPurchases(), waRequest::get()));
         $this->view->assign('datepicker_form', $this->getDatepickerForm());
     }
