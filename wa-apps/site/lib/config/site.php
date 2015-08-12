@@ -50,28 +50,43 @@ return array(
 <div class="wa-form">
   <form method="post" action="">
   <div class="wa-field">
-    <div class="wa-name">[s`Name`]:</div>
-    <div class="wa-value"><input name="name" type="text" value="{$wa->post("name")|escape}"></div>
+    <div class="wa-name">Тема письма:</div>
+    <div class="wa-value"><select name="topic">
+    	<option value=""></option>
+    	<option value="1">Адрес магазина</option>
+    	<option value="2">Акции</option>
+    	<option value="3">Вакансии</option>
+    	<option value="4">Возврат/обмен товара</option>
+    	<option value="5">Восстановление клубной карты</option>
+    	<option value="6">График работы магазина</option>
+    	<option value="7">Доставка заказа</option>
+    	<option value="8">Другие вопросы о работе интернет-магазина</option>
+    	<option value="9">Наличие товара</option>
+    	<option value="10">Отписаться от рассылки</option>
+    	<option value="11">Оплата товара</option>
+    	<option value="12">Партнерство/франчайзинг</option>
+    	<option value="13">Подарочные сертификаты</option>
+    	<option value="14">Пожелания</option>
+    	<option value="15">Правила программы лояльности</option>
+    	<option value="16">Прочее</option>
+    	<option value="17">Самовывоз</option>
+    	<option value="18">Состоянии бонусного счета</option>
+    	<option value="19">Характеристики товара, рекомендации (состав, размеры, посадка и пр.)</option>
+    </select></div>
   </div>
-  <div class="wa-field">
+  <div class="wa-field hidden">
     <div class="wa-name">[s`Email`]:</div>
     <div class="wa-value">
-      <input {if !empty($errors.email)}class="wa-error"{/if} name="email" type="email" value="{$wa->post("email")|escape}" >
+      <input {if !empty($errors.email)}class="wa-error"{/if} name="email" type="hidden" value="{$wa->user()->get(\'email\')|escape}" >
       {if !empty($errors.email)}<em class="wa-error-msg">{$errors.email}</em>{/if}
     </div>
   </div>
   <div class="wa-field">
-    <div class="wa-name">[s`Message`]:</div>
+    <div class="wa-name">Текст письма:</div>
     <div class="wa-value">
       <input type="hidden" name="subject" value="[s`Website request`]">
       <textarea {if !empty($errors.body)}class="wa-error"{/if} name="body">{$wa->post("body")|escape}</textarea>
       {if !empty($errors.body)}<em class="wa-error-msg">{$errors.body}</em>{/if}
-    </div>
-  </div>
-  <div class="wa-field">
-    <div class="wa-value">
-        {$wa->captcha(!empty($errors.captcha))}
-        {if !empty($errors.captcha)}<em class="wa-error-msg">{$errors.captcha}</em>{/if}
     </div>
   </div>
   <div class="wa-field">
