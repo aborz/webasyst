@@ -217,7 +217,7 @@ return array (
 						'40' => '40',
 						'42' => '42',
 						'44' => '44',
-						'46' => '44',
+						'46' => '46',
 						'48' => '48',
 						'50' => '50',
 						'52' => '52',
@@ -241,10 +241,20 @@ return array (
 			),
 		)
 	),
-	new waContactStringField(
+	new waContactSelectField(
 		'fav_style',
-		array('en_US' => 'My preferred style', 'ru_RU' => "Мой любимый стиль",),
-		array('multi' => true)
+		array('en_US' => 'My preferred style', 'ru_RU' => "Мой любимый стиль одежды",),
+		array(
+			'multi' => true,
+			'options' => array(
+ 				'1' => 'Casual',
+				'2' => 'Деловой',
+				'3' => 'Праздничный',
+				'4' => 'Спортивный',
+				'5' => 'Классический',
+				'0' => 'Другое',
+			),
+		)
 	),
 	new waContactStringField(
 		'fav_color',

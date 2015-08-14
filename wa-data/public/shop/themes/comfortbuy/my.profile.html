@@ -30,11 +30,39 @@
 
 <script type="text/javascript">
 	$( ".wa-field-my_sizes-size_top" ).addClass('clearfix');
-	$( ".wa-field-fav_style, .wa-field-fav_color, .wa-field-hobbies, .wa-field-pets, .wa-field-cloth_brands, .wa-field-shoe_brands, .wa-field-cosmetic_shops, .wa-field-grocery_stores" ).each(function(){ multiField(this); });	
+	$( ".wa-field-fav_color, .wa-field-hobbies, .wa-field-pets, .wa-field-cloth_brands, .wa-field-shoe_brands, .wa-field-cosmetic_shops, .wa-field-grocery_stores" ).each(function(){ multiField(this); });	
+	$( ".wa-field-fav_style" ).each(function(){ multiSelectField(this); });	
 	
 	function addField(href) {
 		var p = $('p', $(href).parent()).last();
 		var input = $('input', p);
+		if ($(input).val()=='') {
+			input.addClass('wa-error');
+			setTimeout(function(){ input.removeClass('wa-error', 200, "easeInBack");},300);
+			return false;
+		}
+		var last_index = -1;
+		var fname = $(input).attr('name');
+		if (fname.indexOf("][") > -1) {
+			last_index = fname.slice(fname.lastIndexOf("][")+2, fname.lastIndexOf("]"));
+		}
+		
+		if (last_index == -1) {
+			last_index = 0;
+			input.attr('name', fname + '[0]');
+		}
+		
+		last_index++;
+		$(p).before($(p).clone());
+		input.attr('value', '');
+		input.focus();
+		fname = $(input).attr('name').slice(0,-3);
+		input.attr('name', fname + '[' + last_index + ']');
+	}
+	
+	function addSelectField(href) {
+		var p = $('p', $(href).parent()).last();
+		var input = $('select', p);
 		if ($(input).val()=='') {
 			input.addClass('wa-error');
 			setTimeout(function(){ input.removeClass('wa-error', 200, "easeInBack");},300);
@@ -95,6 +123,18 @@
 		var last_input = $('input', wa_value).last();
 		
 		wa_value.append('<a onclick="addField(this);">добавить поле</a>');
+
+		inputs.each(function(){
+			$(this).before('<a style="float:right;" onclick="removeField(this);"><i class="icon-remove"></i></a>')
+		});
+	}
+
+	function multiSelectField(field) {
+		var wa_value = $('.wa-value', field).first();
+		var inputs = $('select', wa_value);
+		var last_input = $('input', wa_value).last();
+		
+		wa_value.append('<a onclick="addSelectField(this);">добавить поле</a>');
 
 		inputs.each(function(){
 			$(this).before('<a style="float:right;" onclick="removeField(this);"><i class="icon-remove"></i></a>')
