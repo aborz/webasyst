@@ -1320,7 +1320,7 @@ msgstr "личный"
 
 # Contact fields
 msgid "Title"
-msgstr "Обращение"
+msgstr "Как Вы хотите, чтобы мы к Вам обращались?"
 
 msgid "First name"
 msgstr "Имя"

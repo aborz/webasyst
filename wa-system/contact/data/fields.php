@@ -5,11 +5,19 @@ return array(
         'max_length' => 150, 'storage' => 'info',
         'fconstructor' => 'hidden',
         'required' => true,
-        'subfields_order' => array('firstname', 'middlename', 'lastname'),
+        'subfields_order' => array('title', 'firstname', 'middlename', 'lastname'),
     )),
-    new waContactStringField('title', 'Title', array(
+    new waContactSelectField('title', 'Title', array(
         'max_length' => 50, 'storage' => 'info', 'type' => 'NameSubfield',
         'fconstructor' => 'fixed',
+        'options' => array(
+			'1' => 'Госпожа',
+			'2' => 'Леди',
+			'3' => 'Мисс',
+			'4' => 'Миссис',
+			'5' => 'Уважаемая',
+			'0' => 'Здравствуйте',
+        ),
     )),
     new waContactStringField('firstname', 'First name', array(
         'max_length' => 50, 'storage' => 'info', 'type' => 'NameSubfield',
