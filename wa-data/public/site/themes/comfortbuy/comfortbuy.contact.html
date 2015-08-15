@@ -1,7 +1,10 @@
 {if $wa->shop}{$phone = $wa->shop->settings('phone')}{$email = $wa->shop->settings('email')}{else}{$phone=''}{$email=''}{/if}
 <ul>
     <!--contact in header-->
-    {if $phone}<li class="top-contact phone">{$phone}</li>{else}
+    {if $phone}
+    <li class="top-contact phone"><i class="icon-phone"></i>{$phone}</li>
+    <li class="top-contact large"><a href="skype:selashop.ru?call"><i class="icon-skype"></i>selashop.ru</li>
+    {else}
         <li class="top-contact phone">+7 (917) 57-07-507</li>
     {/if}
     {*
