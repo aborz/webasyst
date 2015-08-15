@@ -97,18 +97,29 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 		}
 		
 		$html = '
-			<table class="user-bonus" style="width:100%">
-				<thead>
-				<tr>
-					<th class="action"></th>
-					<th>Вид бонусов</th>
-					<th class="align-center">Количество начисленных бонусов</th>
-					<th class="align-center">Ближайшая дата начисления бонусных баллов</th>
-					<th class="align-center">Кол-во сгорающих баллов</th>
-				</tr>
-				</thead>
+			<div class="user-bonus" style="width:100%">
+				<div class="heading" style="width:100%">
+					<div class="column col-1">
+						&nbsp;
+					</div>
+					<div class="column col-2">
+						<b>Тип бонусов</b>
+					</div>
+					<div class="column col-3">
+						<b>Общее кол-во начисленных бонусов</b>
+					</div>
+					<div class="column col-4">
+						<b>Общее кол-во бонусов, доступных для списания</b>
+					</div>
+					<div class="column col-5">
+						<b>Ближайшая дата сгорания доступных бонусов</b>
+					</div>
+					<div class="column col-6">
+						<b>Кол-во сгорающих бонусов</b>
+					</div>
+				</div>
 				
-				<tbody>';
+				<div class="body">';
 		
 		$html .= $this->getTableRow($history, 'p_offline', array('id' => 'p_offline', 'class' => 'large'))
 			.$this->getTableRow($history, 'p_online', array('id' => 'p_online', 'class' => 'large'))
@@ -117,18 +128,29 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 			.$this->getTableRow($history, 'other', array('id' => 'other', 'class' => 'large'));
 				
 		$html .= '
-				</tbody>
+				</div>
 				
-				<tfoot>
-				<tr class="total" style="height:30px;">
-					<td class="action"></td>
-					<td>Итого</td>
-					<td class="align-center">700</td>
-					<td class="align-center"></td>
-					<td class="align-center">600</td>
-				</tr>
-				</tfoot>
-			</table>
+				<div class="body">
+					<div class="column col-1">
+						&nbsp;
+					</div>
+					<div class="column col-2">
+						<b>Итого</b>
+					</div>
+					<div class="column col-3 align-center">
+						<b>750</b>
+					</div>
+					<div class="column col-4 align-center">
+						<b>650</b>
+					</div>
+					<div class="column col-5">
+
+					</div>
+					<div class="column col-6">
+
+					</div>
+				</div>
+			</div>
 		';
 
 	    return $html;
@@ -145,34 +167,65 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 			    $action_date = $h['action_date'];
 		    }
 	    }
-	    if (!$arr) return '';
-	    
-	    $html = '<tr'
+	    if (!$arr) return '<div'
 	    	.(isset($options['id']) ? ' id="'.$options['id'].'"' : '')
-	    	.(isset($options['class']) ? ' class="'.$options['class'].'"' : '')
+	    	.(isset($options['class']) ? ' class="'.$options['class'].' bonus-row"' : 'bonus-row')
+	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
+	    	.'>'
+				.'<div class="column col-1 action" onclick="toggleTableVisibility(\'' .$options['id'] .'\')" role="button">&nbsp;</div>'
+		    	.'<div class="column col-2">' .$this->getSpKeyName($key) .'</div>'
+		    	.'<div class="column col-3 align-center">0</div>'
+		    	.'<div class="column col-4 align-center">0</div>'
+		    	.'<div class="column col-5 align-center"></div>'
+		    	.'<div class="column col-6 align-center"></div>'
+		    .'</div>';
+	    
+	    $html = '<div'
+	    	.(isset($options['id']) ? ' id="'.$options['id'].'"' : '')
+	    	.(isset($options['class']) ? ' class="'.$options['class'].' bonus-row"' : 'bonus-row')
 	    	.(isset($options['style']) ? ' style="'.$options['style'].'"' : '')
 	    	.'>';
-	    $html .= '<td class="action" onclick="toggleTableVisibility(\'' .$options['id'] .'\')" role="button">+&nbsp;</td>'
-	    	.'<td>' .$this->getSpKeyName($key) .'</td>'
-	    	.'<td class="align-center">' .$total_earned .'</td>'
-	    	.'<td class="align-center">' .str_replace('T', ' ', $action_date) .'</td><td></td>'
-	    	.'</tr>';
+	    $html .= '<div class="column col-1 action" onclick="toggleTableVisibility(\'' .$options['id'] .'\')" role="button">+&nbsp;</div>'
+	    	.'<div class="column col-2">' .$this->getSpKeyName($key) .'</div>'
+	    	.'<div class="column col-3 align-center">' .$total_earned .'</div>'
+	    	.'<div class="column col-4 align-center">' .$total_earned .'</div>'
+	    	.'<div class="column col-5 align-center"></div>'// .waDateTime::format('humandatetime', strtotime($action_date)) .'</div>'
+	    	.'<div class="column col-6 align-center"></div>';
 	    
-	    	
-	    $html .= '</tr>';
-
+		
+		$html.= '<div class="' .$options['id'] .'-detailed bonus-row-detailed" style="display:none">'
+				.'<div class="heading small" style="width:100%">
+					<div class="detail-column col-1 align-center">
+					</div>
+					<div class="detail-column col-2 align-center">
+						<b>Дата транзакции</b>
+					</div>
+					<div class="detail-column col-3 align-center">
+						<b>Кол-во бонусов</b>
+					</div>
+					<div class="detail-column col-4 align-center">
+						<b>Статус</b>
+					</div>
+					<div class="detail-column col-5 align-center">
+						<b>Вид</b>
+					</div>
+					<div class="detail-column col-6 align-center">
+						<b>Дата сгорания</b>
+					</div>
+				</div>';
 	    $i = 0;
 	    foreach ($arr as $row) {
 		    $i++;
-		    $html.= '<tr class="' .$options['id'] .'-detailed" style="display:none">'
-		    	.'<td>' .$i .'</td>'
-		    	.'<td>' .$row['name'] .'</td>'
-		    	.'<td class="align-center">' .$row['points_delta'] .'</td>'
-		    	.'<td class="align-center">' .str_replace('T', ' ', $row['action_date']) .'</td>'
-		    	.'<td class="align-center"></td>'
-		    	.'</tr>';
+		    $html.= '<div class="single-bonus-row">'
+		    	.'<div class="detail-column col-1 align-center">' .$i .'</div>'
+		    	.'<div class="detail-column col-2 align-center">' .waDateTime::format('humandate', strtotime($row['action_date'])) .'</div>'
+		    	.'<div class="detail-column col-3 align-center">' .$row['points_delta'] .'</div>'
+		    	.'<div class="detail-column col-4 align-center"></div>'
+		    	.'<div class="detail-column col-5 align-center"></div>'
+		    	.'</div>';
 		    	
 	    }
+	    $html .= '</div></div>';
 	    return $html;
     }
 	
@@ -183,8 +236,10 @@ class shopFrontendMyPointsAction extends waMyProfileAction
 		switch ($key) {
 			case 'p_offline': return 'Бонусы за покупки оффлайн';
 			case 'p_online': return 'Бонусы за покупки онлайн';
-			case 'social': return 'Бонусы за социальную активность';
+			case 'social': return 'Бонусы за активность в соцсетях';
 			case 'spent': return 'Потраченные бонусы';
+			case 'welcome': return 'Приветственные бонусы';
+			case 'birthday': return 'Бонусы в честь дня рождения';
 			case 'other': return 'Другое';
 			default: return 'x';
 		}
