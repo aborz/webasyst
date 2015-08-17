@@ -69,6 +69,11 @@ return array(
             'action' => 'myWishlist',
             'secure' => true,
         ),
+        'my/subscriptions/?' => array(
+            'module' => 'frontend',
+            'action' => 'mySubscriptions',
+            'secure' => true,
+        ),
         'my/feedback/?' => array(
             'module' => 'frontend',
             'action' => 'myFeedback',
@@ -174,6 +179,11 @@ return array(
             'action' => 'myWishlist',
             'secure' => true,
         ),
+        'my/subscriptions/?' => array(
+            'module' => 'frontend',
+            'action' => 'mySubscriptions',
+            'secure' => true,
+        ),
         'my/feedback/?' => array(
             'module' => 'frontend',
             'action' => 'myFeedback',
@@ -277,6 +287,11 @@ return array(
         'my/wishlist/?' => array(
             'module' => 'frontend',
             'action' => 'myWishlist',
+            'secure' => true,
+        ),
+        'my/subscriptions/?' => array(
+            'module' => 'frontend',
+            'action' => 'mySubscriptions',
             'secure' => true,
         ),
         'my/feedback/?' => array(

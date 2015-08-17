@@ -1,0 +1,52 @@
+<div class="sidebar left230px">
+    {include file="sidebar.html"}
+</div>
+
+<div class="content left230px">
+
+    <!-- navigation breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="{$wa_app_url}">[`Home`]</a> » <a href="{$wa->getUrl('/frontend/my')}">[`My Account`]</a> » <span class="gray">[`My account`]</span>
+    </div>
+    
+    <div class="info-page menu">{$wa->myNav()}</div>
+   
+    <h1>Управление рассылками</h1>
+    <h3>Здесь Вы можете выбрать, какую информацию Вы хотите получать от SELA.</h3>
+	<form id="subscriptions-form" action="" method="post">
+		<div class="wa-form">
+		    <div class="wa-field">
+		        <div class="wa-name">
+		            Подписка на email рассылки:
+		        </div>
+		
+		        <div class="wa-value">
+		            <p class="green large">+300 бонусов</p>
+		            <p><input type="checkbox" name="email-sales">Распродажи и акции</p>
+		            <p><input type="checkbox" name="email-collections">Новые коллекции</p>
+		            <p><input type="checkbox" name="email-shops">Открытие новых магазинов</p>
+		        </div>
+		    </div>
+		
+		    <div class="wa-field">
+		        <div class="wa-name">
+		            Подписка на sms рассылки:
+		        </div>
+		
+		        <div class="wa-value">
+		            <p class="green large">+300 бонусов</p>
+		            <p><input type="checkbox" name="sms-sales">Распродажи и акции</p>
+		            <p><input type="checkbox" name="sms-collections">Новые коллекции</p>
+		            <p><input type="checkbox" name="sms-shops">Открытие новых магазинов</p>
+		        </div>
+		    </div>
+		    
+	        <div class="wa-field">
+	            <div class="wa-value">
+	                <input type="submit" value="[`Save`]">
+	            </div>
+	        </div>
+		</div>
+		{$wa->csrf()}
+	</form>    
+</div>
