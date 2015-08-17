@@ -108,4 +108,6 @@ return array (
 	),
 	'other_shops' => array(
 	),
+	'wa_custom_field' => array(
+	),
 );

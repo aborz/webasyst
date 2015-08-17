@@ -203,135 +203,68 @@ return array (
   )),
 //  
 
-	new waContactCompositeField(
+	new waContactHiddenField(
 		'my_sizes',
 		array('en_US' => 'My sizes', 'ru_RU' => "Мои размеры",),
-		array(
-			'fields' => array(
-				new waContactSelectField(
-					'size_top',
-					array('en_US' => 'My preferred style', 'ru_RU' => "Верх",),
-					array(
-						'format' => 'html',
-						'options' => array(
-						'40' => '40',
-						'42' => '42',
-						'44' => '44',
-						'46' => '46',
-						'48' => '48',
-						'50' => '50',
-						'52' => '52',
-						),
-					)
-				),
-				new waContactSelectField(
-					'size_low',
-					array('en_US' => 'My preferred style', 'ru_RU' => "Низ",),
-					array(
-						'format' => 'html',
-						'options' => array(
-						'42' => '42',
-						'44' => '44',
-						'46' => '46',
-						'48' => '48',
-						'50' => '50',
-						),
-					)
-				),
-			),
-		)
+		array()
 	),
-	new waContactSelectField(
+	new waContactHiddenField(
 		'fav_style',
 		array('en_US' => 'My preferred style', 'ru_RU' => "Мой любимый стиль одежды",),
-		array(
-			'multi' => true,
-			'options' => array(
- 				'1' => 'Casual',
-				'2' => 'Деловой',
-				'3' => 'Праздничный',
-				'4' => 'Спортивный',
-				'5' => 'Классический',
-				'0' => 'Другое',
-			),
-		)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'fav_color',
 		array('en_US' => 'My favorite color', 'ru_RU' => "Мой любимый цвет",),
-		array('multi' => true)
+		array()
 	),
-	new waContactCompositeField(
+	new waContactHiddenField(
 		'family_friends',
 		array('en_US' => 'My family/friends', 'ru_RU' => "Моя семья/друзья",),
-		array(
-			'fields' => array(
-				new waContactSelectField(
-					'relative',
-					array('en_US' => 'My favorite color', 'ru_RU' => "Родство",),
-					array(
-						'format' => 'html',
-						'options' => array(
-							'son' => 'Сын',
-							'daughter' => 'Дочь',
-							'husband' => 'Муж',
-							'wife' => 'Жена',
-							'mother' => 'Мама',
-							'father' => 'Папа',
-							'brother' => 'Брат',
-							'sister' => 'Сестра',
-							'mfriend' => 'Друг',
-							'ffriend' => 'Подруга',
-						),
-					)
-				),
-/*
-				new waContactBirthdayField(
-					'rel_birthday',
-					'Дата рождения',
-					array('storage' => 'info', 'prefix' => '',)
-				),
-*/
-			),
-		)//'multi' => true,)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'hobbies',
 		array('en_US' => 'My hobbies', 'ru_RU' => "Мои хобби",),
-		array('multi' => true,)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'pets',
 		array('en_US' => 'My pets', 'ru_RU' => "Мои питомцы",),
-		array('multi' => true,)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'heroes',
 		array('en_US' => 'My heroes', 'ru_RU' => "Мои герои",)
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'cloth_brands',
 		array('en_US' => 'My favorite clothing brands', 'ru_RU' => "Мои любимые бренды одежды",),
-		array('multi' => true,)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'shoe_brands',
 		array('en_US' => 'My favorite shoe brands', 'ru_RU' => "Мои любимые бренды обуви",),
-		array('multi' => true,)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'cosmetic_shops',
 		array('en_US' => 'My favorite selfcare shops', 'ru_RU' => "Мои любимые магазины косметики",),
-		array('multi' => true, 'placeholder' => 'косметика',)
+		array('placeholder' => 'косметика',)
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'grocery_stores',
 		array('en_US' => 'My favorite grocery stores', 'ru_RU' => "Мои любимые магазины продуктов",),
-		array('multi' => true,)
+		array()
 	),
-	new waContactStringField(
+	new waContactHiddenField(
 		'other_shops',
 		array('en_US' => 'Other favorite shops', 'ru_RU' => "Другие любимые магазины",),
-		array()//'multi' => true,)
+		array()
+	),
+	new waContactHiddenField(
+		'wa_custom_field',
+		array('en_US' => 'All crm stats', 'ru_RU' => "Все дополнительные поля",),
+		array()
 	),
 );
