@@ -22,9 +22,9 @@
 		
 		        <div class="wa-value">
 		            <p class="green large">+300 бонусов</p>
-		            <p><input type="checkbox" name="email-sales">Распродажи и акции</p>
-		            <p><input type="checkbox" name="email-collections">Новые коллекции</p>
-		            <p><input type="checkbox" name="email-shops">Открытие новых магазинов</p>
+		            <p><input type="checkbox" name="email-sales"{if ($user_subscriptions['email-sales']==1)}checked="true"{/if}>Распродажи и акции</p>
+		            <p><input type="checkbox" name="email-collections"{if ($user_subscriptions['email-collections']==1)}checked="true"{/if}>Новые коллекции</p>
+		            <p><input type="checkbox" name="email-shops"{if ($user_subscriptions['email-shops']==1)}checked="true"{/if}>Открытие новых магазинов</p>
 		        </div>
 		    </div>
 		
@@ -35,9 +35,9 @@
 		
 		        <div class="wa-value">
 		            <p class="green large">+300 бонусов</p>
-		            <p><input type="checkbox" name="sms-sales">Распродажи и акции</p>
-		            <p><input type="checkbox" name="sms-collections">Новые коллекции</p>
-		            <p><input type="checkbox" name="sms-shops">Открытие новых магазинов</p>
+		            <p><input type="checkbox" name="sms-sales"{if ($user_subscriptions['sms-sales']==1)}checked="true"{/if}>Распродажи и акции</p>
+		            <p><input type="checkbox" name="sms-collections"{if ($user_subscriptions['sms-collections']==1)}checked="true"{/if}>Новые коллекции</p>
+		            <p><input type="checkbox" name="sms-shops"{if ($user_subscriptions['sms-shops']==1)}checked="true"{/if}>Открытие новых магазинов</p>
 		        </div>
 		    </div>
 		    

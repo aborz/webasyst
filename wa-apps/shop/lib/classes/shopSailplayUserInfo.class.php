@@ -1,4 +1,8 @@
 <?php
+/*
+* Класс, который хранит всю инфу по пользователю из sailplay.
+* Наполняется в зависимости от контекста методами fetch*Something*()
+*/
 class shopSailplayUserInfo
 {
 	public $store_department_id='';
@@ -12,6 +16,7 @@ class shopSailplayUserInfo
 	private $sp_points='';
 	private $sp_history='';
 	private $sp_total_spent;
+	private $sp_subscriptions;
 	
 	
 	public function __construct () {
@@ -38,7 +43,6 @@ class shopSailplayUserInfo
 			$this->origin_user_id = $ui['origin_user_id'];
 			$this->sp_points = $ui['points'];
 		}
-		//file_put_contents('data.txt', print_r($this,1));
         return $this;
 	}
 	
@@ -97,6 +101,110 @@ class shopSailplayUserInfo
 		
 		$this->sp_detailed_purchases = $purchases;
         return $this;
+	}
+	
+	/*
+	* Получаем только присвоенные теги.
+	* Подписываем еще раз, даже если подписан, в методе subscribeUser().
+	* //!но все еще надо проверять наличие e-mail в базе sailplay
+	*/
+	function fetchUserSubscriptions() {
+		$subscriptions = Array(
+		    'email-sales' => 0,
+		    'email-collections' => 0,
+		    'email-shops' => 0,
+		    'sms-sales' => 0,
+		    'sms-collections' => 0,
+		    'sms-shops' => 0,
+		);
+		
+		$data['token'] = $this->token;
+		$data['user_phone'] = $this->wa_user_phone;
+		$response = shopSailplayHelper::sendRequest('/api/v2/users/tags/list/', $data);
+
+		if(isset($response['events'])){
+			$haystack = array();
+			foreach($response['events'] as $e) {
+				if (isset($e['name'])){
+					if ($e['name']) $haystack[] = $e['name'];
+				}
+			}
+			foreach ($subscriptions as $k => &$v) {
+				if (in_array($k, $haystack)) $v = 1;
+			}
+		}
+		
+		$this->sp_subscriptions = $subscriptions;
+	}
+
+	function subscribeUser($request) {
+		if (!$this->sp_subscriptions) $this->fetchUserSubscriptions();
+		
+		$subscriptions = $this->sp_subscriptions;
+
+		$tags_add = array();
+		$tags_delete = array();
+		$unsubscribe_array = array(); //
+
+		foreach ($subscriptions as $k => &$v) {
+			if (isset($request[$k])) {
+				$v = 1;
+				$tags_add[] = $k;
+			} else {
+				if($v == 1) $tags_delete[] = $k;
+				$v = 0;
+			}
+			if ($v == 0) $unsubscribe_array[] = $k;
+		}
+		
+		$added_tags_count = count($tags_add);
+		$deleted_tags_count = count($tags_delete);
+		
+		if ($deleted_tags_count) {
+			$data = array();
+			$data['tags'] = implode(',', $tags_delete);
+			$data['token'] = $this->token;
+			$data['user_phone'] = $this->wa_user_phone;
+			$response = shopSailplayHelper::sendRequest('/api/v2/users/tags/delete/', $data);
+			
+			$unsubscribe_list = array();
+			if (substr_count(implode(' ', $unsubscribe_array), 'email') == 3) $unsubscribe_list[] = 'email_all';
+			if (substr_count(implode(' ', $unsubscribe_array), 'sms') == 3) $unsubscribe_list[] = 'sms_all';
+			if ($unsubscribe_list) {
+				$unsubscribe_list = implode(',', $unsubscribe_list);
+				$data = array();
+				$data['token'] = $this->token;
+				$data['unsubscribe_list'] = $unsubscribe_list;
+				$data['user_phone'] = $this->wa_user_phone;
+				$response = shopSailplayHelper::sendRequest('/api/v2/users/unsubscribe/', $data);
+			}
+		}
+		
+		if ($added_tags_count) {
+			$data = array();
+			$data['tags'] = implode(',', $tags_add);
+			$data['token'] = $this->token;
+			$data['tag_categories'] = rtrim(str_repeat('Рассылка,', count($tags_add)),',');
+			$data['user_phone'] = $this->wa_user_phone;
+			$response = shopSailplayHelper::sendRequest('/api/v2/users/tags/add/', $data);
+			
+			$subscribe_list = array('0' => 'email_all', '1' => 'sms_all');
+			if (!stristr($data['tags'], 'email')) unset ($subscribe_list[0]);
+			if (!stristr($data['tags'], 'sms')) unset ($subscribe_list[1]);
+			$subscribe_list = implode(',', $subscribe_list);
+			$data = array();
+			$data['token'] = $this->token;
+			$data['subscribe_list'] = $subscribe_list;
+			$data['user_phone'] = $this->wa_user_phone;
+			$response = shopSailplayHelper::sendRequest('/api/v2/users/subscribe/', $data);
+		}
+
+		$this->sp_subscriptions = $subscriptions;
+		return $this;
+	}
+	
+	function getUserSubscriptions() {
+		return $this->sp_subscriptions;
 	}
 
 	function getSpHistory() {

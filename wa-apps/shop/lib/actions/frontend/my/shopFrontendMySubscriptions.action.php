@@ -14,16 +14,19 @@ class shopFrontendMySubscriptionsAction extends waMyProfileAction
         $this->setThemeTemplate('my.subscriptions.html');
         if (!waRequest::isXMLHttpRequest()) {
             $this->setLayout(new shopFrontendLayout());
-            $this->getResponse()->setTitle(_w('Earn'));
+            $this->getResponse()->setTitle('Управление рассылками');
             $this->view->assign('breadcrumbs', self::getBreadcrumbs());
             $this->layout->assign('nofollow', true);
         }
 
-        $params['token'] = shopSailplayHelper::getToken();
-        $sp_user_info = '';shopSailplayHelper::getUserAuthHash();
-        //$sp_user_info = wa()->getUser()->get('phone');
+        $sp_user_info = new shopSailplayUserInfo();
+        $sp_user_info->fetchUserSubscriptions();
+        if (waRequest::method() == 'post') $sp_user_info->subscribeUser(waRequest::post());
+
+//        $saved = waRequest::post() && $this->saveFromPost($this->form, $this->contact);
+
         $this->view->assign('sp_user_info', print_r($sp_user_info, true));
-        $this->view->assign('sp_user_auth_hash', shopSailplayHelper::getUserAuthHash());
+        $this->view->assign('user_subscriptions', $sp_user_info->getUserSubscriptions());
 
     }
 
