@@ -77,7 +77,7 @@ return array(
   <div class="wa-field hidden">
     <div class="wa-name">[s`Email`]:</div>
     <div class="wa-value">
-      <input {if !empty($errors.email)}class="wa-error"{/if} name="email" type="hidden" value="{$wa->user()->get(\'email\')|escape}" >
+      <input {if !empty($errors.email)}class="wa-error"{/if} name="email" type="hidden" value="{$wa->user()->get("email", "default")|escape}" >
       {if !empty($errors.email)}<em class="wa-error-msg">{$errors.email}</em>{/if}
     </div>
   </div>
@@ -90,11 +90,18 @@ return array(
     </div>
   </div>
   <div class="wa-field">
+    <div class="wa-value">
+        {$wa->captcha(!empty($errors.captcha))}
+        {if !empty($errors.captcha)}<em class="wa-error-msg">{$errors.captcha}</em>{/if}
+    </div>
+  </div>
+  <div class="wa-field">
     <div class="wa-value wa-submit">
       {if !empty($errors.all)}<em class="wa-error-msg">{$errors.all}</em><br>{/if}
       <input type="submit" value="[s`Send`]" name="send">
     </div>
   </div>
+  {$wa->csrf()}
   </form>
 </div>
 {/if}')

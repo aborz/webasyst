@@ -589,7 +589,7 @@ HTML;
     {
         if (!$to) {
             $app_settings_model = new waAppSettingsModel();
-            $to = $app_settings_model->get('webasyst', 'email');
+            $to = $app_settings_model->get('webasyst', 'client-email');
         }
         if (!$to) {
             $errors['all'] = _ws('Recipient (administrator) email is not valid');
