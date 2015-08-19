@@ -1,0 +1,66 @@
+<div class="sidebar left230px">
+    {include file="sidebar.html"}
+</div>
+
+<div class="content left230px">
+
+    <!-- navigation breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="{$wa_app_url}">[`Home`]</a> » <a href="{$wa->getUrl('/frontend/my')}">[`My Account`]</a> » <span class="gray">[`My account`]</span>
+    </div>
+    
+    <div class="info-page menu">{$wa->myNav()}</div>
+   
+    <h1>Подтверждение контактной информациии</h1>
+    <h3>Чтобы иметь возможность просматривать информацию, надо сначала подтвердить номер телефона.</h3>
+    {if $verified}
+        <strong><i class="icon16 saved"></i><span style="color: green;">Ваш номер телефона подтвержден</span></strong>
+    {/if}
+    {if $sp_error}
+        <strong><i class="icon16 remove"></i><span style="color: red;">{$sp_error}</span></strong>
+    {/if}
+	<form id="verification-form" action="" method="post">
+		<div class="wa-form">
+		    <div class="wa-field">
+		        <div class="wa-name">
+		            Ваш номер телефона:
+		        </div>
+		
+		        <div class="wa-value">
+		            <p><input type="text" name="user_phone" value="{$contact->get('phone', 'default')}"></input></p>
+		        </div>
+		    </div>
+
+		{if $show_code_field}
+		    <div class="wa-field">
+		        <div class="wa-name">
+		            Код из смс:
+		        </div>
+		
+		        <div class="wa-value">
+		            <p><input type="text" name="sms_code" value=""></input></p>
+		        </div>
+		    </div>
+		{/if}
+
+	        <div class="wa-field">
+	            <div class="wa-value">
+	                <input type="submit" value="{if $show_code_field}Подтвердить код{else}Получить код{/if}">
+	            </div>
+	        </div>
+		</div>
+		{$wa->csrf()}
+	</form>    
+</div>
+<script type="text/javascript" src="/wa-content/js/js/jquery.maskedinput.min.js"></script><div class="content">
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script type="text/javascript">
+	$('input[name="user_phone"]').mask("+7 (999) 999-9999");
+	
+	$("#verification-form").validate({
+// 		debug: true,
+		rules: {
+			user_phone: "required",
+		}
+	});
+</script>

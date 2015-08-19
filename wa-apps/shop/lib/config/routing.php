@@ -74,6 +74,11 @@ return array(
             'action' => 'mySubscriptions',
             'secure' => true,
         ),
+        'my/verify/?' => array(
+            'module' => 'frontend',
+            'action' => 'myVerify',
+            'secure' => true,
+        ),
         'my/feedback/?' => array(
             'module' => 'frontend',
             'action' => 'myFeedback',
@@ -184,6 +189,11 @@ return array(
             'action' => 'mySubscriptions',
             'secure' => true,
         ),
+        'my/verify/?' => array(
+            'module' => 'frontend',
+            'action' => 'myVerify',
+            'secure' => true,
+        ),
         'my/feedback/?' => array(
             'module' => 'frontend',
             'action' => 'myFeedback',
@@ -292,6 +302,11 @@ return array(
         'my/subscriptions/?' => array(
             'module' => 'frontend',
             'action' => 'mySubscriptions',
+            'secure' => true,
+        ),
+        'my/verify/?' => array(
+            'module' => 'frontend',
+            'action' => 'myVerify',
             'secure' => true,
         ),
         'my/feedback/?' => array(

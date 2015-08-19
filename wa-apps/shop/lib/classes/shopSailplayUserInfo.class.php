@@ -203,6 +203,14 @@ class shopSailplayUserInfo
 		return $this;
 	}
 	
+	function sendSMSMessage($text = '') {
+		$data['token'] = $this->token;
+		$data['user_phone'] = $this->wa_user_phone;
+		if ($text) $data['text'] = $text;
+		
+		return shopSailplayHelper::sendRequest('/api/v2/users/sms-code/', $data);
+	}
+	
 	function getUserSubscriptions() {
 		return $this->sp_subscriptions;
 	}
