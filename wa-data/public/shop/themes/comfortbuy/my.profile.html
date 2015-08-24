@@ -1,3 +1,5 @@
+<script src="/wa-content/js/jquery-ui/jquery.ui.dialog.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/wa-content/css/jquery-ui/ui-lightness/jquery-ui-1.8.2.custom.css">
 <div class="content">
     <!-- navigation breadcrumbs -->
     <div class="breadcrumbs">
@@ -12,13 +14,72 @@
         <strong><i class="icon16 saved"></i><span style="color: green;">[`Contact information successfully updated!`]</span></strong>
     {/if}
     
-	<div style="float:right; width:450px;">
+	<div style="float:right; width:420px;">
     <form id="my-sizes-custom">
 <div class="wa-form"><!-- размеры --><div class="wa-field wa-field-my_sizes"><div class="wa-name">Мои размеры</div><div class="wa-value"><span class="field wa-field-my_sizes-size_top clearfix"><span>Верх</span><select name="size_top"><option value=""></option><option value="40">40</option><option value="42">42</option><option value="44">44</option><option value="46">46</option><option value="48">48</option><option value="50">50</option><option value="52">52</option></select></span><span class="field wa-field-my_sizes-size_low"><span>Низ</span><select name="size_low"><option value=""></option><option value="42">42</option><option value="44">44</option><option value="46">46</option><option value="48">48</option><option value="50">50</option></select></span></div></div><!--/ форма --></div>
     </form>
 	
-    <form id="fav-style-custom">
-<div class="wa-form"><!-- Стиль --><div class="wa-field wa-field-fav_style"><div class="wa-name">Мой любимый стиль одежды</div><div class="wa-value"><p><select name="style[]"><option value=""></option><option value="1">Casual</option><option value="2">Деловой</option><option value="3">Праздничный</option><option value="4">Спортивный</option><option value="5">Классический</option><option value="0">Другое</option></select></p><p><select name="style[]"><option value=""></option><option value="1">Casual</option><option value="2">Деловой</option><option value="3">Праздничный</option><option value="4">Спортивный</option><option value="5">Классический</option><option value="0">Другое</option></select></p><p><select name="style[]"><option value=""></option><option value="1">Casual</option><option value="2">Деловой</option><option value="3">Праздничный</option><option value="4">Спортивный</option><option value="5">Классический</option><option value="0">Другое</option></select></p></div></div><!--/ форма --></div>
+    <div id="fav-style-custom">
+		<div class="wa-form">
+			<div class="wa-field wa-field-my_sela_shops">
+				<div class="wa-name">Мои Магазины</div>
+				<div class="wa-value">
+					<ol class="shops-list" style="margin-left:-30px; margin-top: 0px;">
+						<li>71 км. МКАД, стр. 16А, Путилково ТЦ Вейпарк</li>
+						<li>Алтуфьевское ш., дом 86, корп.1 ТЦ Ареал</li>
+					</ol>
+				</div>
+				<div id="my-sela-shops-dialog" title="Мои магазины">
+					<label for="country">Страна</label>
+				    <select name="country" id="dialog-country">
+						<option value="1" selected="selected">Россия</option>
+						<option value="2">Украина</option>
+						<option value="3">Беларусь</option>
+						<option value="4">Грузия</option>
+						<option value="5">Казахстан</option>
+						<option value="8">Молдова</option>
+						<option value="10">Армения</option>
+						<option value="18">Кыргызстан</option>
+				    </select>
+					<label for="city">Город</label>
+				    <select name="city" id="dialog-city">
+						<option value="5">Казахстан</option>
+						<option value="8">Молдова</option>
+						<option value="10">Армения</option>
+						<option value="18">Кыргызстан</option>
+				    </select>
+				</div>
+				<button id="opener">Выбрать</button>
+			</div>
+		</div>
+    </div>
+<script>
+$(function() {
+	$( "#my-sela-shops-dialog" ).dialog({
+	  autoOpen: false,
+	  show: {
+	    effect: "blind",
+	    duration: 100
+	  },
+	  hide: {
+	    effect: "explode",
+	    duration: 1000
+	  },
+	  width: '50%'
+	});
+	
+	$( "#opener" ).click(function() {
+	  $( "#my-sela-shops-dialog" ).dialog( "open" );
+	});
+	
+	$( "#dialog-country" ).change(function(){
+        var country=$("#dialog-country").val();
+        alert(country);
+    });
+});
+</script>	
+    <form id="my-sela-shops" class="custom-input-form">
+<div class="wa-form"><!-- Цвет --><div class="wa-field wa-field-fav_color"><div class="wa-name">Мой любимый цвет</div><div class="wa-value"><p><input type="text" name="color[]" value=""></p><p><input type="text" name="color[]" value=""></p><p><input type="text" name="color[]" value=""></p></div></div><!--/ форма --></div>
     </form>
 	
     <form id="fav-color-custom" class="custom-input-form">

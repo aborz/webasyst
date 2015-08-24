@@ -263,6 +263,16 @@ return array (
 		array()
 	),
 	new waContactHiddenField(
+		'my_sela_shops',
+		array('en_US' => 'my sela shops', 'ru_RU' => "Мои магазины",),
+		array()
+	),
+	new waContactHiddenField(
+		'default_address',
+		array('en_US' => 'Default Address', 'ru_RU' => "Основной адрес",),
+		array()
+	),
+	new waContactHiddenField(
 		'wa_custom_field',
 		array('en_US' => 'All crm stats', 'ru_RU' => "Все дополнительные поля",),
 		array()
