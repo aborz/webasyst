@@ -74,7 +74,26 @@ $(function() {
 	
 	$( "#dialog-country" ).change(function(){
         var country=$("#dialog-country").val();
-        alert(country);
+        
+        $.ajax({
+            url: '/index.php?module=bstfprofile&action=selaCities',
+            dataType: 'json',
+            data: {
+	            param1: country;
+            }
+            success: function (response) {
+				console.dir(response);
+            }
+        });
+/*
+        $.ajax({
+            method: 'post',
+            url : '/index.php/my/profile',
+            success: function(response) {
+				console.dir(response);
+            }
+        });
+*/
     });
 });
 </script>	
