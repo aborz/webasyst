@@ -24,9 +24,8 @@
 			<div class="wa-field wa-field-my_sela_shops">
 				<div class="wa-name">Мои Магазины</div>
 				<div class="wa-value">
-					<ol class="shops-list" style="margin-left:-30px; margin-top: 0px;">
-						<li>71 км. МКАД, стр. 16А, Путилково ТЦ Вейпарк</li>
-						<li>Алтуфьевское ш., дом 86, корп.1 ТЦ Ареал</li>
+					<ol id="contact-shop-list" class="shops-list" style="margin-left:-30px; margin-top: 0px;">
+						{$contact->get(sela_shop)}
 					</ol>
 				</div>
 				<div id="my-sela-shops-dialog" title="Мои магазины">
@@ -35,19 +34,215 @@
 						<option value="1" selected="selected">Россия</option>
 						<option value="2">Украина</option>
 						<option value="3">Беларусь</option>
-						<option value="4">Грузия</option>
+<!-- 						<option value="4">Грузия</option> -->
 						<option value="5">Казахстан</option>
 						<option value="8">Молдова</option>
 						<option value="10">Армения</option>
 						<option value="18">Кыргызстан</option>
 				    </select>
 					<label for="city">Город</label>
-				    <select name="city" id="dialog-city">
-						<option value="5">Казахстан</option>
-						<option value="8">Молдова</option>
-						<option value="10">Армения</option>
-						<option value="18">Кыргызстан</option>
-				    </select>
+					<select name="city" id="dialog-city"><option value="619">Москва</option>
+						<option value="53">Абакан</option>
+						<option value="513">Алушта</option>
+						<option value="568">Анапа</option>
+						<option value="566">Ангарск</option>
+						<option value="31">Армавир</option>
+						<option value="570">Арсеньев</option>
+						<option value="2">Архангельск</option>
+						<option value="483">Асбест</option>
+						<option value="32">Астрахань</option>
+						<option value="33">Ахтубинск</option>
+						<option value="54">Ачинск</option>
+						<option value="279">Балаково</option>
+						<option value="113">Балашиха</option>
+						<option value="647">Балашов</option>
+						<option value="55">Барнаул</option>
+						<option value="172">Березники</option>
+						<option value="208">Березовский</option>
+						<option value="324">Биробиджан</option>
+						<option value="127">Благовещенск</option>
+						<option value="402">Бор</option>
+						<option value="259">Бугульма</option>
+						<option value="3">Великие Луки</option>
+						<option value="10">Великий Новгород</option>
+						<option value="212">Верхняя Пышма</option>
+						<option value="505">Верхняя Салда</option>
+						<option value="128">Владивосток</option>
+						<option value="34">Владикавказ</option>
+						<option value="85">Владимир</option>
+						<option value="35">Волгоград</option>
+						<option value="36">Волгодонск</option>
+						<option value="4">Вологда</option>
+						<option value="648">Волоколамск</option>
+						<option value="5">Воркута</option>
+						<option value="86">Воронеж</option>
+						<option value="636">Всеволожск</option>
+						<option value="280">Вуктыл</option>
+						<option value="469">Выборг</option>
+						<option value="655">Вязьма</option>
+						<option value="467">Гатчина</option>
+						<option value="460">Геленджик</option>
+						<option value="549">Гусь-Хрустальный</option>
+						<option value="527">Дальнегорск</option>
+						<option value="140">Дзержинск</option>
+						<option value="142">Димитровград</option>
+						<option value="514">Долгопрудный</option>
+						<option value="107">Дубна</option>
+						<option value="173">Екатеринбург</option>
+						<option value="141">Елабуга</option>
+						<option value="50">Ессентуки</option>
+						<option value="114">Железнодорожный</option>
+						<option value="591">Жуковский</option>
+						<option value="169">Заволжье</option>
+						<option value="532">Заречный</option>
+						<option value="444">Зеленоград</option>
+						<option value="175">Златоуст</option>
+						<option value="87">Иваново</option>
+						<option value="143">Ижевск</option>
+						<option value="59">Иркутск</option>
+						<option value="116">Истра</option>
+						<option value="144">Йошкар-Ола</option>
+						<option value="145">Казань</option>
+						<option value="6">Калининград</option>
+						<option value="88">Калуга</option>
+						<option value="204">Каменск-Уральский</option>
+						<option value="60">Кемерово</option>
+						<option value="8">Кемь</option>
+						<option value="604">Кингисепп</option>
+						<option value="281">Кинешма</option>
+						<option value="146">Киров</option>
+						<option value="440">Кисловодск</option>
+						<option value="110">Клин</option>
+						<option value="637">Ковдор</option>
+						<option value="494">Ковров</option>
+						<option value="650">Когалым</option>
+						<option value="644">Колпино</option>
+						<option value="201">Коркино</option>
+						<option value="118">Королев</option>
+						<option value="89">Кострома</option>
+						<option value="126">Красногорск</option>
+						<option value="38">Краснодар</option>
+						<option value="638">Красное Село</option>
+						<option value="177">Краснотурьинск</option>
+						<option value="569">Красноуфимск</option>
+						<option value="61">Красноярск</option>
+						<option value="472">Кронштадт</option>
+						<option value="166">Кузнецк</option>
+						<option value="178">Курган</option>
+						<option value="111">Курск</option>
+						<option value="62">Кызыл</option>
+						<option value="283">Лениногорск</option>
+						<option value="509">Лиски</option>
+						<option value="27">Луга</option>
+						<option value="407">Люберцы</option>
+						<option value="39">Майкоп</option>
+						<option value="307">Махачкала</option>
+						<option value="203">Мегион</option>
+						<option value="63">Междуреченск</option>
+						<option value="181">Миасс</option>
+						<option value="52">Минеральные Воды</option>
+						<option value="9">Мурманск</option>
+						<option value="285">Муром</option>
+						<option value="526">Мытищи</option>
+						<option value="148">Набережные челны</option>
+						<option value="615">Надым</option>
+						<option value="408">Назрань</option>
+						<option value="64">Нарьян-Мар</option>
+						<option value="149">Нефтекамск</option>
+						<option value="567">Нефтеюганск</option>
+						<option value="182">Нижневартовск</option>
+						<option value="409">Нижнекамск</option>
+						<option value="632">Нижнеудинск</option>
+						<option value="151">Нижний Новгород</option>
+						<option value="183">Нижний Тагил</option>
+						<option value="448">Новозыбков</option>
+						<option value="65">Новокузнецк</option>
+						<option value="449">Новокуйбышевск</option>
+						<option value="40">Новороссийск</option>
+						<option value="66">Новосибирск</option>
+						<option value="184">Новоуральск</option>
+						<option value="605">Новочебоксарск</option>
+						<option value="288">Новочеркасск</option>
+						<option value="436">Новый Уренгой</option>
+						<option value="301">Ногинск</option>
+						<option value="186">Ноябрьск</option>
+						<option value="510">Нягань</option>
+						<option value="607">Одинцово</option>
+						<option value="11">Озерск</option>
+						<option value="418">Октябрьский</option>
+						<option value="67">Омск</option>
+						<option value="153">Оренбург</option>
+						<option value="154">Пенза</option>
+						<option value="188">Первоуральск</option>
+						<option value="544">Переславль-Залесский</option>
+						<option value="450">Пермь</option>
+						<option value="12">Петрозаводск</option>
+						<option value="493">Печора</option>
+						<option value="13">Псков</option>
+						<option value="484">Пушкин</option>
+						<option value="191">Пыть-Ях</option>
+						<option value="41">Пятигорск</option>
+						<option value="120">Раменское</option>
+						<option value="192">Ревда</option>
+						<option value="639">Реутов</option>
+						<option value="92">Россошь</option>
+						<option value="42">Ростов-на-Дону</option>
+						<option value="603">Ртищево</option>
+						<option value="93">Рязань</option>
+						<option value="155">Салават</option>
+						<option value="156">Самара</option>
+						<option value="1">Санкт-Петербург</option>
+						<option value="158">Саратов</option>
+						<option value="617">Саров</option>
+						<option value="223">Севастополь</option>
+						<option value="14">Северодвинск</option>
+						<option value="194">Серов</option>
+						<option value="95">Смоленск</option>
+						<option value="168">Соликамск</option>
+						<option value="654">Сортавала</option>
+						<option value="471">Сосновый Бор</option>
+						<option value="43">Сочи</option>
+						<option value="45">Ставрополь</option>
+						<option value="122">Ступино</option>
+						<option value="195">Сургут</option>
+						<option value="205">Сухой Лог</option>
+						<option value="46">Таганрог</option>
+						<option value="98">Тверь</option>
+						<option value="333">Тимашевск</option>
+						<option value="419">Тобольск</option>
+						<option value="162">Тольятти</option>
+						<option value="70">Томск</option>
+						<option value="209">Трехгорный</option>
+						<option value="202">Троицк</option>
+						<option value="99">Тула</option>
+						<option value="71">Тюмень</option>
+						<option value="415">Ульяновск</option>
+						<option value="196">Урай</option>
+						<option value="16">Усинск</option>
+						<option value="416">Уссурийск</option>
+						<option value="478">Усть-Кут</option>
+						<option value="164">Уфа</option>
+						<option value="273">Феодосия</option>
+						<option value="131">Хабаровск</option>
+						<option value="135">Ханты-Мансийск</option>
+						<option value="197">Чайковский</option>
+						<option value="165">Чебоксары</option>
+						<option value="198">Челябинск</option>
+						<option value="18">Череповец</option>
+						<option value="199">Шадринск</option>
+						<option value="303">Щелково</option>
+						<option value="304">Электросталь</option>
+						<option value="49">Элиста</option>
+						<option value="499">Югорск</option>
+						<option value="133">Южно-Сахалинск</option>
+						<option value="130">Якутск</option>
+						<option value="643">Ялта</option>
+						<option value="528">Янаул</option>
+					</select>
+					<div id="dialig-shop-list">
+						<ul class="shop-list">
+						</ul>
+					</div>
 				</div>
 				<button id="opener">Выбрать</button>
 			</div>
@@ -70,31 +265,61 @@ $(function() {
 	
 	$( "#opener" ).click(function() {
 	  $( "#my-sela-shops-dialog" ).dialog( "open" );
+	  $( "#dialog-city" ).trigger( 'change' );
 	});
 	
 	$( "#dialog-country" ).change(function(){
         var country=$("#dialog-country").val();
-        
         $.ajax({
             url: '/index.php?module=bstfprofile&action=selaCities',
             dataType: 'json',
             data: {
-	            param1: country;
-            }
+	            country: country
+            },
             success: function (response) {
-				console.dir(response);
+				$('#dialog-city').html(response.data);
+				$( "#dialog-city" ).trigger( 'change' );
             }
         });
-/*
-        $.ajax({
-            method: 'post',
-            url : '/index.php/my/profile',
-            success: function(response) {
-				console.dir(response);
-            }
-        });
-*/
     });
+	
+	$( "#dialog-city" ).change(function(){
+        var city=$("#dialog-city").val();
+        $.ajax({
+            url: '/index.php?module=bstfprofile&action=selaShops',
+            dataType: 'json',
+            data: {
+	            city: city
+            },
+            success: function (response) {
+	            var shops = response.data;
+	            $('#dialig-shop-list .shop-list').html('');
+	            shops.forEach(function(item){
+					shop = '<li><button onclick="contactAddShop(' + item.id + ');" style="display:inline-block;">+</button>' + item.address + '</li>';
+					$('#dialig-shop-list .shop-list').append(shop);
+	            });
+            }
+        });
+    });
+	
+	var sela_shops = $('#contact-shop-list').html();
+	
+	if (sela_shops.length) sela_shops = JSON.parse(sela_shops);
+	$('#contact-shop-list').html('');
+	sela_shops.sela_shops.forEach(function(item){
+        $.ajax({
+            url: '/index.php?module=bstfprofile&action=selaShopInfo',
+            dataType: 'json',
+            data: {
+	            shop_id: item
+            },
+            success: function (response) {
+				shop = '<li data-shop-id="' + response.data.id + '"><button onclick="contactDeleteShop(' + response.data.id + ');" style="float:right;">x</button>' + response.data.address + '</li>';
+				$('#contact-shop-list').append(shop);
+            }
+        });
+	});
+	
 });
 </script>	
     <form id="my-sela-shops" class="custom-input-form">
@@ -300,6 +525,48 @@ $(function() {
 	$('form#my-othershops-custom input').on('change', function(){
 		$('input[name="profile[other_shops]"]').val($("form#my-othershops-custom :input[value!='']").serializeJSON());
 	});
+	
+	function contactDeleteShop(id) {
+		if (confirm('Удалить магазин?')) {
+	        $.ajax({
+	            url: '/index.php?module=bstfprofile&action=deleteShop',
+	            dataType: 'json',
+	            data: {
+		            shop_id: id
+	            },
+	            success: function (response) {
+					if(response.data == true) {
+						$('#contact-shop-list li[data-shop-id="' + id + '"]').remove();
+					}
+	            }
+	        });
+		}
+	}
+	
+	function contactAddShop(id) {
+        $.ajax({
+            url: '/index.php?module=bstfprofile&action=addShop',
+            dataType: 'json',
+            data: {
+	            shop_id: id
+            },
+            success: function (response) {
+	            if(response.data > 1) {
+			        $.ajax({
+			            url: '/index.php?module=bstfprofile&action=selaShopInfo',
+			            dataType: 'json',
+			            data: {
+				            shop_id: id
+			            },
+			            success: function (response) {
+							shop = '<li data-shop-id="' + response.data.id + '"><button onclick="contactDeleteShop(' + response.data.id + ');" style="float:right;">x</button>' + response.data.address + '</li>';
+							$('#contact-shop-list').append(shop);
+			            }
+			        });
+	            }
+            }
+        });
+	}
 	
 </script>
 
