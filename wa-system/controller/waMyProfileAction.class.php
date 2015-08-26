@@ -88,16 +88,16 @@ abstract class waMyProfileAction extends waViewAction
                 $old_data[$field_id] = $this->contact->get($field_id);
             }
         }
+        $old_phone = $this->contact->get('phone', 'default');
 
         foreach ($data as $field => $value) {
             $contact->set($field, $value);
         }
         
         //убираем верификацию номера телефона при изменении
-        if ($old_data['phone'] != $data['phone']) {
+        if ($old_phone != preg_replace("/\D/", "", $data['phone'])) {
 			$contact->set('phone_verified', false);
         }
-        
         $errors = $contact->save();
 
         // If something went wrong during save for any reason,
