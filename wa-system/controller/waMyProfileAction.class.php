@@ -89,6 +89,7 @@ abstract class waMyProfileAction extends waViewAction
             }
         }
         $old_phone = $this->contact->get('phone', 'default');
+        if (isset($data['phone_verified'])) unset($data['phone_verified']);
 
         foreach ($data as $field => $value) {
             $contact->set($field, $value);
