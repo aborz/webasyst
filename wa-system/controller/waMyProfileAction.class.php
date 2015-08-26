@@ -92,6 +92,12 @@ abstract class waMyProfileAction extends waViewAction
         foreach ($data as $field => $value) {
             $contact->set($field, $value);
         }
+        
+        //убираем верификацию номера телефона при изменении
+        if ($old_data['phone'] != $data['phone']) {
+			$contact->set('phone_verified', false);
+        }
+        
         $errors = $contact->save();
 
         // If something went wrong during save for any reason,
