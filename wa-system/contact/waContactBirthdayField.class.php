@@ -210,8 +210,23 @@ class waContactBirthdayField extends waContactField
             $result .= '<option value="'.$month_id.'"'.$selected_month.'>'.$month.'</option>';
         }
         $result .= '</select>';
+        
+        //Селектор годов
+        $years = array();
+        $year = date('Y');
+        for($i = $year; $i > $year-100; $i--){
+	        $years[$i] = $i;
+        }
+        $result .= '<select '.$attrs.' '.$disabled.' name="'.htmlspecialchars($name_input).'[year]">';
+        $selected_year = !empty($value['year']) ? " selected" : "";
+        $result .= '<option value=""'.$selected_year.'>-</option>';
+        foreach($years as $year_id => $year) {
+            $selected_year = (isset($value['year']) && $year_id == $value['year']) ? " selected" : "";
+            $result .= '<option value="'.$year_id.'"'.$selected_year.'>'.$year.'</option>';
+        }
+        $result .= '</select>';
 
-        $result .= '<input '.$attrs.' '.$disabled.' type="text" name="'.htmlspecialchars($name_input).'[year]" value="'.htmlspecialchars(!empty($value['year'])?$value['year']:"").'" style="width: 4em; min-width: 4em;">';
+        //$result .= '<select '.$attrs.' '.$disabled.' type="text" name="'.htmlspecialchars($name_input).'[year]" value="'.htmlspecialchars(!empty($value['year'])?$value['year']:"").'" style="width: 4em; min-width: 4em;">';
 
         return $result;
     }
