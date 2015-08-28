@@ -75,7 +75,9 @@ $(function() {
 		card = '<li data-card-id="' + item + '"><button onclick="contactDeleteCard(' + item + ');" style="float:right;">x</button>' + item + '</li>';
 		$('#contact-selacards-list').append(card);
 	});
-	
+
+	$('input[name="profile[photo]"]').closest('form').attr('enctype', 'multipart/form-data');
+	$('.wa-field-photo .wa-value img:not(:first-child)').remove();
 });
 
 $('input[name="profile[phone]"]').mask("+7 (999) 999-9999");
